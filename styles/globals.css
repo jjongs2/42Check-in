@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+body > div:first-child,
+div#__next,
+div#__next > div {
+  height: 100%;
+}
+
+.button {
+  @apply rounded-[20px] bg-[#6A70FF] font-bold text-white hover:bg-[#6AA6FF];
+}
+
+.category {
+  @apply relative flex flex-col items-center justify-between rounded-3xl shadow-xl hover:scale-105;
+}
+
+.categoryIner {
+  @apply flex h-full w-full flex-col items-center justify-between rounded-3xl py-24 backdrop-blur-sm;
+}
+
+.categoryText {
+  @apply text-3xl font-extrabold text-white lg:text-4xl;
+}
