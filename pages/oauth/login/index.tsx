@@ -1,19 +1,16 @@
 import Loading from '@/components/Loading';
-import useCallApi from '@/utils/useCallApi';
+import instance from '@/utils/instance';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import type { ReactElement } from 'react';
 
 export default function Login(): ReactElement {
-  const callApi = useCallApi();
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const config = {
-        url: router.asPath,
-      };
-      await callApi(config);
+      const data = await instance.get('/oauth/login');
+      console.log('data', data);
       await router.push('/');
     };
     void fetchData();

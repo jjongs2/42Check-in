@@ -1,6 +1,6 @@
 import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
-import useCallApi from '@/utils/useCallApi';
+import useCallApi from '@/utils/instance';
 import axios from 'axios';
 import type {
   GetServerSideProps,

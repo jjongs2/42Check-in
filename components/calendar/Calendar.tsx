@@ -1,4 +1,4 @@
-import useCallApi from '@/utils/useCallApi';
+import useCallApi from '@/utils/instance';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';

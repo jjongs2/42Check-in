@@ -1,5 +1,5 @@
 import Btn from '@/components/common/Btn';
-import useCallApi from '@/utils/useCallApi';
+import useCallApi from '@/utils/instance';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
