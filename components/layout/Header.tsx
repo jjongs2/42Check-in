@@ -1,6 +1,5 @@
 import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
-import useCallApi from '@/utils/instance';
 import axios from 'axios';
 import type {
   GetServerSideProps,
@@ -27,7 +26,6 @@ export default function Header(): ReactElement {
   const router = useRouter();
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
-  const callApi = useCallApi();
 
   useEffect(() => {
     setShowNotice(0);

@@ -1,5 +1,5 @@
 import Btn from '@/components/common/Btn';
-import useCallApi from '@/utils/instance';
+import instance from '@/utils/instance';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -9,7 +9,6 @@ const LOCATIONS = ['개포', '서초'];
 const PLACES = ['2F-1', '2F-2', '3F-1', '4F-1', '4F-2'];
 
 export default function RoomReservation(): ReactElement {
-  const callApi = useCallApi();
   const { asPath } = useRouter();
   const [selectLocation, setSelectLocation] = useState(LOCATIONS[0]);
   const [selectItem, setSelectItem] = useState(PLACES[0]);
@@ -32,13 +31,11 @@ export default function RoomReservation(): ReactElement {
 
   useEffect(() => {
     async function fetchData(): Promise<void> {
-      const config = {
-        url: asPath.replace('/conference-rooms/', '/conference-rooms/place-time/'),
-      };
-      const { data } = await callApi(config);
+      const url = asPath.replace('/conference-rooms/', '/conference-rooms/place-time/');
+      const { data } = await instance.get(url);
       // setData(data);
     }
-    fetchData();
+    void fetchData();
   }, []);
 
   return (
