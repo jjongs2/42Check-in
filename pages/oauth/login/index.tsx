@@ -9,7 +9,7 @@ export default function Login(): ReactElement {
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const { data } = await instance.get(`${process.env.BASE_URL as string}/oauth/login`);
+      const { data } = await instance.get(`${process.env.NEXT_PUBLIC_IP as string}/oauth/login`);
       console.log('data', data);
       await router.push('/');
     };
