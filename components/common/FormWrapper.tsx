@@ -14,13 +14,13 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
   //   setShowModal(true);
   // };
   const methods = useForm();
-  const onSubmit = (data) => console.log(data);
+  // const onSubmit = (data) => console.log(data);
   return (
     <FormProvider {...methods}>
       <form
         action='#'
         method='POST'
-        onSubmit={methods.handleSubmit(onSubmit)}
+        // onSubmit={methods.handleSubmit(onSubmit)}
         className='mx-auto my-10 max-w-xl'
       >
         {children}

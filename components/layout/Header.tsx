@@ -23,9 +23,7 @@ interface PageProps {
   data: Data[];
 }
 
-export default function Header({
-  data,
-}: InferGetServerSidePropsType<GetServerSideProps>): ReactElement {
+export default function Header(): ReactElement {
   const router = useRouter();
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
@@ -62,14 +60,14 @@ export default function Header({
           <div className='flex items-center justify-center space-x-4'>
             <button>{darkModeIcon}</button>
             <button
-              onClick={() => {
-                showNotice === 2 ? setShowNotice(1) : setShowNotice(showNotice ^ 1);
-                const config = {
-                  url: `${process.env.NEXT_PUBLIC_DOMAIN as string}/notice`,
-                  method: 'POST',
-                };
-                void callApi(config);
-              }}
+              // onClick={() => {
+              //   showNotice === 2 ? setShowNotice(1) : setShowNotice(showNotice ^ 1);
+              //   const config = {
+              //     url: `${process.env.NEXT_PUBLIC_DOMAIN as string}/notice`,
+              //     method: 'POST',
+              //   };
+              //   void callApi(config);
+              // }}
             >
               {noticeIcon}
               {showNotice === 1 && (
@@ -81,7 +79,7 @@ export default function Header({
                     NOTIFICATIONS
                   </p>
                   <div className='mb-4 space-y-2'>
-                    {data.map((item) => (
+                    {/* {data.map((item) => (
                       <div
                         key={item.formId}
                         className='group flex h-16 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
@@ -93,12 +91,12 @@ export default function Header({
                           {item.date}
                         </span>
                       </div>
-                    ))}
+                    ))} */}
                   </div>
                 </div>
               )}
               <div className=' absolute right-[102px] top-2 flex aspect-square h-8 w-8 items-center justify-center rounded-full bg-slate-300 text-white'>
-                {Object.keys(data).length}
+                {/* {Object.keys(data).length} */}
               </div>
             </button>
             <button
