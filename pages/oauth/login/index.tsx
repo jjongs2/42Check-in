@@ -11,7 +11,8 @@ export default function Login(): ReactElement {
     const fetchData = async (): Promise<void> => {
       const url = `${process.env.NEXT_PUBLIC_IP as string}/oauth/login`;
       const { code } = router.query;
-      const { data } = await instance.post(url, code);
+      console.log('query', router.query)
+      const { data } = await instance.post(url, { code });
       console.log('data', data);
       await router.push('/');
     };
