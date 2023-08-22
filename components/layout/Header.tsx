@@ -1,5 +1,6 @@
 import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
+import apiController from '@/utils/apiController';
 import axios from 'axios';
 import type {
   GetServerSideProps,
@@ -22,7 +23,7 @@ interface PageProps {
   data: Data[];
 }
 
-export default function Header(): ReactElement {
+export default function Header({ data }): ReactElement {
   const router = useRouter();
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
@@ -58,14 +59,14 @@ export default function Header(): ReactElement {
           <div className='flex items-center justify-center space-x-4'>
             <button>{darkModeIcon}</button>
             <button
-              // onClick={() => {
-              //   showNotice === 2 ? setShowNotice(1) : setShowNotice(showNotice ^ 1);
-              //   const config = {
-              //     url: `${process.env.NEXT_PUBLIC_DOMAIN as string}/notice`,
-              //     method: 'POST',
-              //   };
-              //   void callApi(config);
-              // }}
+              onClick={() => {
+                showNotice === 2 ? setShowNotice(1) : setShowNotice(showNotice ^ 1);
+                const config = {
+                  url: `${process.env.NEXT_PUBLIC_IP as string}/notice`,
+                  method: 'POST',
+                };
+                void apiController(config);
+              }}
             >
               {noticeIcon}
               {showNotice === 1 && (
@@ -77,7 +78,7 @@ export default function Header(): ReactElement {
                     NOTIFICATIONS
                   </p>
                   <div className='mb-4 space-y-2'>
-                    {/* {data.map((item) => (
+                    {data.map((item: Data) => (
                       <div
                         key={item.formId}
                         className='group flex h-16 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
@@ -89,7 +90,7 @@ export default function Header(): ReactElement {
                           {item.date}
                         </span>
                       </div>
-                    ))} */}
+                    ))}
                   </div>
                 </div>
               )}
@@ -100,6 +101,15 @@ export default function Header(): ReactElement {
             <button
               onClick={() => {
                 showNotice === 1 ? setShowNotice(2) : setShowNotice(showNotice ^ 2);
+                const config = {
+                  url: `${process.env.NEXT_PUBLIC_IP as string}/logout`,
+                  method: `POST`,
+                };
+                async function fetch(): Promise<void> {
+                  await apiController(config);
+                  await router.push('/login');
+                }
+                void fetch();
               }}
             >
               {userIcon}
@@ -133,7 +143,7 @@ export default function Header(): ReactElement {
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<{ props: PageProps }> {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_DOMAIN as string}/notice`);
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_IP as string}/notice`);
   return {
     props: {
       data,

@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://52.78.13.245:8080",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,6 +15,7 @@
     "autoprefixer": "10.4.15",
     "axios": "^1.4.0",
     "eslint-config-next": "13.4.13",
+    "jwt-decode": "^3.1.2",
     "next": "13.4.13",
     "postcss": "8.4.27",
     "react": "18.2.0",

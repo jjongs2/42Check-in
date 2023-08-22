@@ -1,35 +1,46 @@
-import type { Dispatch, ReactElement, SetStateAction } from 'react';
+import type FormInfo from '@/interfaces/FormInfo';
+import apiController from '@/utils/apiController';
+import { type Dispatch, type ReactElement, type SetStateAction, useEffect, useState } from 'react';
 
 import Btn from '../common/Btn';
 
 const btnContent = [
   {
     text: '회의실 예약',
-    url: '',
+    url: '/conference-room',
   },
   {
     text: '외부인 초대',
-    url: '',
+    url: '/visitors',
   },
   {
     text: '수요지식회',
-    url: '',
+    url: '/presentations',
   },
   {
     text: '기자재 대여',
-    url: '',
+    url: '/equipments',
   },
 ];
 
 interface StatusBoardProps {
-  setSelectFormId: Dispatch<SetStateAction<number>>;
-  setCategory: Dispatch<SetStateAction<number>>;
+  setSelectFormInfo: Dispatch<SetStateAction<FormInfo>>;
 }
 
-export default function StatusBoard({
-  setSelectFormId,
-  setCategory,
-}: StatusBoardProps): ReactElement {
+export default function StatusBoard({ setSelectFormInfo }: StatusBoardProps): ReactElement {
+  const [category, setCategory] = useState('');
+  const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
+
+  useEffect(() => {
+    const config = {
+      url: `/${category}`,
+    };
+    async function fecthForms(): Promise<void> {
+      const { data } = await apiController(config);
+      setResponseDataList(data);
+    }
+    void fecthForms();
+  }, [category]);
   return (
     <div className='m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
       {/* 위에 버튼 4개있는 부분 */}
@@ -40,11 +51,11 @@ export default function StatusBoard({
             type='checkbox'
             className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
           />
-          {btnContent.map((items, i) => (
+          {btnContent.map((items) => (
             <div
-              key={i}
+              key={items.text}
               onClick={() => {
-                setCategory(i);
+                setCategory(items.url);
               }}
             >
               <Btn fontSize='lg' onClick={() => {}} px='8' py='2 ' text={`${items.text}`} />
@@ -62,11 +73,11 @@ export default function StatusBoard({
         </div>
       </div>
       <div className=' mt-6 space-y-5'>
-        {[1, 1, 11, 1, 1, 1, 11, 1, 1].map((item, i) => (
+        {responseDataList.map((item, i) => (
           <div
             key={i}
             onClick={() => {
-              setSelectFormId(i);
+              setSelectFormInfo(responseDataList[i]);
             }}
             className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF]'
           >
@@ -75,7 +86,7 @@ export default function StatusBoard({
               type='checkbox'
               className='h-6 w-6 rounded border-gray-300 transition'
             />
-            <div className=''>8/23(수)</div>
+            <div className=''>{item.formInfo.date}</div>
             <div className=' border-2 border-gray-300' />
             <div className=''>13:00</div>
             <div className=' border-2 border-gray-300' />

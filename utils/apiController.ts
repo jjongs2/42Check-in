@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiController = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: process.env.NEXT_PUBLIC_IP,
 });
 
 // 요청 인터셉터 추가하기

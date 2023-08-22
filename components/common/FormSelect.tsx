@@ -1,6 +1,7 @@
 import { cls } from '@/styles/cls';
 import React, { useState } from 'react';
 import type { ChangeEvent, ReactElement } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 interface FormSelectProps {
   title: string;
@@ -19,6 +20,10 @@ export default function FormSelect({
 }: FormSelectProps): ReactElement {
   const [inputValue, setInputValue] = useState('');
   const [showInput, setShowInput] = useState(false);
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>): void => {
     if (event.target.value === '기타') {
@@ -40,14 +45,18 @@ export default function FormSelect({
       <div className='mt-2 flex'>
         <select
           id={title}
-          name={title}
-          onChange={handleSelectChange}
           className={cls(
             showInput ? 'w-[30%]' : 'w-full',
             'block rounded-md border-0 px-2.5 py-2.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600',
           )}
           disabled={disabled}
           placeholder={placeholder}
+          {...register(title, {
+            required: true,
+            onChange: (e) => {
+              handleSelectChange(e);
+            },
+          })}
         >
           {contents.map((content) => (
             <option key={content}>{content}</option>

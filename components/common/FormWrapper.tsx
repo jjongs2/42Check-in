@@ -1,4 +1,15 @@
-import type { Dispatch, FormEvent, ReactElement, ReactNode, SetStateAction } from 'react';
+import apiController from '@/utils/apiController';
+import getCategory from '@/utils/getCategory';
+import { useRouter } from 'next/router';
+import {
+  type Dispatch,
+  type FormEvent,
+  type ReactElement,
+  type ReactNode,
+  type SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import FormSubmitButton from '../common/FormSubmitButton';
@@ -9,18 +20,31 @@ interface FormWrapperProps {
 }
 
 export default function FormWrapper({ setShowModal, children }: FormWrapperProps): ReactElement {
-  // const handleFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
-  //   event.preventDefault();
-  //   setShowModal(true);
-  // };
   const methods = useForm();
-  // const onSubmit = (data) => console.log(data);
+  const route = useRouter();
+  const [category, setCategory] = useState('');
+
+  useEffect(() => {
+    if (!route.isReady) return;
+    setCategory(getCategory(route.asPath));
+  }, [route.asPath, route.isReady]);
+
+  const onSubmit = async (data: any): Promise<void> => {
+    console.log(data);
+    const config = {
+      url: `/${category}/form`,
+      methods: 'POST',
+      data,
+    };
+    await apiController(config);
+  };
+
   return (
     <FormProvider {...methods}>
       <form
         action='#'
         method='POST'
-        // onSubmit={methods.handleSubmit(onSubmit)}
+        onSubmit={methods.handleSubmit(onSubmit)}
         className='mx-auto my-10 max-w-xl'
       >
         {children}
