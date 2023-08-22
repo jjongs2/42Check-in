@@ -23,7 +23,7 @@ interface PageProps {
   data: Data[];
 }
 
-export default function Header({ data }): ReactElement {
+export default function Header(): ReactElement {
   const router = useRouter();
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
@@ -78,7 +78,7 @@ export default function Header({ data }): ReactElement {
                     NOTIFICATIONS
                   </p>
                   <div className='mb-4 space-y-2'>
-                    {data.map((item: Data) => (
+                    {/* {data.map((item: Data) => (
                       <div
                         key={item.formId}
                         className='group flex h-16 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
@@ -90,7 +90,7 @@ export default function Header({ data }): ReactElement {
                           {item.date}
                         </span>
                       </div>
-                    ))}
+                    ))} */}
                   </div>
                 </div>
               )}
