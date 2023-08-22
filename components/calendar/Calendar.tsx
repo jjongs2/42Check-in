@@ -1,4 +1,4 @@
-import instance from '@/utils/instance';
+import apiController from '@/utils/apiController';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
@@ -19,7 +19,7 @@ export default function Calendar(): ReactElement {
   useEffect(() => {
     async function fetchData(): Promise<void> {
       const url = `/conference-rooms/calendar/${currentYear}/${currentMonth}`;
-      const { data } = await instance.get(url);
+      const { data } = await apiController.get(url);
       setUnavailableDates(data);
     }
     if (asPath.startsWith('/conference-rooms')) {

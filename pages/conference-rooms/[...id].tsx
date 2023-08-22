@@ -1,5 +1,5 @@
 import Btn from '@/components/common/Btn';
-import instance from '@/utils/instance';
+import apiController from '@/utils/apiController';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -32,7 +32,7 @@ export default function RoomReservation(): ReactElement {
   useEffect(() => {
     async function fetchData(): Promise<void> {
       const url = asPath.replace('/conference-rooms/', '/conference-rooms/place-time/');
-      const { data } = await instance.get(url);
+      const { data } = await apiController.get(url);
       // setData(data);
     }
     void fetchData();
