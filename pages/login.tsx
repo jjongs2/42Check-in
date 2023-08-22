@@ -26,7 +26,7 @@ export default function Login(): ReactElement {
       />
       <div className='flex w-full min-w-max flex-col items-center justify-center space-y-10 lg:w-1/3'>
         <Link
-          href='https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-f90f9eeac95b368279b59a8f0eb2e43a8b348db52752754f2aa249ded96390aa&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth%2Flogin&response_type=codehttps://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-f90f9eeac95b368279b59a8f0eb2e43a8b348db52752754f2aa249ded96390aa&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth%2Flogin&response_type=code'
+          href='https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-f90f9eeac95b368279b59a8f0eb2e43a8b348db52752754f2aa249ded96390aa&redirect_uri=https%3A%2F%2F42check-in.kr%2Foauth%2Flogin&response_type=code'
           className='button px-44 py-2'
         >
           <p className='text-xl'>Sign in</p>
