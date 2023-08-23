@@ -1,10 +1,10 @@
 import type { ParsedUrlQuery } from 'querystring';
 
 export default function validateDate(query: ParsedUrlQuery): Date | null {
-  const { id } = query;
-  if (id === undefined) return null;
-  const date = new Date(id[0]);
-  if (!(date instanceof Date)) return null;
-  if (isNaN(date.getTime())) return null;
-  return date;
+  const { date } = query;
+  if (date === undefined) return null;
+  const currentDate = new Date(date[0]);
+  if (!(currentDate instanceof Date)) return null;
+  if (isNaN(currentDate.getTime())) return null;
+  return currentDate;
 }

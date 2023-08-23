@@ -1,16 +1,8 @@
 import Loading from '@/components/Loading';
 import apiController from '@/utils/apiController';
-import jwt_decode from 'jwt-decode';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import type { ReactElement } from 'react';
-
-interface JwtPayload {
-  exp: number;
-  iat: number;
-  intraId: string;
-  sub: string;
-}
 
 export default function Login(): ReactElement {
   const router = useRouter();
