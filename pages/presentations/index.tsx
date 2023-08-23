@@ -1,35 +1,116 @@
 import { calenderIcon } from '@/assets/icons';
-import type { ReactElement } from 'react';
+import apiController from '@/utils/apiController';
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Link from 'next/link';
+import { type ReactElement, useEffect, useState } from 'react';
 
-export default function Presentations(): ReactElement {
+interface Data {
+  formId: number;
+  status: number;
+  date: string;
+  subject: string; // 발표 제목
+  contents: string; // 발표 내용
+  detail: string; // 상세 내용
+  time: number; // (enum) 15, 30, 45, 1시간
+  type: number; // 유형 겁나 많음 enum
+  screen: boolean;
+  intraId: string;
+}
+
+// interface PageProps {
+//   presentationsInfo: Data[];
+// }
+const MONTH = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+export default function Presentations({
+  data,
+}: InferGetServerSidePropsType<GetServerSideProps>): ReactElement {
+  const { prePresentationsInfo } = data;
+  const [presentationsInfo, setPresentationsInfo] = useState<Data[]>(prePresentationsInfo);
+  const [isOpen, setIsOpen] = useState(false);
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [year, setYear] = useState(new Date().getFullYear());
+
+  useEffect(() => {
+    async function getMonthData(): Promise<void> {
+      const config = {
+        url: `/presentations`,
+        method: 'GET',
+        data: {
+          params: { month: new Date().getMonth() },
+        },
+      };
+      const { data } = await apiController(config);
+      setPresentationsInfo(data);
+    }
+    void getMonthData();
+  }, [month, year]);
   return (
     <div className='m-8 rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-8 shadow-xl'>
       <div className='flex items-center justify-between border-b-2'>
-        <h1 className='text-xl font-semibold text-gray-600'>2023</h1>
+        <h1 className='text-xl font-semibold text-gray-600'>{year}</h1>
         <div>
-          <h3 className='text-xl font-semibold text-gray-600'>8 월</h3>
+          <h3 className='text-xl font-semibold text-gray-600'>{month}</h3>
         </div>
-        <button>{calenderIcon}</button>
+        <button
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        >
+          {calenderIcon}
+        </button>
+        {isOpen && (
+          <div className='absolute right-10 top-20 flex flex-col bg-white'>
+            {MONTH.map((item) => (
+              <div
+                key={item}
+                onClick={() => {
+                  setMonth(item);
+                }}
+                className='rounded-md shadow-xl transition hover:bg-[#6AA6FF]'
+              >
+                {item} 월
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <div className='mt-2 space-y-2'>
-        {[1, 1, 1, 11, 1].map((item, i) => (
-          <div
+        {presentationsInfo.map((item, i: number) => (
+          <Link
             key={i}
+            href={`/presentations/${item.date}`}
             className='group flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF]'
           >
             <div className='flex items-center justify-center space-x-2 '>
               <button className='h-16 w-16 rounded-md text-2xl font-semibold text-gray-600 transition group-hover:text-white'>
-                19
+                {item.date}
               </button>
               <div>
-                <h1 className='font-semibold text-gray-800'>제목 : 42에서 살아남기</h1>
-                <h5 className=' text-gray-500'>yongmipa🤩</h5>
+                <h1 className='font-semibold text-gray-800'>제목 : {item.subject}</h1>
+                <h5 className=' text-gray-500'>{item.intraId}🤩</h5>
               </div>
             </div>
             <button className='mr-4 rounded-xl px-3 group-hover:bg-white'>신청</button>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const config = {
+    url: `/presentations`,
+    method: 'GET',
+    data: {
+      params: { month: new Date().getMonth() },
+    },
+  };
+  const { data } = await apiController(config);
+  return {
+    props: {
+      data,
+    },
+  };
+};

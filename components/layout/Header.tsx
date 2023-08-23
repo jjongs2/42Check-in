@@ -1,12 +1,7 @@
 import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
 import apiController from '@/utils/apiController';
-import axios from 'axios';
-import type {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from 'next';
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -19,11 +14,10 @@ interface Data {
   checkNotice: boolean;
 }
 
-interface PageProps {
-  data: Data[];
-}
-
-export default function Header(): ReactElement {
+export default function Header({
+  data,
+}: InferGetServerSidePropsType<GetServerSideProps>): ReactElement {
+  const { noticeInfo } = data;
   const router = useRouter();
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
@@ -50,8 +44,8 @@ export default function Header(): ReactElement {
         <nav className='flex items-center justify-between px-10'>
           <button
             className='flex pb-3'
-            onClick={() => {
-              router.push('/');
+            onClick={async () => {
+              await router.push('/');
             }}
           >
             {Logo}
@@ -78,7 +72,7 @@ export default function Header(): ReactElement {
                     NOTIFICATIONS
                   </p>
                   <div className='mb-4 space-y-2'>
-                    {/* {data.map((item: Data) => (
+                    {noticeInfo.map((item: Data) => (
                       <div
                         key={item.formId}
                         className='group flex h-16 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
@@ -90,12 +84,12 @@ export default function Header(): ReactElement {
                           {item.date}
                         </span>
                       </div>
-                    ))} */}
+                    ))}
                   </div>
                 </div>
               )}
               <div className=' absolute right-[102px] top-2 flex aspect-square h-8 w-8 items-center justify-center rounded-full bg-slate-300 text-white'>
-                {/* {Object.keys(data).length} */}
+                {noticeInfo.length}
               </div>
             </button>
             <button
@@ -140,13 +134,15 @@ export default function Header(): ReactElement {
   );
 }
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext,
-): Promise<{ props: PageProps }> {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_IP as string}/notice`);
+export const getServerSideProps: GetServerSideProps = async () => {
+  const config = {
+    url: `${process.env.NEXT_PUBLIC_IP as string}/notice`,
+    method: 'GET',
+  };
+  const { data } = await apiController(config);
   return {
     props: {
       data,
     },
   };
-}
+};

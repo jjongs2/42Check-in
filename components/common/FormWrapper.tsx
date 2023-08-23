@@ -37,6 +37,7 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
       data,
     };
     await apiController(config);
+    setShowModal(true);
   };
 
   return (

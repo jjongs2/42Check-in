@@ -16,22 +16,21 @@ export default function Login(): ReactElement {
   const router = useRouter();
 
   useEffect(() => {
+    if (!router.isReady) return;
     const fetchData = async (): Promise<void> => {
-      const url = new URL(window.location.href);
-      const code = url.searchParams.get('code');
+      const { code } = router.query;
       const config = {
         url: '/oauth/login',
         params: { code },
       };
       const { data } = await apiController(config);
       const { accessToken, refreshToken } = data;
-      const jwtPayload = jwt_decode<JwtPayload>(accessToken);
-      localStorage.setItem('jwtPayload', JSON.stringify(jwtPayload));
+      localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       await router.push('/');
     };
     void fetchData();
-  }, []);
+  }, [router, router.isReady]);
 
   return <Loading />;
 }

@@ -1,8 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import type { ReactElement } from 'react';
 
 export default function Login(): ReactElement {
+  const router = useRouter();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken !== null) {
+      void router.push('/');
+    }
+  }, [router]);
+
   return (
     <div className='flex flex-col items-center justify-center space-x-10 space-y-10 lg:flex-row'>
       <div className=' absolute left-40 top-40 -z-10 aspect-square h-60 w-60 rounded-full bg-yellow-400 bg-opacity-70 blur-[80px]' />

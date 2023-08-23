@@ -1,15 +1,17 @@
 import Loading from '@/components/Loading';
 import Layout from '@/components/layout/Layout';
-import { type AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Router } from 'next/router';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 
 import '../styles/globals.css';
 
 export default function MyApp({ Component, pageProps }: AppProps): ReactElement {
-  // const router = useRouter();
+  const router = useRouter();
+
+  const [hasToken, setHasToken] = useState(false);
   const [loading, setLoading] = useState(false);
 
   // 쿠키 또는 세션 검사하고
@@ -33,7 +35,16 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   //   };
   // }, []);
 
-  const login = false;
+  useEffect(() => {
+    if (router.pathname === '/login') return;
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken === null) {
+      void router.push('/login');
+      return;
+    }
+    setHasToken(true);
+  }, [router]);
+
   return (
     <>
       <Head>
@@ -43,12 +54,12 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
       </Head>
       {loading ? (
         <Loading />
-      ) : login ? (
-        <Component pageProps={pageProps} />
-      ) : (
+      ) : hasToken ? (
         <Layout>
           <Component pageProps={pageProps} />
         </Layout>
+      ) : (
+        <Component pageProps={pageProps} />
       )}
     </>
   );

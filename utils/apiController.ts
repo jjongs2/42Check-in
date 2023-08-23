@@ -8,6 +8,8 @@ const apiController = axios.create({
 apiController.interceptors.request.use(
   function (config) {
     // 요청이 전달되기 전에 작업 수행
+    const { headers } = config;
+    headers.Authorization = `Bearer ${localStorage.getItem('accessToken') as string}`;
     return config;
   },
   async function (error) {
@@ -26,6 +28,19 @@ apiController.interceptors.response.use(
   async function (error) {
     // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
     // 응답 오류가 있는 작업 수행
+    const { status } = error.response;
+    if (status === 1001) {
+      const refreshToken = localStorage.getItem('refreshToken');
+      const config = {
+        url: '/reissue',
+        method: 'post',
+        data: { refreshToken },
+      };
+      const { data } = await apiController(config);
+      const { accessToken } = data;
+      localStorage.setItem('accessToken', accessToken);
+      return;
+    }
     return await Promise.reject(error);
   },
 );

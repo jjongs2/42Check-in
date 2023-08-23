@@ -12,7 +12,7 @@ interface CalendarDateProps {
 
 interface CalendarRowProps {
   firstDay: number;
-  lastDay: number;
+  lastDate: number;
   row: number;
   month: number;
   year: number;
@@ -34,7 +34,7 @@ function CalendarDate({ date, month, year, isToday = false }: CalendarDateProps)
 
 export default function CalendarRow({
   firstDay,
-  lastDay,
+  lastDate,
   row,
   month,
   year,
@@ -63,7 +63,7 @@ export default function CalendarRow({
     return <>{contents}</>;
   }
   for (let i = 1; i <= 7; ++i) {
-    if (i + (7 * row - firstDay) <= lastDay) {
+    if (i + (7 * row - firstDay) <= lastDate) {
       contents.push(
         <CalendarDate
           date={i + (7 * row - firstDay)}
