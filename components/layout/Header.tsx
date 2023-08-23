@@ -46,7 +46,7 @@ export default function Header(): ReactElement {
     }
     void fetch();
   }, []);
-  
+
   return (
     <>
       <header className='fixed z-50 w-screen bg-[#4069FD]'>
@@ -104,15 +104,6 @@ export default function Header(): ReactElement {
             <button
               onClick={() => {
                 showNotice === 1 ? setShowNotice(2) : setShowNotice(showNotice ^ 2);
-                const config = {
-                  url: `${process.env.NEXT_PUBLIC_IP as string}/logout`,
-                  method: `POST`,
-                };
-                async function fetch(): Promise<void> {
-                  await apiController(config);
-                  await router.push('/login');
-                }
-                void fetch();
               }}
             >
               {userIcon}
@@ -127,12 +118,24 @@ export default function Header(): ReactElement {
                   >
                     My Check - in
                   </Link>
-                  <Link
-                    href={'/login'}
+                  <button
+                    onClick={() => {
+                      const config = {
+                        url: '/logout',
+                        method: `POST`,
+                      };
+                      async function fetch(): Promise<void> {
+                        await apiController(config);
+                        localStorage.removeItem('accessToken');
+                        localStorage.removeItem('refreshToken');
+                        await router.push('/login');
+                      }
+                      void fetch();
+                    }}
                     className='mb-2 rounded-lg p-4 font-semibold text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
                   >
                     Sign Out
-                  </Link>
+                  </button>
                 </div>
               )}
             </button>
