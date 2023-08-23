@@ -1,7 +1,6 @@
 import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
 import apiController from '@/utils/apiController';
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -14,10 +13,7 @@ interface Data {
   checkNotice: boolean;
 }
 
-export default function Header({
-  data,
-}: InferGetServerSidePropsType<GetServerSideProps>): ReactElement {
-  const { noticeInfo } = data;
+export default function Header(): ReactElement {
   const router = useRouter();
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
@@ -133,16 +129,3 @@ export default function Header({
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const config = {
-    url: `${process.env.NEXT_PUBLIC_IP as string}/notice`,
-    method: 'GET',
-  };
-  const { data } = await apiController(config);
-  return {
-    props: {
-      data,
-    },
-  };
-};
