@@ -7,7 +7,7 @@ import Btn from '../common/Btn';
 const btnContent = [
   {
     text: '회의실 예약',
-    url: '/conference-room',
+    url: '/conference-rooms',
   },
   {
     text: '외부인 초대',
@@ -28,7 +28,7 @@ interface StatusBoardProps {
 }
 
 export default function StatusBoard({ setSelectFormInfo }: StatusBoardProps): ReactElement {
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('conference-rooms');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
 
   useEffect(() => {
@@ -89,8 +89,6 @@ export default function StatusBoard({ setSelectFormInfo }: StatusBoardProps): Re
             <div className=''>{item.formInfo.date}</div>
             <div className=' border-2 border-gray-300' />
             <div className=''>13:00</div>
-            <div className=' border-2 border-gray-300' />
-            <div className=''>yongmipa</div>
             <div className=' border-2 border-gray-300' />
             <div className=' w-56 overflow-hidden text-ellipsis whitespace-nowrap'>
               홍길동, 박수환asdfasdfasdfasdfasdfasdfasdfasdfasdfasdf
