@@ -21,7 +21,8 @@ export default function Login(): ReactElement {
       const { code } = router.query;
       const config = {
         url: '/oauth/login',
-        params: { code },
+        method: 'post',
+        data: { code },
       };
       const { data } = await apiController(config);
       const { accessToken, refreshToken } = data;
