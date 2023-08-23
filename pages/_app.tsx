@@ -36,7 +36,7 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   // }, []);
 
   useEffect(() => {
-    if (router.pathname === '/login') return;
+    if (router.pathname.includes('/login')) return;
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken === null) {
       void router.push('/login');
