@@ -17,6 +17,7 @@ export default function Header(): ReactElement {
   const router = useRouter();
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
+  const [noticeInfo, setNoticeInfo] = useState<Data[]>([]);
 
   useEffect(() => {
     setShowNotice(0);
@@ -34,6 +35,18 @@ export default function Header(): ReactElement {
     };
   }, [showNotice]);
 
+  useEffect(() => {
+    const config = {
+      url: `/notice`,
+      method: 'GET',
+    };
+    async function fetch(): Promise<void> {
+      const { data } = await apiController(config);
+      setNoticeInfo(data);
+    }
+    void fetch();
+  }, []);
+  
   return (
     <>
       <header className='fixed z-50 w-screen bg-[#4069FD]'>
