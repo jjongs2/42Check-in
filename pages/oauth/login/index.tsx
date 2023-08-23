@@ -22,7 +22,8 @@ export default function Login(): ReactElement {
       const config = {
         url: '/oauth/login',
         method: 'post',
-        data: { code },
+        data: code,
+        headers: { 'Content-Type': 'text/plain' },
       };
       const { data } = await apiController(config);
       const { accessToken, refreshToken } = data;
