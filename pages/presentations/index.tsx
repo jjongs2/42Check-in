@@ -34,11 +34,8 @@ export default function Presentations({
   useEffect(() => {
     async function getMonthData(): Promise<void> {
       const config = {
-        url: `/presentations`,
-        method: 'GET',
-        data: {
-          params: { month: new Date().getMonth() },
-        },
+        url: '/presentations',
+        params: { month },
       };
       const { data } = await apiController(config);
       setPresentationsInfo(data);

@@ -37,8 +37,7 @@ export default function Header(): ReactElement {
 
   useEffect(() => {
     const config = {
-      url: `/notice`,
-      method: 'GET',
+      url: '/notice',
     };
     async function fetch(): Promise<void> {
       const { data } = await apiController(config);
