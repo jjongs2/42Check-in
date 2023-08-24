@@ -1,4 +1,4 @@
-import { calenderIcon } from '@/assets/icons';
+import { calendarIcon } from '@/assets/icons';
 import apiController from '@/utils/apiController';
 import formatDate from '@/utils/formatDate';
 import Link from 'next/link';
@@ -53,7 +53,7 @@ export default function Presentations(): ReactElement {
             setIsOpen(!isOpen);
           }}
         >
-          {calenderIcon}
+          {calendarIcon}
         </button>
         {isOpen && (
           <div className='absolute right-10 top-20 flex flex-col bg-white'>
