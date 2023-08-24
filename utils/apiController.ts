@@ -1,17 +1,16 @@
 import axios from 'axios';
 
 const apiController = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_IP,
+  baseURL: process.env.NEXT_PUBLIC_API_DOMAIN,
 });
 
 // 요청 인터셉터 추가하기
 apiController.interceptors.request.use(
   function (config) {
     // 요청이 전달되기 전에 작업 수행
-    const { headers } = config;
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken !== null) {
-      headers.Authorization = `Bearer ${accessToken}`;
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },

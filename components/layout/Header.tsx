@@ -64,7 +64,7 @@ export default function Header(): ReactElement {
               onClick={() => {
                 showNotice === 2 ? setShowNotice(1) : setShowNotice(showNotice ^ 1);
                 const config = {
-                  url: `${process.env.NEXT_PUBLIC_IP as string}/notice`,
+                  url: '/notice',
                   method: 'POST',
                 };
                 void apiController(config);
