@@ -1,8 +1,9 @@
 import { calenderIcon } from '@/assets/icons';
 import apiController from '@/utils/apiController';
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import formatDate from '@/utils/formatDate';
 import Link from 'next/link';
-import { type ReactElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { ReactElement } from 'react';
 
 interface Data {
   formId: number;
@@ -22,11 +23,8 @@ interface Data {
 // }
 const MONTH = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-export default function Presentations({
-  data,
-}: InferGetServerSidePropsType<GetServerSideProps>): ReactElement {
-  const { prePresentationsInfo } = data;
-  const [presentationsInfo, setPresentationsInfo] = useState<Data[]>(prePresentationsInfo);
+export default function Presentations(): ReactElement {
+  const [presentationsInfo, setPresentationsInfo] = useState<Data[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
@@ -35,13 +33,14 @@ export default function Presentations({
     async function getMonthData(): Promise<void> {
       const config = {
         url: '/presentations',
-        params: { month },
+        params: { month: formatDate() },
       };
       const { data } = await apiController(config);
       setPresentationsInfo(data);
     }
     void getMonthData();
   }, [month, year]);
+
   return (
     <div className='m-8 rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-8 shadow-xl'>
       <div className='flex items-center justify-between border-b-2'>
@@ -95,19 +94,3 @@ export default function Presentations({
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const config = {
-    url: `/presentations`,
-    method: 'GET',
-    data: {
-      params: { month: new Date().getMonth() },
-    },
-  };
-  const { data } = await apiController(config);
-  return {
-    props: {
-      data,
-    },
-  };
-};
