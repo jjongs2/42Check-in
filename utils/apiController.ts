@@ -9,7 +9,10 @@ apiController.interceptors.request.use(
   function (config) {
     // 요청이 전달되기 전에 작업 수행
     const { headers } = config;
-    headers.Authorization = `Bearer ${localStorage.getItem('accessToken') as string}`;
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken !== null) {
+      headers.Authorization = `Bearer ${accessToken}`;
+    }
     return config;
   },
   async function (error) {
