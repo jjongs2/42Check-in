@@ -2,6 +2,7 @@ import { calendarIcon } from '@/assets/icons';
 import Btn from '@/components/common/Btn';
 import apiController from '@/utils/apiController';
 import formatDate from '@/utils/formatDate';
+import parseDate from '@/utils/parseDate';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -33,17 +34,22 @@ export default function RoomReservation(): ReactElement {
 
   useEffect(() => {
     if (!router.isReady) return;
-    const { date } = router.query;
+    const date = parseDate(router.query);
+    if (date === null) {
+      void router.push('/');
+      return;
+    }
+    const formattedDate = formatDate(date);
     async function fetchData(): Promise<void> {
       const config = {
-        url: `/conference-rooms/place-time/${formatDate(new Date(date[0]))}`,
+        url: `/conference-rooms/place-time/${formattedDate}`,
       };
       const { data } = await apiController(config);
       console.log(data);
       // setData(data);
     }
     void fetchData();
-  }, [router.isReady, router.query]);
+  }, [router]);
 
   return (
     <div className='container p-8'>
