@@ -1,5 +1,6 @@
 import Btn from '@/components/common/Btn';
 import apiController from '@/utils/apiController';
+import formatDate from '@/utils/formatDate';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -9,7 +10,7 @@ const LOCATIONS = ['개포', '서초'];
 const PLACES = ['2F-1', '2F-2', '3F-1', '4F-1', '4F-2'];
 
 export default function RoomReservation(): ReactElement {
-  const { asPath } = useRouter();
+  const router = useRouter();
   const [selectLocation, setSelectLocation] = useState(LOCATIONS[0]);
   const [selectItem, setSelectItem] = useState(PLACES[0]);
 
@@ -30,13 +31,18 @@ export default function RoomReservation(): ReactElement {
   };
 
   useEffect(() => {
+    if (!router.isReady) return;
+    const { date } = router.query;
     async function fetchData(): Promise<void> {
-      const url = asPath.replace('/conference-rooms/', '/conference-rooms/place-time/');
-      const { data } = await apiController.get(url);
+      const config = {
+        url: `/conference-rooms/place-time/${formatDate(new Date(date[0]))}`,
+      };
+      const { data } = await apiController(config);
+      console.log(data);
       // setData(data);
     }
     void fetchData();
-  }, []);
+  }, [router.isReady, router.query]);
 
   return (
     <div className='container mx-auto h-full p-10'>
