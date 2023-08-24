@@ -10,22 +10,60 @@ const WEEKS = [0, 1, 2, 3, 4, 5];
 
 export default function Calendar(): ReactElement {
   const prevMonth = useRef<number>();
-  const { asPath } = useRouter();
-  const [unavailableDates, setUnavailableDates] = useState(0);
+  const { pathname } = useRouter();
+  const [availableDates, setAvailableDates] = useState<boolean[]>([]);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [firstDays, setFirstDays] = useState<number[]>([]);
+  const [lastDate, setLastDate] = useState(0);
+
+  function handlePrevMonthClick(): void {
+    if (prevMonth.current === 0) {
+      setCurrentMonth(11);
+      return;
+    }
+    setCurrentMonth(currentMonth - 1);
+  }
+
+  function handleNextMonthClick(): void {
+    if (prevMonth.current === 11) {
+      setCurrentMonth(0);
+      return;
+    }
+    setCurrentMonth(currentMonth + 1);
+  }
 
   useEffect(() => {
     async function fetchData(): Promise<void> {
-      const url = `/conference-rooms/calendar/${currentYear}/${currentMonth}`;
-      const { data } = await apiController.get(url);
-      setUnavailableDates(data);
+      function decodeDates(dates: number): boolean[] {
+        return Array(lastDate).map((_, index) => Boolean(dates ^ (1 << index)));
+      }
+      const config = {
+        url: `/conference-rooms/calendar/${currentYear}/${currentMonth + 1}`,
+      };
+      const { data } = await apiController(config);
+      console.log(data);
+      setAvailableDates(decodeDates(data));
     }
-    if (asPath.startsWith('/conference-rooms')) {
-      void fetchData();
+    async function handleCurrentYear(): Promise<void> {
+      if (prevMonth.current === 0 && currentMonth === 11) {
+        setCurrentYear((year) => year - 1);
+      } else if (prevMonth.current === 11 && currentMonth === 0) {
+        setCurrentYear((year) => year + 1);
+      }
     }
-    prevMonth.current = currentMonth;
+    async function handleLastDate(): Promise<void> {
+      setLastDate(new Date(currentYear, currentMonth + 1, 0).getDate());
+    }
+    async function handleCurrentMonth(): Promise<void> {
+      await handleCurrentYear();
+      await handleLastDate();
+      if (pathname.startsWith('/conference-rooms')) {
+        void fetchData();
+      }
+      prevMonth.current = currentMonth;
+    }
+    void handleCurrentMonth();
   }, [currentMonth]);
 
   useEffect(() => {
@@ -44,17 +82,7 @@ export default function Calendar(): ReactElement {
             {` ${currentYear}년 ${currentMonth + 1}월`}
           </div>
           <div className='flex space-x-4'>
-            <button
-              className='rounded bg-green-400 p-2 text-white'
-              onClick={() => {
-                if (prevMonth.current === 0) {
-                  setCurrentYear(currentYear - 1);
-                  setCurrentMonth(11);
-                } else {
-                  setCurrentMonth(currentMonth - 1);
-                }
-              }}
-            >
+            <button className='rounded bg-green-400 p-2 text-white' onClick={handlePrevMonthClick}>
               <svg width={15} height={15} fill='currentColor' viewBox='0 0 24 24'>
                 <path
                   fill='currentColor'
@@ -62,17 +90,7 @@ export default function Calendar(): ReactElement {
                 ></path>
               </svg>
             </button>
-            <button
-              className='rounded bg-green-400 p-2 text-white'
-              onClick={() => {
-                if (prevMonth.current === 11) {
-                  setCurrentYear(currentYear + 1);
-                  setCurrentMonth(0);
-                } else {
-                  setCurrentMonth(currentMonth + 1);
-                }
-              }}
-            >
+            <button className='rounded bg-green-400 p-2 text-white' onClick={handleNextMonthClick}>
               <svg width={15} height={15} fill='currentColor' viewBox='0 0 24 24'>
                 <path
                   fill='currentColor'
@@ -98,7 +116,7 @@ export default function Calendar(): ReactElement {
                 <tr key={week}>
                   <CalendarRow
                     firstDay={firstDays[currentMonth]}
-                    lastDate={new Date(currentYear, currentMonth + 1, 0).getDate()}
+                    lastDate={lastDate}
                     row={week}
                     month={currentMonth}
                     year={currentYear}

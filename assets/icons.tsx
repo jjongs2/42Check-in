@@ -25,7 +25,7 @@ const userIcon = (
   </svg>
 );
 
-const calenderIcon = (
+const calendarIcon = (
   <svg width='47' height='47' viewBox='0 0 47 47' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
       d='M37.2083 7.83325H9.79159C8.71003 7.83325 7.83325 8.71003 7.83325 9.79159V37.2083C7.83325 38.2898 8.71003 39.1666 9.79159 39.1666H37.2083C38.2898 39.1666 39.1666 38.2898 39.1666 37.2083V9.79159C39.1666 8.71003 38.2898 7.83325 37.2083 7.83325Z'
@@ -77,4 +77,4 @@ const rightArrowIcon = (
   </svg>
 );
 
-export { leftArrowIcon, rightArrowIcon, darkModeIcon, noticeIcon, userIcon, calenderIcon };
+export { leftArrowIcon, rightArrowIcon, darkModeIcon, noticeIcon, userIcon, calendarIcon };
