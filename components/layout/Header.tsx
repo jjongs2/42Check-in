@@ -1,6 +1,7 @@
 import { noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
 import apiController from '@/utils/apiController';
+import logout from '@/utils/logout';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -147,12 +148,11 @@ export default function Header(): ReactElement {
                     onClick={() => {
                       const config = {
                         url: '/logout',
-                        method: `POST`,
+                        method: 'POST',
                       };
                       async function fetch(): Promise<void> {
                         await apiController(config);
-                        localStorage.removeItem('accessToken');
-                        localStorage.removeItem('refreshToken');
+                        logout();
                         await router.push('/login');
                       }
                       void fetch();

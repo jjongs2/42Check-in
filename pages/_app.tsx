@@ -37,9 +37,15 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
 
   useEffect(() => {
     if (router.pathname.includes('/login')) return;
+    if (!hasToken) {
+      void router.push('/login');
+    }
+  }, [hasToken]);
+
+  useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken === null) {
-      void router.push('/login');
+      setHasToken(false);
       return;
     }
     setHasToken(true);
