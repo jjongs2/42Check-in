@@ -10,16 +10,16 @@ import '../styles/globals.css';
 
 export default function MyApp({ Component, pageProps }: AppProps): ReactElement {
   const router = useRouter();
-  const [hasToken, setHasToken] = useState(false);
+  const [hasAccess, setHasAccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const start = (): void => {
+    function start(): void {
       setIsLoading(true);
-    };
-    const end = (): void => {
+    }
+    function end(): void {
       setIsLoading(false);
-    };
+    }
     Router.events.on('routeChangeStart', start);
     Router.events.on('routeChangeComplete', end);
     Router.events.on('routeChangeError', end);
@@ -31,22 +31,19 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   }, []);
 
   useEffect(() => {
+    if (router.pathname.includes('/login')) {
+      setHasAccess(true);
+      return;
+    }
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken === null) {
-      setHasToken(false);
-    } else {
-      setHasToken(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (router.pathname.includes('/login')) return;
-    if (!hasToken) {
       void router.push('/login');
+      return;
     }
-  }, [hasToken]);
+    setHasAccess(true);
+  }, [router]);
 
-  if (isLoading) return <Loading />;
+  if (!hasAccess || isLoading) return <Loading />;
 
   return (
     <>
