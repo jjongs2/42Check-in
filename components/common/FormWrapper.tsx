@@ -18,7 +18,7 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
   const onSubmit = async (data: any): Promise<void> => {
     const config = {
       url: `/${category}/form`,
-      methods: 'POST',
+      method: 'POST',
       data,
     };
     await apiController(config);
