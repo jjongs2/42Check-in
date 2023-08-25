@@ -84,7 +84,7 @@ export default function Header(): ReactElement {
                     }`}
                   ></span>
                 </button>
-                <input type='checkbox' checked={isChecked} className='sr-only' />
+                <input type='checkbox' defaultChecked={isChecked} className='sr-only' />
               </div>
             </div>
             <button

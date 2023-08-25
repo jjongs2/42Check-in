@@ -57,7 +57,7 @@ export default function Presentations(): ReactElement {
           >
             <div className='justify-left flex items-center space-x-2'>
               <button className='h-16 w-16 rounded-md text-2xl font-semibold text-gray-600 transition group-hover:text-white'>
-                {item.date}
+                {item.date.split('-')[2]}
               </button>
               <div className='overflow-hidden'>
                 <h1 className='animate-slide whitespace-nowrap font-semibold text-gray-800'>
