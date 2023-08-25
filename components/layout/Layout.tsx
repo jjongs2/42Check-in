@@ -11,8 +11,15 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps): ReactElement {
   const { pathname } = useRouter();
-  const pagesWithoutSidebar = new Set(['/', '/my-check-in']);
-  const hasSidebar = !pagesWithoutSidebar.has(pathname);
+
+  const noLayoutPages = new Set(['/login', '/oauth/login']);
+  const hasLayout = !noLayoutPages.has(pathname);
+
+  if (!hasLayout) return <>{children}</>;
+
+  const noSidebarPages = new Set(['/', '/my-check-in']);
+  const hasSidebar = !noSidebarPages.has(pathname);
+
   return (
     <>
       <Header />
