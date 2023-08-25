@@ -10,9 +10,11 @@ export default function OkModal(): ReactElement {
         <p>신청이 완료되었습니다.</p>
         <p>Vocal분의 승인을 기다려 주세요 :)</p>
       </ModalText>
-      <Link href='/' className='button-modal'>
-        <p>오예~~!!</p>
-      </Link>
+      <div className='flex justify-center'>
+        <Link href='/' className='button-modal'>
+          <p>오예~~!!</p>
+        </Link>
+      </div>
     </ModalWrapper>
   );
 }
