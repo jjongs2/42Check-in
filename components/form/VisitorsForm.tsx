@@ -12,20 +12,22 @@ const PLACES = {
   2: '1F: 오픈 스튜디오',
   3: '2/4/5F: 클러스터',
   4: '3F: 회의실',
-  5: '폴베가 있는 마루관'
+  5: '폴베가 있는 마루관',
 };
+
 const PURPOSES = {
   0: '기타',
   1: '견학: "너희 교육장이 정말 궁금하구나!"',
   2: '학습: "너와 함께 공부하고 싶어!"',
-  3: '토크: "이야기할 것이 많으니 교육장 안에서 이야기하자!"'
+  3: '토크: "이야기할 것이 많으니 교육장 안에서 이야기하자!"',
 };
+
 const RELATIONS = {
   0: '기타',
   1: '42서울에서 인연을 맺었던 동료 "피시너/카뎃"',
   2: '나를 보고 싶어 개포까지 달려 올 나의 "친구"',
   3: '나의 소중한 "가족"',
-  4: '멘토님 또는 그에 상응하는 "은사"'
+  4: '멘토님 또는 그에 상응하는 "은사"',
 };
 
 interface VisitorsFormProps {
@@ -52,35 +54,30 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
       <FormWrapper setShowModal={setShowModal}>
         <div className='grid grid-cols-1 gap-y-6 pb-6'>
           <FormInput
+            name='visitorName'
             title='방문자 이름'
             type='text'
-            value='visitorName'
-            onChange={() => {}}
             placeholder='어떤 분을 데려 오시나요? 이름을 알려 주세요.'
           />
           <FormSelect
+            name='relation'
             title='방문자와의 관계'
-            contents={RELATIONS}
-            value='relation'
+            contents={Object.values(RELATIONS)}
             placeholder='방문자와 어떤 사이신가요?'
           />
           <FormSelect
+            name='purpose'
             title='방문 목적'
-            contents={PURPOSES}
-            value='purpose'
+            contents={Object.values(PURPOSES)}
             placeholder='방문 목적을 선택해 주세요.'
           />
           <FormSelect
+            name='place'
             title='방문 장소'
-            contents={PLACES}
-            value='place'
+            contents={Object.values(PLACES)}
             placeholder='방문 목적을 선택해 주세요.'
           />
-          <FormInput title='방문 예정 시각'
-            type='time'
-            onChange={() => {}}
-            value='visitTime'
-          />
+          <FormInput name='visitTime' title='방문 예정 시각' type='time' />
           <FormAgreement>
             <p>외부인 방문 시 반드시 동행할 것을 약속하며</p>
             <p>외부인에 의해 시설이 훼손된 경우 공동 책임이 따름을 확인했습니다.</p>

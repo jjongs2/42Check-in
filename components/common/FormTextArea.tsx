@@ -1,6 +1,7 @@
 import type { ChangeEventHandler, ReactElement } from 'react';
 
 interface FormTextAreaProps {
+  name: string;
   title: string;
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLTextAreaElement>;
@@ -9,6 +10,7 @@ interface FormTextAreaProps {
 }
 
 export default function FormTextArea({
+  name,
   title,
   disabled,
   onChange,

@@ -4,21 +4,23 @@ import type { ChangeEvent, ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface FormSelectProps {
+  name: string;
   title: string;
   contents: string[];
   disabled?: boolean;
   placeholder?: string;
   span?: string;
-  value: string;
+  value?: string;
 }
 
 export default function FormSelect({
+  name,
   title,
   contents,
   disabled,
   placeholder,
   span = 'full',
-  value
+  value,
 }: FormSelectProps): ReactElement {
   const [inputValue, setInputValue] = useState('');
   const [showInput, setShowInput] = useState(false);
@@ -54,7 +56,7 @@ export default function FormSelect({
           value={value}
           disabled={disabled}
           placeholder={placeholder}
-          {...register(title, {
+          {...register(name, {
             required: true,
             onChange: (e) => {
               handleSelectChange(e);

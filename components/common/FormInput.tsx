@@ -2,6 +2,7 @@ import type { ChangeEventHandler, ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface FormInputProps {
+  name: string;
   title: string;
   type: string;
   disabled?: boolean;
@@ -12,6 +13,7 @@ interface FormInputProps {
 }
 
 export default function FormInput({
+  name,
   title,
   type,
   disabled,
@@ -37,7 +39,7 @@ export default function FormInput({
           disabled={disabled}
           placeholder={placeholder}
           value={value}
-          {...register(title, { required: true })}
+          {...register(name, { required: true })}
         />
       </div>
     </div>
