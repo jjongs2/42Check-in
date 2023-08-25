@@ -1,6 +1,6 @@
-import ModalButton from '@/components/common/ModalButton';
 import ModalText from '@/components/common/ModalText';
 import ModalWrapper from '@/components/common/ModalWrapper';
+import Link from 'next/link';
 import type { ReactElement } from 'react';
 
 export default function OkModal(): ReactElement {
@@ -10,7 +10,9 @@ export default function OkModal(): ReactElement {
         <p>신청이 완료되었습니다.</p>
         <p>Vocal분의 승인을 기다려 주세요 :)</p>
       </ModalText>
-      <ModalButton text='오예~~!!' />
+      <Link href='/' className='button-modal'>
+        <p>오예~~!!</p>
+      </Link>
     </ModalWrapper>
   );
 }

@@ -14,6 +14,10 @@ div#__next > div {
   @apply rounded-[20px] bg-[#6A70FF] font-bold text-white hover:bg-[#6AA6FF];
 }
 
+.button-modal {
+  @apply rounded-[8px] px-14 py-2.5 text-[14px] text-[#4F4F4F] ring-1 ring-inset ring-[#4F4F4F] hover:bg-gray-50;
+}
+
 .category {
   @apply relative flex flex-col items-center justify-between rounded-3xl shadow-xl hover:scale-105;
 }
