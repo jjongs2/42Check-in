@@ -6,21 +6,25 @@ import FormSelect from '../common/FormSelect';
 import FormTextArea from '../common/FormTextArea';
 import FormWrapper from '../common/FormWrapper';
 
-const IS_VIDEO = ['희망', '희망하지 않음'];
-const LECTURES = [
-  'Rush',
-  'Piscine',
-  'Partnership',
-  'Conference',
-  'Meet-up',
-  'Event',
-  'Association',
-  'Hackathon',
-  'Workshop',
-  'Challenge',
-  'Extern',
-];
-const TIMES = ['15분', '30분', '45분', '1시간', '1~2시간'];
+const IS_VIDEO = {
+  0: '희망하지 않음', 1: '희망' 
+};
+const LECTURES = {
+  0: 'Rush',
+  1: 'Piscine',
+  2: 'Partnership',
+  3: 'Conference',
+  4: 'Meet-up',
+  5: 'Event',
+  6: 'Association',
+  7: 'Hackathon',
+  8: 'Workshop',
+  9: 'Challenge',
+  10: 'Extern'
+};
+const TIMES = {
+  0: '15분', 1: '30분', 2: '45분', 3: '1시간', 4: '1시간 이상'
+};
 
 interface PresentationsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -56,25 +60,45 @@ export default function PresentationsForm({ setShowModal }: PresentationsFormPro
           <FormInput
             title='신청자 이름'
             type='text'
+            value='userName'
             onChange={() => {}}
             placeholder='실명을 알려 주세요. (예시: 이정재)'
           />
           <FormInput
             title='수요지식회 제목'
             type='text'
+            value='subject'
             onChange={() => {}}
             placeholder='강연 제목을 입력해 주세요.'
           />
           <FormInput
             title='수요지식회 주제'
             type='text'
+            value='contents'
             onChange={() => {}}
             placeholder='어떤 주제로 강연하시나요?'
           />
-          <FormTextArea title='상세 내용' onChange={() => {}} />
-          <FormSelect title='소요 시간' contents={TIMES} span='1' />
-          <FormSelect title='강연 종류' contents={LECTURES} span='1' />
-          <FormSelect title='영상 촬영' contents={IS_VIDEO} span='1' />
+          <FormTextArea
+            title='상세 내용'
+            value='detail'
+            onChange={() => {}}
+            />
+          <FormSelect
+            title='소요 시간'
+            value='time'
+            contents={TIMES}
+            span='1'
+            />
+          <FormSelect
+            title='강연 종류'
+            value='type'
+            contents={LECTURES}
+            span='1' />
+          <FormSelect
+            title='영상 촬영'
+            value='screen'
+            contents={IS_VIDEO}
+            span='1' />
         </div>
       </FormWrapper>
     </FormContainer>
