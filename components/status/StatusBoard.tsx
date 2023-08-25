@@ -7,19 +7,19 @@ import Btn from '../common/Btn';
 const btnContent = [
   {
     text: '회의실 예약',
-    url: '/conference-rooms',
+    url: 'conference-rooms',
   },
   {
     text: '외부인 초대',
-    url: '/visitors',
+    url: 'visitors',
   },
   {
     text: '수요지식회',
-    url: '/presentations',
+    url: 'presentations',
   },
   {
     text: '기자재 대여',
-    url: '/equipments',
+    url: 'equipments',
   },
 ];
 
@@ -28,12 +28,12 @@ interface StatusBoardProps {
 }
 
 export default function StatusBoard({ setSelectFormInfo }: StatusBoardProps): ReactElement {
-  const [category, setCategory] = useState('conference-rooms');
+  const [category, setCategory] = useState('equipments');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
 
   useEffect(() => {
     const config = {
-      url: `/${category}`,
+      url: `/my-checkin/${category}`,
     };
     async function fecthForms(): Promise<void> {
       const { data } = await apiController(config);
