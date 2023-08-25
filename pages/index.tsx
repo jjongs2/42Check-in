@@ -4,7 +4,7 @@ import { type ReactElement } from 'react';
 
 export default function Home(): ReactElement {
   return (
-    <div className='flex h-full items-center justify-center'>
+    <div className='flex items-center justify-center'>
       {/* 뒷배경 이미지들 */}
       <div className='relative -z-20 opacity-30'>
         <Image

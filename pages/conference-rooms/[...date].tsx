@@ -61,7 +61,7 @@ export default function RoomReservation(): ReactElement {
             <button className='text-2xl'>{calendarIcon}</button>
           </Link>
         </div>
-        <div className='flex'>
+        <div className='flex justify-between'>
           <div className='flex flex-col justify-between'>
             <div className='item-center flex justify-stretch'>
               <div className='flex min-w-max flex-col items-start space-y-2 border-r-2 border-[#8B8B8B] px-2 md:pr-3.5'>
@@ -95,7 +95,7 @@ export default function RoomReservation(): ReactElement {
                 ))}
               </div>
             </div>
-            <div className='mt-10 max-h-[37vh] items-end overflow-auto rounded-3xl bg-white p-4 shadow-xl md:max-h-[34vh]'>
+            <div className='mb-6 mt-10 max-h-[30vh] items-end overflow-auto rounded-3xl bg-white p-4 shadow-xl sm:max-h-[30vh]'>
               <p>회의실은</p>
               <p>전자 칠판이 있는 곳입니다.</p>
               <br />
@@ -109,8 +109,8 @@ export default function RoomReservation(): ReactElement {
               <p>정리해야겠죠?</p>
             </div>
           </div>
-          <div className='flex w-full flex-col justify-between space-y-5 px-4 py-2'>
-            <div className='flex max-w-[24vh] justify-between space-x-4 overflow-x-auto sm:max-w-full'>
+          <div className='mb-2 flex w-full max-w-[20vh] flex-col justify-between space-y-5 p-2 sm:max-w-[35vh] md:max-w-full'>
+            <div className='flex items-center justify-between space-x-4 overflow-x-auto'>
               {days.map((day, index) => (
                 <button
                   key={index}
@@ -127,21 +127,16 @@ export default function RoomReservation(): ReactElement {
                     .toString()
                     .padStart(2, '0')}`;
                   return (
-                    <button
-                      key={time}
-                      className='px-auto button text-sm sm:py-4 md:py-6 xl:text-xl'
-                    >
+                    <button key={time} className='px-auto button text-sm sm:py-4 xl:text-xl'>
                       {time}
                     </button>
                   );
                 }),
               )}
             </div>
-            <div className='flex justify-end pt-10'>
-              <button className='duration:150 rounded-[20px] bg-[#6A70FF] px-6 py-3 text-xl font-semibold text-white shadow-xl transition ease-in-out hover:bg-[#6AA6FF]'>
-                Check-in
-              </button>
-            </div>
+            <button className='sticky w-max self-end rounded-[20px] bg-[#6A70FF] px-6 py-3 text-lg font-semibold text-white shadow-xl transition ease-in-out hover:bg-[#6AA6FF]'>
+              Check-in
+            </button>
           </div>
         </div>
       </div>
