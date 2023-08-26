@@ -12,14 +12,16 @@ interface FormWrapperProps {
 
 export default function FormWrapper({ setShowModal, children }: FormWrapperProps): ReactElement {
   const methods = useForm();
-  const { pathname } = useRouter();
-  const category = pathname.split('/')[1];
+  const router = useRouter();
+  const category = router.pathname.split('/')[1];
+  const date = router.query.date;
+  console.log(date);
 
   const onSubmit = async (data: any): Promise<void> => {
     const config = {
       url: `/${category}/form`,
       method: 'POST',
-      data,
+      data: { ...data, date },
     };
     await apiController(config);
     setShowModal(true);

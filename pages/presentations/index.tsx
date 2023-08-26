@@ -20,7 +20,7 @@ interface Data {
 export default function Presentations(): ReactElement {
   const [date, setDate] = useState(formatDate());
   const [presentationsInfo, setPresentationsInfo] = useState<Data[]>([]);
-  const [year, month, day] = date.split('-').map(Number);
+  const [year, month] = date.split('-').map(Number);
   const today = new Date().getDate();
 
   useEffect(() => {
@@ -45,14 +45,16 @@ export default function Presentations(): ReactElement {
         <input
           type='month'
           className='bg-slate-100'
-          onChange={(e) => setDate(formatDate(new Date(`${e.target.value}-${today}`)))}
+          onChange={(e) => {
+            setDate(formatDate(new Date(`${e.target.value}-${today}`)));
+          }}
         />
       </div>
       <div className='mt-2 space-y-2'>
         {presentationsInfo.map((item, i: number) => (
           <Link
             key={i}
-            href={`/presentations/111`}
+            href={`/presentations/${item.date}`}
             className='group flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF]'
           >
             <div className='justify-left flex items-center space-x-2'>
@@ -61,12 +63,16 @@ export default function Presentations(): ReactElement {
               </button>
               <div className='overflow-hidden'>
                 <h1 className='animate-slide whitespace-nowrap font-semibold text-gray-800'>
-                  {item.subject ? `제목 : ${item.subject}` : '-'}
+                  {item.subject !== null
+                    ? `제목 : ${item.subject}`
+                    : '신청을 기다리고 있습니다. 🤔'}
                 </h1>
-                <h5 className=' text-gray-500'>{item.intraId}😎</h5>
+                <h5 className='text-gray-500'>{item.intraId !== null && `${item.intraId} 😎`}</h5>
               </div>
             </div>
-            <button className='mr-4 rounded-xl px-3 group-hover:bg-white'>신청</button>
+            <button className='mr-4 rounded-xl px-3 group-hover:bg-white'>
+              {item.formId === 0 ? '대기 ' : '신청'}
+            </button>
           </Link>
         ))}
       </div>

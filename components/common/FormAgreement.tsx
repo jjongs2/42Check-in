@@ -11,7 +11,7 @@ export default function FormAgreement({ children }: FormAgreementProps): ReactEl
     register,
     formState: { errors },
   } = useFormContext();
-  const toggleSwitch = () => {
+  const toggleSwitch = (): void => {
     setIsChecked((prev) => !prev);
   };
 
@@ -38,6 +38,7 @@ export default function FormAgreement({ children }: FormAgreementProps): ReactEl
         <input
           type='checkbox'
           checked={isChecked}
+          defaultChecked={false}
           className='sr-only'
           {...register('agreement', { required: true })}
         />

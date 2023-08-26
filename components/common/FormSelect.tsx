@@ -71,7 +71,7 @@ export default function FormSelect({
           })}
         >
           {options.map((option, index) => {
-            const key = option === '기타' ? 0 : index + 1;
+            const key = option === '기타' ? 0 : index + Number(hasEtc);
             return (
               <option key={key} value={key}>
                 {option}
