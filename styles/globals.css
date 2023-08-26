@@ -10,6 +10,10 @@ div#__next > div {
   height: 100%;
 }
 
+body {
+  @apply bg-white transition dark:bg-slate-900;
+}
+
 .button {
   @apply rounded-[20px] bg-[#6A70FF] font-bold text-white hover:bg-[#6AA6FF];
 }
@@ -19,11 +23,11 @@ div#__next > div {
 }
 
 .category {
-  @apply relative flex flex-col items-center justify-between rounded-3xl shadow-xl hover:scale-105;
+  @apply relative flex flex-col items-center justify-between rounded-3xl hover:scale-105;
 }
 
 .categoryIner {
-  @apply flex h-full w-full flex-col items-center justify-between rounded-3xl py-24 backdrop-blur-sm;
+  @apply flex h-full w-full flex-col items-center justify-between rounded-3xl py-24 backdrop-blur-sm dark:backdrop-blur-0;
 }
 
 .categoryText {
@@ -32,4 +36,12 @@ div#__next > div {
 
 .darkModeIcon {
   @apply fill-slate-700 text-slate-700 transition dark:fill-white;
+}
+
+.notSeletBtn {
+  @apply border-2 border-[#6A70FF] bg-[#6A70FF] dark:border-2 dark:border-slate-700 dark:bg-slate-700 dark:text-white dark:hover:text-slate-700;
+}
+
+.seletBtn {
+  @apply border-2 border-[#6AA6FF] bg-[#6AA6FF] dark:border-2 dark:border-slate-700 dark:bg-white dark:text-slate-700;
 }

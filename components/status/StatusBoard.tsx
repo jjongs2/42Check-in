@@ -35,18 +35,20 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
   useEffect(() => {
-    const config = {};
-    if (vocal === true) {
-      config['url'] = `/vocal/subscriptions/${category}`;
+    const config = {
+      url: '',
+    };
+    if (vocal) {
+      config.url = `/vocal/subscriptions/${category}`;
     } else {
-      config['url'] = `/my-checkin/${category}`;
+      config.url = `/my-checkin/${category}`;
     }
     async function fecthForms(): Promise<void> {
       const { data } = await apiController(config);
       setResponseDataList(data);
     }
     void fecthForms();
-  }, [category]);
+  }, [category, vocal]);
 
   const btnBox = btnContent.map((items) => {
     return vocal && items.url === 'conference-rooms' ? null : (
@@ -58,8 +60,8 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
       >
         <button
           className={cls(
-            category === items.url ? 'bg-[#6AA6FF]' : 'bg-[#6A70FF]',
-            'rounded-[20px] px-5 py-2 font-bold text-white hover:bg-[#6AA6FF]',
+            category === items.url ? 'seletBtn' : 'notSeletBtn',
+            'rounded-[20px] px-5 py-2 font-bold text-white hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:hover:border-slate-700 dark:hover:bg-white',
           )}
         >
           {items.text}

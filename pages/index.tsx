@@ -32,7 +32,7 @@ export default function Home(): ReactElement {
       {/* 안에 4가지 카테고리 (vh ) */}
       <div className='mx-4 grid grid-cols-2 gap-x-10 gap-y-10 lg:h-2/5 lg:grid-cols-4'>
         {/* 회의실 */}
-        <div className='category group bg-[#3983f2] bg-opacity-20'>
+        <div className='category group bg-[#3983f2] bg-opacity-20 dark:bg-slate-500 dark:bg-opacity-30'>
           <Link href={'/conference-rooms'} className='categoryIner'>
             <h2 className='categoryText'>회의실 예약</h2>
             <Image
@@ -44,7 +44,7 @@ export default function Home(): ReactElement {
             />
           </Link>
         </div>
-        <div className='category group bg-[#4069FD] bg-opacity-60'>
+        <div className='category group bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30'>
           <Link href={'/visitors'} className='categoryIner'>
             <h2 className='categoryText'>외부인 초대</h2>
             <Image
@@ -56,7 +56,7 @@ export default function Home(): ReactElement {
             />
           </Link>
         </div>
-        <div className='category group bg-[#3983f2] bg-opacity-20'>
+        <div className='category group bg-[#3983f2] bg-opacity-20 shadow-xl dark:bg-slate-500 dark:bg-opacity-30'>
           <Link href={'/presentations'} className='categoryIner'>
             <h2 className='categoryText'>수요지식회</h2>
             <Image
@@ -68,7 +68,7 @@ export default function Home(): ReactElement {
             />
           </Link>
         </div>
-        <div className='category group bg-[#4069FD] bg-opacity-60'>
+        <div className='category group bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30'>
           <Link href={'/equipments'} className='categoryIner'>
             <h2 className='categoryText'>기자재 대여</h2>
             <Image

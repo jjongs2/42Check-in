@@ -19,10 +19,10 @@ export default function Login(): ReactElement {
       <div className=' absolute left-40 top-40 -z-10 aspect-square h-60 w-60 rounded-full bg-yellow-400 bg-opacity-70 blur-[80px]' />
       <div className=' absolute left-80 top-80 -z-10 aspect-square h-80 w-80 rounded-full bg-blue-800 bg-opacity-70 blur-[80px]' />
       <div className='flex flex-col'>
-        <h1 className=' font min-w-max font-sans text-4xl text-slate-800'>
+        <h1 className=' font min-w-max font-sans text-4xl text-slate-800 dark:text-white'>
           42 Check - in <br></br>모든 예약을 한 곳에
         </h1>
-        <div className='mt-20 text-slate-800'>
+        <div className='mt-20 text-slate-800 dark:text-white'>
           you <span className=' text-red-500'>don’t</span> have to find
           <br /> another web site anymore. 😎
         </div>
@@ -43,7 +43,9 @@ export default function Login(): ReactElement {
           <p className='text-xl'>Sign in</p>
         </Link>
         <div className='h-[1px] w-[400px] bg-[#DFDFDF]' />
-        <span className='relative -top-[51px] bg-white px-10 text-[#ACADAC]'>42 Check - in</span>
+        <span className='relative -top-[51px] bg-white px-10 text-[#ACADAC] dark:bg-slate-900 dark:text-white'>
+          42 Check - in
+        </span>
       </div>
     </div>
   );

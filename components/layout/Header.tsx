@@ -19,12 +19,16 @@ export default function Header(): ReactElement {
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
   const [noticeInfo, setNoticeInfo] = useState<Data[]>([]);
-  const [isChecked, setIsChecked] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const theme = localStorage.getItem('theme');
+  const [isChecked, setIsChecked] = useState(theme === 'dark');
 
   const toggleSwitch = (): void => {
-    setIsChecked((prev) => !prev);
-    document.documentElement.classList.toggle('dark', !isChecked);
+    setIsChecked((prev) => {
+      const curr = !prev;
+      document.documentElement.classList.toggle('dark', curr);
+      localStorage.setItem('theme', curr ? 'dark' : 'light');
+      return curr;
+    });
   };
 
   useEffect(() => {
@@ -33,7 +37,7 @@ export default function Header(): ReactElement {
 
   useEffect(() => {
     function handleOutsideClick(event: any): void {
-      if (showNotice > 0 && noticeRef.current?.contains(event.target as Node) === false) {
+      if (showNotice > 0 && !noticeRef.current?.contains(event.target as Node)) {
         setShowNotice(0);
       }
     }
@@ -52,6 +56,11 @@ export default function Header(): ReactElement {
       setNoticeInfo(data);
     }
     void fetch();
+    if (theme === null) {
+      localStorage.setItem('theme', 'light');
+    } else if (theme === 'dark') {
+      document.documentElement.classList.toggle('dark', true);
+    }
   }, []);
 
   return (
@@ -81,12 +90,17 @@ export default function Header(): ReactElement {
                 >
                   <span
                     aria-hidden='true'
-                    className={`h-4 w-4 translate-x-0 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out ${
-                      isChecked ? 'translate-x-3.5' : ''
+                    className={`h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out ${
+                      isChecked ? 'translate-x-3.5' : 'translate-x-0'
                     }`}
                   ></span>
                 </button>
-                <input type='checkbox' defaultChecked={isChecked} className='sr-only' />
+                <input
+                  type='checkbox'
+                  defaultChecked={false}
+                  checked={isChecked}
+                  className='sr-only'
+                />
               </div>
             </div>
             <button
@@ -125,7 +139,7 @@ export default function Header(): ReactElement {
                   </div>
                 </div>
               )}
-              <div className='absolute right-[80px] top-2 flex aspect-square h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-sm text-white'>
+              <div className='absolute right-[80px] top-2 flex aspect-square h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-sm text-white transition dark:bg-violet-300'>
                 {noticeInfo.length}
               </div>
             </button>
