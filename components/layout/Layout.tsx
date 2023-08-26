@@ -17,7 +17,7 @@ export default function Layout({ children }: LayoutProps): ReactElement {
 
   if (!hasLayout) return <>{children}</>;
 
-  const noSidebarPages = new Set(['/', '/my-check-in']);
+  const noSidebarPages = new Set(['/', '/my-check-in', '/vocal']);
   const hasSidebar = !noSidebarPages.has(pathname);
 
   return (
