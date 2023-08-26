@@ -32,18 +32,19 @@ apiController.interceptors.response.use(
   async function (error) {
     // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
     // 응답 오류가 있는 작업 수행
-    const { status, data } = error.response;
+    const { config, data, status } = error.response;
     if (status === 400 && data === 1001) {
       const refreshToken = localStorage.getItem('refreshToken');
-      const config = {
+      const reissueConfig = {
         url: '/reissue',
         method: 'post',
-        data: { refreshToken },
+        data: refreshToken,
+        headers: { 'Content-Type': 'text/plain' },
       };
-      const { data } = await apiController(config);
+      const { data } = await apiController(reissueConfig);
       const { accessToken } = data;
       localStorage.setItem('accessToken', accessToken);
-      return;
+      return await apiController(config);
     }
     console.log(error);
     logout();
