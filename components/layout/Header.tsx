@@ -68,7 +68,7 @@ export default function Header(): ReactElement {
       <header className='fixed z-50 w-screen bg-[#4069FD] dark:bg-slate-700'>
         <nav className='flex items-center justify-between px-10'>
           <button
-            className='flex pb-3'
+            className='flex py-2'
             onClick={async () => {
               await router.push('/');
             }}

@@ -40,7 +40,7 @@ export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): R
           <FormSelect name='equipment' title='대여 물품' options={EQUIPMENTS} span='1' />
           <FormSelect name='purpose' title='대여 목적' options={PURPOSES} span='1' etcName='etc' />
           <FormTextArea
-            name='purpose'
+            name='detail'
             title='활용 계획 (무엇을, 어떻게, 왜, 언제까지 4가지를 꼭 기재해 주세요.)'
             placeholder='상세히 기술해 주세요.'
           />

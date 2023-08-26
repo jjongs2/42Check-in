@@ -23,6 +23,9 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
       method: 'POST',
       data: { ...data, date },
     };
+    if (category === 'equipments') {
+      config.url = '/equipments/form/new';
+    }
     await apiController(config);
     setShowModal(true);
   };
