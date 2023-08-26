@@ -1,5 +1,7 @@
 import apiController from '@/utils/apiController';
+import formatDate from '@/utils/formatDate';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement, ReactNode, SetStateAction } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -13,22 +15,30 @@ interface FormWrapperProps {
 export default function FormWrapper({ setShowModal, children }: FormWrapperProps): ReactElement {
   const methods = useForm();
   const router = useRouter();
-  const category = router.pathname.split('/')[1];
-  const date = router.query.date;
-  console.log(date);
+  const [formattedDate, setFormattedDate] = useState<string>();
+  const [rentalType, setRentalType] = useState<string>();
 
   const onSubmit = async (data: any): Promise<void> => {
+    const category = router.pathname.split('/')[1];
     const config = {
       url: `/${category}/form`,
       method: 'POST',
-      data: { ...data, date },
+      data: { ...data, date: formattedDate },
     };
     if (category === 'equipments') {
-      config.url = '/equipments/form/new';
+      config.url = `/equipments/form/${rentalType}`;
     }
     await apiController(config);
     setShowModal(true);
   };
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { date, type } = router.query;
+    if (typeof date !== 'string' || typeof type !== 'string') return;
+    setFormattedDate(formatDate(new Date(date)));
+    setRentalType(type);
+  }, [router]);
 
   return (
     <FormProvider {...methods}>
