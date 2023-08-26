@@ -3,7 +3,7 @@ export default interface EquipmentsFormInfo {
   phoneNumber: string;
   date: string;
   equipment: number;
-  purpose: boolean;
+  purpose: number;
   detail: string;
   benefit: string;
   period: number;

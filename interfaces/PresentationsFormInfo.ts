@@ -8,7 +8,7 @@ export default interface PresentationsFormInfo {
   time: number;
   type: number;
   status: number;
-  screen: boolean;
+  screen: number;
   formIds: number[];
   intraId: string;
 }
