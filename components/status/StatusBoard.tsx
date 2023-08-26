@@ -1,9 +1,10 @@
 import type FormInfo from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
-import { type Dispatch, type ReactElement, type SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
-import Btn from '../common/Btn';
+import Status from './Status';
 
 const btnContent = [
   {
@@ -30,8 +31,8 @@ interface StatusBoardProps {
 }
 
 export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardProps): ReactElement {
-  const preReq = vocal ? 'visitors' : 'conference-rooms';
-  const [category, setCategory] = useState(preReq);
+  // const preReq = vocal ? 'visitors' : 'conference-rooms';
+  const [category, setCategory] = useState('visitors');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
   useEffect(() => {
@@ -119,13 +120,7 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
                 className='h-6 w-6 rounded border-gray-300 transition'
               />
             )}
-            <div className=''>{item.formInfo.date}</div>
-            <div className=' border-2 border-gray-300' />
-            <div className=''>13:00</div>
-            <div className=' border-2 border-gray-300' />
-            <div className=' w-56 overflow-hidden text-ellipsis whitespace-nowrap'>
-              홍길동, 박수환asdfasdfasdfasdfasdfasdfasdfasdfasdfasdf
-            </div>
+            <Status status={item} />
           </div>
         ))}
       </div>
