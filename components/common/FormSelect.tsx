@@ -5,9 +5,10 @@ import { useFormContext } from 'react-hook-form';
 
 interface FormSelectProps {
   name: string;
+  options: string[];
   title: string;
-  contents: string[];
   disabled?: boolean;
+  etcName?: string;
   placeholder?: string;
   span?: string;
   value?: string;
@@ -15,9 +16,10 @@ interface FormSelectProps {
 
 export default function FormSelect({
   name,
+  options,
   title,
-  contents,
   disabled,
+  etcName,
   placeholder,
   span = 'full',
   value,
@@ -30,7 +32,7 @@ export default function FormSelect({
   } = useFormContext();
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>): void => {
-    if (event.target.value === '기타') {
+    if (event.target.value === '0') {
       setShowInput(true);
     } else {
       setShowInput(false);
@@ -40,6 +42,11 @@ export default function FormSelect({
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setInputValue(event.target.value);
   };
+
+  const hasEtc = etcName !== undefined;
+  if (hasEtc) {
+    options = [...options, '기타'];
+  }
 
   return (
     <div className={`col-span-${span}`}>
@@ -63,16 +70,24 @@ export default function FormSelect({
             },
           })}
         >
-          {contents.map((content) => (
-            <option key={content}>{content}</option>
-          ))}
+          {options.map((option, index) => {
+            const key = option === '기타' ? 0 : index + 1;
+            return (
+              <option key={key} value={key}>
+                {option}
+              </option>
+            );
+          })}
         </select>
         {showInput && (
           <input
             type='text'
             value={inputValue}
-            onChange={handleInputChange}
             className='block w-[70%] rounded-md border-0 px-2.5 py-2.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600'
+            {...register(etcName, {
+              required: hasEtc,
+              onChange: handleInputChange,
+            })}
           />
         )}
       </div>

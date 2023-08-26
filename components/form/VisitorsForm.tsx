@@ -1,3 +1,6 @@
+import formatDate from '@/utils/formatDate';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
@@ -6,35 +9,40 @@ import FormInput from '../common/FormInput';
 import FormSelect from '../common/FormSelect';
 import FormWrapper from '../common/FormWrapper';
 
-const PLACES = {
-  0: '기타',
-  1: 'B1F: 어셈블리',
-  2: '1F: 오픈 스튜디오',
-  3: '2/4/5F: 클러스터',
-  4: '3F: 회의실',
-  5: '폴베가 있는 마루관',
-};
-
-const PURPOSES = {
-  0: '기타',
-  1: '견학: "너희 교육장이 정말 궁금하구나!"',
-  2: '학습: "너와 함께 공부하고 싶어!"',
-  3: '토크: "이야기할 것이 많으니 교육장 안에서 이야기하자!"',
-};
-
-const RELATIONS = {
-  0: '기타',
-  1: '42서울에서 인연을 맺었던 동료 "피시너/카뎃"',
-  2: '나를 보고 싶어 개포까지 달려 올 나의 "친구"',
-  3: '나의 소중한 "가족"',
-  4: '멘토님 또는 그에 상응하는 "은사"',
-};
+const PLACES = [
+  'B1F: 어셈블리',
+  '1F: 오픈 스튜디오',
+  '2/4/5F: 클러스터',
+  '3F: 회의실',
+  '폴베가 있는 마루관',
+];
+const PURPOSES = [
+  '견학: "너희 교육장이 정말 궁금하구나!"',
+  '학습: "너와 함께 공부하고 싶어!"',
+  '토크: "이야기할 것이 많으니 교육장 안에서 이야기하자!"',
+];
+const RELATIONS = [
+  '42서울에서 인연을 맺었던 동료 "피시너/카뎃"',
+  '나를 보고 싶어 개포까지 달려 올 나의 "친구"',
+  '나의 소중한 "가족"',
+  '멘토님 또는 그에 상응하는 "은사"',
+];
 
 interface VisitorsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function VisitorsForm({ setShowModal }: VisitorsFormProps): ReactElement {
+  const router = useRouter();
+  const [selectedDate, setSelectedDate] = useState('');
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { date } = router.query;
+    if (typeof date !== 'string') return;
+    setSelectedDate(formatDate(new Date(date)));
+  }, [router]);
+
   return (
     <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
@@ -52,32 +60,42 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
         </p>
       </div>
       <FormWrapper setShowModal={setShowModal}>
-        <div className='grid grid-cols-1 gap-y-6 pb-6'>
+        <div className='grid grid-cols-2 gap-x-8 gap-y-6 pb-6'>
           <FormInput
-            name='visitorName'
+            name='visitorsName'
             title='방문자 이름'
             type='text'
             placeholder='어떤 분을 데려 오시나요? 이름을 알려 주세요.'
           />
           <FormSelect
-            name='relation'
+            name='relationWithUser'
             title='방문자와의 관계'
-            contents={Object.values(RELATIONS)}
+            options={RELATIONS}
+            etcName='etcRelation'
             placeholder='방문자와 어떤 사이신가요?'
           />
           <FormSelect
-            name='purpose'
+            name='visitPurpose'
             title='방문 목적'
-            contents={Object.values(PURPOSES)}
+            options={PURPOSES}
+            etcName='etcPurpose'
             placeholder='방문 목적을 선택해 주세요.'
           />
           <FormSelect
-            name='place'
+            name='visitPlace'
             title='방문 장소'
-            contents={Object.values(PLACES)}
+            options={PLACES}
+            etcName='etcPlace'
             placeholder='방문 목적을 선택해 주세요.'
           />
-          <FormInput name='visitTime' title='방문 예정 시각' type='time' />
+          <FormInput
+            name='visitDate'
+            title='방문 예정 날짜'
+            type='date'
+            span='1'
+            value={selectedDate}
+          />
+          <FormInput name='visitTime' title='방문 예정 시각' type='time' span='1' />
           <FormAgreement>
             <p>외부인 방문 시 반드시 동행할 것을 약속하며</p>
             <p>외부인에 의해 시설이 훼손된 경우 공동 책임이 따름을 확인했습니다.</p>

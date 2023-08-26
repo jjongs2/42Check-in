@@ -1,5 +1,6 @@
 import type { ChangeEventHandler, ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
+import type { RegisterOptions } from 'react-hook-form';
 
 interface FormInputProps {
   name: string;
@@ -7,6 +8,7 @@ interface FormInputProps {
   type: string;
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  options?: RegisterOptions;
   placeholder?: string;
   span?: string;
   value?: string;
@@ -18,6 +20,7 @@ export default function FormInput({
   type,
   disabled,
   onChange,
+  options = { required: true },
   placeholder,
   span = 'full',
   value,
@@ -26,6 +29,7 @@ export default function FormInput({
     register,
     formState: { errors },
   } = useFormContext();
+
   return (
     <div className={`col-span-${span}`}>
       <label htmlFor={title} className='block text-sm font-medium leading-6 text-gray-900'>
@@ -39,7 +43,7 @@ export default function FormInput({
           disabled={disabled}
           placeholder={placeholder}
           value={value}
-          {...register(name, { required: true })}
+          {...register(name, options)}
         />
       </div>
     </div>

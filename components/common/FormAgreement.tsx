@@ -37,9 +37,9 @@ export default function FormAgreement({ children }: FormAgreementProps): ReactEl
         </button>
         <input
           type='checkbox'
-          defaultChecked={isChecked}
+          checked={isChecked}
           className='sr-only'
-          {...register('agree', { required: true })}
+          {...register('agreement', { required: true })}
         />
       </div>
       <label className='text-sm leading-6 text-gray-600' id='switch-1-label'>

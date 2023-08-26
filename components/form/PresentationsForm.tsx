@@ -6,32 +6,21 @@ import FormSelect from '../common/FormSelect';
 import FormTextArea from '../common/FormTextArea';
 import FormWrapper from '../common/FormWrapper';
 
-const IS_VIDEO = {
-  0: '희망하지 않음',
-  1: '희망',
-};
-
-const LECTURES = {
-  0: 'Rush',
-  1: 'Piscine',
-  2: 'Partnership',
-  3: 'Conference',
-  4: 'Meet-up',
-  5: 'Event',
-  6: 'Association',
-  7: 'Hackathon',
-  8: 'Workshop',
-  9: 'Challenge',
-  10: 'Extern',
-};
-
-const TIMES = {
-  0: '15분',
-  1: '30분',
-  2: '45분',
-  3: '1시간',
-  4: '1시간 이상',
-};
+const IS_VIDEO = ['희망하지 않음', '희망'];
+const LECTURES = [
+  'Rush',
+  'Piscine',
+  'Partnership',
+  'Conference',
+  'Meet-up',
+  'Event',
+  'Association',
+  'Hackathon',
+  'Workshop',
+  'Challenge',
+  'Extern',
+];
+const TIMES = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 
 interface PresentationsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -77,15 +66,15 @@ export default function PresentationsForm({ setShowModal }: PresentationsFormPro
             placeholder='강연 제목을 입력해 주세요.'
           />
           <FormInput
-            name='contents'
+            name='options'
             title='수요지식회 주제'
             type='text'
             placeholder='어떤 주제로 강연하시나요?'
           />
           <FormTextArea name='detail' title='상세 내용' />
-          <FormSelect name='time' title='소요 시간' contents={Object.values(TIMES)} span='1' />
-          <FormSelect name='type' title='강연 종류' contents={Object.values(LECTURES)} span='1' />
-          <FormSelect name='screen' title='영상 촬영' contents={Object.values(IS_VIDEO)} span='1' />
+          <FormSelect name='time' title='소요 시간' options={TIMES} span='1' />
+          <FormSelect name='type' title='강연 종류' options={LECTURES} span='1' />
+          <FormSelect name='screen' title='영상 촬영' options={IS_VIDEO} span='1' />
         </div>
       </FormWrapper>
     </FormContainer>
