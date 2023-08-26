@@ -20,9 +20,11 @@ export default function Header(): ReactElement {
   const [showNotice, setShowNotice] = useState(0);
   const [noticeInfo, setNoticeInfo] = useState<Data[]>([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   const toggleSwitch = (): void => {
     setIsChecked((prev) => !prev);
+    document.documentElement.classList.toggle('dark', !isChecked);
   };
 
   useEffect(() => {
@@ -54,7 +56,7 @@ export default function Header(): ReactElement {
 
   return (
     <>
-      <header className='fixed z-50 w-screen bg-[#4069FD]'>
+      <header className='fixed z-50 w-screen bg-[#4069FD] dark:bg-slate-700'>
         <nav className='flex items-center justify-between px-10'>
           <button
             className='flex pb-3'
@@ -136,11 +138,11 @@ export default function Header(): ReactElement {
               {showNotice === 2 && (
                 <div
                   ref={noticeRef}
-                  className='absolute right-6 top-12 m-2 flex flex-col rounded-xl bg-[#e8e8e8] px-4 shadow-xl'
+                  className='absolute right-6 top-12 m-1 flex flex-col rounded-xl bg-[#e8e8e8] px-2 shadow-xl'
                 >
                   <Link
                     href={'/my-check-in'}
-                    className='mt-2 rounded-lg p-4 font-semibold text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
+                    className='mt-2 rounded-lg p-4 text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white dark:hover:bg-slate-700'
                   >
                     My Check - in
                   </Link>
@@ -157,7 +159,7 @@ export default function Header(): ReactElement {
                       }
                       void fetch();
                     }}
-                    className='mb-2 rounded-lg p-4 font-semibold text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
+                    className='mb-2 rounded-lg p-4 text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white dark:hover:bg-slate-700'
                   >
                     Sign Out
                   </button>

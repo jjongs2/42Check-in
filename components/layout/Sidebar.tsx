@@ -14,8 +14,10 @@ function Menu({ href, text }: MenuProps): ReactElement {
     <Link
       href={href}
       className={cls(
-        router.asPath === href ? 'bg-[#6AA6FF]' : '',
-        'rounded-[20px] bg-[#6A70FF] px-1 py-3.5 text-center text-sm font-bold text-white hover:bg-[#6AA6FF]',
+        router.asPath === href
+          ? 'border-[#6AA6FF] bg-[#6AA6FF] dark:border-2 dark:border-slate-700 dark:bg-white dark:text-slate-700'
+          : 'border-[#6A70FF] bg-[#6A70FF] dark:border-2 dark:border-slate-700 dark:bg-slate-700 dark:text-white dark:hover:bg-white dark:hover:text-slate-700',
+        'rounded-[20px] border-2 px-1 py-3.5 text-center text-sm font-bold text-white transition hover:border-[#6AA6FF] hover:bg-[#6AA6FF] ',
       )}
     >
       {text}

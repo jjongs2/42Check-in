@@ -29,3 +29,7 @@ div#__next > div {
 .categoryText {
   @apply text-3xl font-extrabold text-white lg:text-4xl;
 }
+
+.darkModeIcon {
+  @apply fill-slate-700 text-slate-700 transition dark:fill-white;
+}
