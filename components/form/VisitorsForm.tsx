@@ -1,7 +1,7 @@
 import formatDate from '@/utils/formatDate';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import type { Dispatch, ReactElement, SetStateAction } from 'react';
+import type { ChangeEvent, Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
 import FormContainer from '../common/FormContainer';
@@ -35,6 +35,10 @@ interface VisitorsFormProps {
 export default function VisitorsForm({ setShowModal }: VisitorsFormProps): ReactElement {
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState('');
+
+  const handleDateChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setSelectedDate(event.target.value);
+  };
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -93,6 +97,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             title='방문 예정 날짜'
             type='date'
             span='1'
+            registerOptions={{ onChange: handleDateChange }}
             value={selectedDate}
           />
           <FormInput name='visitTime' title='방문 예정 시각' type='time' span='1' />
