@@ -37,8 +37,20 @@ export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): R
             type='text'
             placeholder='연락처를 입력해 주세요. (예시: 010-4242-4242)'
           />
-          <FormSelect name='equipment' title='대여 물품' options={EQUIPMENTS} span='1' />
-          <FormSelect name='purpose' title='대여 목적' options={PURPOSES} span='1' etcName='etc' />
+          <FormSelect
+            name='equipment'
+            title='대여 물품'
+            options={EQUIPMENTS}
+            span='1'
+            etcName='etcEquipment'
+          />
+          <FormSelect
+            name='purpose'
+            title='대여 목적'
+            options={PURPOSES}
+            span='1'
+            etcName='etcPurpose'
+          />
           <FormTextArea
             name='detail'
             title='활용 계획 (무엇을, 어떻게, 왜, 언제까지 4가지를 꼭 기재해 주세요.)'

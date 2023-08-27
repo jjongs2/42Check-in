@@ -9,5 +9,6 @@ export default interface EquipmentsFormInfo {
   period: number;
   returnDate: string;
   formId: number;
-  etc: string;
+  etcEquipment: string;
+  etcPurpose: string;
 }
