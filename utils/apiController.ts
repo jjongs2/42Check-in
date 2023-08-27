@@ -46,8 +46,8 @@ apiController.interceptors.response.use(
       localStorage.setItem('accessToken', accessToken);
       return await apiController(config);
     }
-    console.log(error);
-    logout();
+    console.error(error);
+    // window.location.href = '/error';
   },
 );
 
