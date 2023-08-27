@@ -71,7 +71,7 @@ export default function Presentations(): ReactElement {
               </div>
             </div>
             <button className='mr-4 rounded-xl px-3 group-hover:bg-white'>
-              {item.formId === 0 ? '대기 ' : '신청'}
+              {item.formId !== null ? '대기 ' : '신청'}
             </button>
           </Link>
         ))}
