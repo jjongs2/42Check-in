@@ -60,13 +60,13 @@ export default function PresentationsForm({ setShowModal }: PresentationsFormPro
             placeholder='실명을 알려 주세요. (예시: 이정재)'
           />
           <FormInput
-            name='subject'
+            name='title'
             title='수요지식회 제목'
             type='text'
             placeholder='강연 제목을 입력해 주세요.'
           />
           <FormInput
-            name='options'
+            name='subject'
             title='수요지식회 주제'
             type='text'
             placeholder='어떤 주제로 강연하시나요?'

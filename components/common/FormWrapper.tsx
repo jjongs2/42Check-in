@@ -35,8 +35,9 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
   useEffect(() => {
     if (!router.isReady) return;
     const { date, type } = router.query;
-    if (typeof date !== 'string' || typeof type !== 'string') return;
+    if (typeof date !== 'string') return;
     setFormattedDate(formatDate(new Date(date)));
+    if (typeof type !== 'string') return;
     setRentalType(type);
   }, [router]);
 

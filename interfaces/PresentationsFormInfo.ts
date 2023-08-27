@@ -2,8 +2,8 @@ export default interface PresentationsFormInfo {
   formId: number;
   userName: string;
   date: string;
+  title: string;
   subject: string;
-  contents: string;
   detail: string;
   time: number;
   type: number;

@@ -155,7 +155,7 @@ export default function Header(): ReactElement {
                   className='absolute right-6 top-12 m-1 flex flex-col rounded-xl bg-[#e8e8e8] px-2 shadow-xl'
                 >
                   <Link
-                    href={'/my-check-in'}
+                    href={'/my-checkin'}
                     className='mt-2 rounded-lg p-4 text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white dark:hover:bg-slate-700'
                   >
                     My Check - in
