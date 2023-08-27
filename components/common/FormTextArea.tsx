@@ -7,8 +7,8 @@ interface FormTextAreaProps {
   title: string;
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLTextAreaElement>;
-  options?: RegisterOptions;
   placeholder?: string;
+  registerOptions?: RegisterOptions;
   value?: string;
 }
 
@@ -17,8 +17,8 @@ export default function FormTextArea({
   title,
   disabled,
   onChange,
-  options = { required: true },
   placeholder,
+  registerOptions = { required: true },
   value,
 }: FormTextAreaProps): ReactElement {
   const { register } = useFormContext();
@@ -37,7 +37,7 @@ export default function FormTextArea({
           disabled={disabled}
           placeholder={placeholder}
           value={value}
-          {...register(name, options)}
+          {...register(name, registerOptions)}
         />
       </div>
     </div>

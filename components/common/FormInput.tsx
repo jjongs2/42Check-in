@@ -8,8 +8,8 @@ interface FormInputProps {
   type: string;
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
-  options?: RegisterOptions;
   placeholder?: string;
+  registerOptions?: RegisterOptions;
   span?: string;
   value?: string;
 }
@@ -20,8 +20,8 @@ export default function FormInput({
   type,
   disabled,
   onChange,
-  options = { required: true },
   placeholder,
+  registerOptions = { required: true },
   span = 'full',
   value,
 }: FormInputProps): ReactElement {
@@ -43,7 +43,7 @@ export default function FormInput({
           disabled={disabled}
           placeholder={placeholder}
           value={value}
-          {...register(name, options)}
+          {...register(name, registerOptions)}
         />
       </div>
     </div>
