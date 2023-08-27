@@ -1,3 +1,6 @@
+import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
+import { time } from 'console';
+import { useRouter } from 'next/router';
 import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormContainer from '../common/FormContainer';
@@ -24,9 +27,16 @@ const TIMES = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 
 interface PresentationsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  formInfo: PresentationsFormInfo;
 }
 
-export default function PresentationsForm({ setShowModal }: PresentationsFormProps): ReactElement {
+export default function PresentationsForm({
+  setShowModal,
+  formInfo,
+}: PresentationsFormProps): ReactElement {
+  const { pathname } = useRouter();
+  const myCheckin = pathname === '/my-checkin';
+
   return (
     <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
@@ -57,24 +67,56 @@ export default function PresentationsForm({ setShowModal }: PresentationsFormPro
             name='userName'
             title='신청자 이름'
             type='text'
+            value={formInfo?.userName}
+            disabled={myCheckin}
             placeholder='실명을 알려 주세요. (예시: 이정재)'
           />
           <FormInput
             name='title'
             title='수요지식회 제목'
             type='text'
+            value={formInfo?.title}
+            disabled={myCheckin}
             placeholder='강연 제목을 입력해 주세요.'
           />
           <FormInput
             name='subject'
             title='수요지식회 주제'
             type='text'
+            value={formInfo?.subject}
+            disabled={myCheckin}
             placeholder='어떤 주제로 강연하시나요?'
           />
-          <FormTextArea name='detail' title='상세 내용' />
-          <FormSelect name='time' title='소요 시간' options={TIMES} span='1' />
-          <FormSelect name='type' title='강연 종류' options={LECTURES} span='1' />
-          <FormSelect name='screen' title='영상 촬영' options={IS_VIDEO} span='1' />
+          <FormTextArea
+            name='detail'
+            title='상세 내용'
+            value={formInfo?.detail}
+            disabled={myCheckin}
+          />
+          <FormSelect
+            name='time'
+            title='소요 시간'
+            options={TIMES}
+            span='1'
+            value={TIMES[formInfo?.time]}
+            disabled={myCheckin}
+          />
+          <FormSelect
+            name='type'
+            title='강연 종류'
+            options={LECTURES}
+            span='1'
+            value={LECTURES[formInfo?.type]}
+            disabled={myCheckin}
+          />
+          <FormSelect
+            name='screen'
+            title='영상 촬영'
+            options={IS_VIDEO}
+            span='1'
+            value={IS_VIDEO[formInfo?.screen]}
+            disabled={myCheckin}
+          />
         </div>
       </FormWrapper>
     </FormContainer>

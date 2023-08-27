@@ -28,9 +28,14 @@ const btnContent = [
 interface StatusBoardProps {
   setSelectFormInfo: Dispatch<SetStateAction<FormInfo>>;
   vocal?: boolean;
+  setSelectCategory: Dispatch<SetStateAction<string>>;
 }
 
-export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardProps): ReactElement {
+export default function StatusBoard({
+  setSelectFormInfo,
+  vocal,
+  setSelectCategory,
+}: StatusBoardProps): ReactElement {
   // const preReq = vocal ? 'visitors' : 'conference-rooms';
   const [category, setCategory] = useState('visitors');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
@@ -57,6 +62,7 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
         key={items.text}
         onClick={() => {
           setCategory(items.url);
+          setSelectCategory(items.url);
         }}
       >
         <button

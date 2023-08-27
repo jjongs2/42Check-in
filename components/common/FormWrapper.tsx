@@ -3,7 +3,7 @@ import formatDate from '@/utils/formatDate';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement, ReactNode, SetStateAction } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, set, useForm } from 'react-hook-form';
 
 import FormSubmitButton from '../common/FormSubmitButton';
 
@@ -50,7 +50,7 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
         className='mx-auto my-10 max-w-xl'
       >
         {children}
-        <FormSubmitButton />
+        {router.pathname !== '/my-checkin' && <FormSubmitButton />}
       </form>
     </FormProvider>
   );

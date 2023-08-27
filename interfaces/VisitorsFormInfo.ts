@@ -1,5 +1,5 @@
 export default interface VisitorsFormInfo {
-  visitorsId: number;
+  formId: number;
   intraId: string;
   visitorsName: string;
   visitDate: Date;
