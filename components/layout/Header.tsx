@@ -93,14 +93,8 @@ export default function Header(): ReactElement {
                     className={`h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out ${
                       isChecked ? 'translate-x-3.5' : 'translate-x-0'
                     }`}
-                  ></span>
+                  />
                 </button>
-                <input
-                  type='checkbox'
-                  defaultChecked={false}
-                  checked={isChecked}
-                  className='sr-only'
-                />
               </div>
             </div>
             <button
