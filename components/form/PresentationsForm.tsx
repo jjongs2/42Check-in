@@ -1,7 +1,6 @@
 import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
-import { time } from 'console';
 import { useRouter } from 'next/router';
-import type { Dispatch, ReactElement, SetStateAction } from 'react';
+import { type Dispatch, type ReactElement, type SetStateAction, useEffect, useState } from 'react';
 
 import FormContainer from '../common/FormContainer';
 import FormInput from '../common/FormInput';
@@ -34,8 +33,17 @@ export default function PresentationsForm({
   setShowModal,
   formInfo,
 }: PresentationsFormProps): ReactElement {
-  const { pathname } = useRouter();
-  const myCheckin = pathname === '/my-checkin';
+  const router = useRouter();
+  const myCheckin = router.pathname.includes('/my-checkin');
+  const [formDetail, setFormDetail] = useState<PresentationsFormInfo>();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { formDetail } = router.query;
+    if (formDetail !== undefined) {
+      setFormDetail(JSON.parse(formDetail as string));
+    }
+  }, [router]);
 
   return (
     <FormContainer>
@@ -67,7 +75,7 @@ export default function PresentationsForm({
             name='userName'
             title='신청자 이름'
             type='text'
-            value={formInfo?.userName}
+            value={formDetail?.userName}
             disabled={myCheckin}
             placeholder='실명을 알려 주세요. (예시: 이정재)'
           />
@@ -75,7 +83,7 @@ export default function PresentationsForm({
             name='title'
             title='수요지식회 제목'
             type='text'
-            value={formInfo?.title}
+            value={formDetail?.title}
             disabled={myCheckin}
             placeholder='강연 제목을 입력해 주세요.'
           />
@@ -83,14 +91,14 @@ export default function PresentationsForm({
             name='subject'
             title='수요지식회 주제'
             type='text'
-            value={formInfo?.subject}
+            value={formDetail?.subject}
             disabled={myCheckin}
             placeholder='어떤 주제로 강연하시나요?'
           />
           <FormTextArea
             name='detail'
             title='상세 내용'
-            value={formInfo?.detail}
+            value={formDetail?.detail}
             disabled={myCheckin}
           />
           <FormSelect
@@ -98,7 +106,7 @@ export default function PresentationsForm({
             title='소요 시간'
             options={TIMES}
             span='1'
-            value={TIMES[formInfo?.time]}
+            value={TIMES[formDetail?.time]}
             disabled={myCheckin}
           />
           <FormSelect
@@ -106,7 +114,7 @@ export default function PresentationsForm({
             title='강연 종류'
             options={LECTURES}
             span='1'
-            value={LECTURES[formInfo?.type]}
+            value={LECTURES[formDetail?.type]}
             disabled={myCheckin}
           />
           <FormSelect
@@ -114,7 +122,7 @@ export default function PresentationsForm({
             title='영상 촬영'
             options={IS_VIDEO}
             span='1'
-            value={IS_VIDEO[formInfo?.screen]}
+            value={IS_VIDEO[formDetail?.screen]}
             disabled={myCheckin}
           />
         </div>

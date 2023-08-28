@@ -1,8 +1,9 @@
 import type FormInfo from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import type { Dispatch, ReactElement, SetStateAction } from 'react';
+import type { ReactElement } from 'react';
 
 import Status from './Status';
 
@@ -26,20 +27,15 @@ const btnContent = [
 ];
 
 interface StatusBoardProps {
-  setSelectFormInfo: Dispatch<SetStateAction<FormInfo>>;
   vocal?: boolean;
-  setSelectCategory: Dispatch<SetStateAction<string>>;
 }
 
-export default function StatusBoard({
-  setSelectFormInfo,
-  vocal,
-  setSelectCategory,
-}: StatusBoardProps): ReactElement {
+export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
   // const preReq = vocal ? 'visitors' : 'conference-rooms';
   const [category, setCategory] = useState('visitors');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
+
   useEffect(() => {
     const config = {
       url: '',
@@ -62,7 +58,6 @@ export default function StatusBoard({
         key={items.text}
         onClick={() => {
           setCategory(items.url);
-          setSelectCategory(items.url);
         }}
       >
         <button
@@ -109,10 +104,11 @@ export default function StatusBoard({
       </div>
       <div className=' mt-6 space-y-5'>
         {responseDataList.map((item, i) => (
-          <div
+          <Link
             key={i}
-            onClick={() => {
-              setSelectFormInfo(responseDataList[i]);
+            href={{
+              pathname: `/my-checkin/${category}`,
+              query: { formDetail: JSON.stringify(item) },
             }}
             className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF]'
           >
@@ -129,7 +125,7 @@ export default function StatusBoard({
               />
             )}
             <Status status={item} />
-          </div>
+          </Link>
         ))}
       </div>
     </div>

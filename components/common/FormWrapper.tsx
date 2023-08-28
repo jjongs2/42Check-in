@@ -50,7 +50,7 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
         className='mx-auto my-10 max-w-xl'
       >
         {children}
-        {router.pathname !== '/my-checkin' && <FormSubmitButton />}
+        {!router.pathname.includes('/my-checkin') && <FormSubmitButton />}
       </form>
     </FormProvider>
   );

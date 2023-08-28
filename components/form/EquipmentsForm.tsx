@@ -1,6 +1,6 @@
 import type EquipmentsFormInfo from '@/interfaces/EquipmentsFormInfo';
 import { useRouter } from 'next/router';
-import type { Dispatch, ReactElement, SetStateAction } from 'react';
+import { type Dispatch, type ReactElement, type SetStateAction, useEffect, useState } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
 import FormContainer from '../common/FormContainer';
@@ -22,8 +22,17 @@ export default function EquipmentsForm({
   setShowModal,
   formInfo,
 }: EquipmentsFormProps): ReactElement {
-  const { pathname } = useRouter();
-  const myCheckin = pathname === '/my-checkin';
+  const router = useRouter();
+  const myCheckin = router.pathname.includes('/my-checkin');
+  const [formDetail, setFormDetail] = useState<EquipmentsFormInfo>();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { formDetail } = router.query;
+    if (formDetail !== undefined) {
+      setFormDetail(JSON.parse(formDetail as string));
+    }
+  }, [router]);
 
   return (
     <FormContainer>
@@ -38,7 +47,7 @@ export default function EquipmentsForm({
             name='userName'
             title='신청자 이름'
             type='text'
-            value={formInfo?.userName}
+            value={formDetail?.userName}
             disabled={myCheckin}
             placeholder='실명을 알려 주세요. (예시: 정우성)'
           />
@@ -46,7 +55,7 @@ export default function EquipmentsForm({
             name='phoneNumber'
             title='연락처'
             type='text'
-            value={formInfo?.phoneNumber}
+            value={formDetail?.phoneNumber}
             disabled={myCheckin}
             placeholder='연락처를 입력해 주세요. (예시: 010-4242-4242)'
           />
@@ -55,7 +64,7 @@ export default function EquipmentsForm({
             title='대여 물품'
             options={EQUIPMENTS}
             span='1'
-            value={EQUIPMENTS[formInfo?.equipment - 1]}
+            value={EQUIPMENTS[formDetail?.equipment - 1]}
             disabled={myCheckin}
             etcName='etcEquipment'
           />
@@ -64,13 +73,13 @@ export default function EquipmentsForm({
             title='대여 목적'
             options={PURPOSES}
             span='1'
-            value={PURPOSES[formInfo?.purpose - 1]}
+            value={PURPOSES[formDetail?.purpose - 1]}
             disabled={myCheckin}
             etcName='etcPurpose'
           />
           <FormTextArea
             name='detail'
-            value={formInfo?.detail}
+            value={formDetail?.detail}
             disabled={myCheckin}
             title='활용 계획 (무엇을, 어떻게, 왜, 언제까지 4가지를 꼭 기재해 주세요.)'
             placeholder='상세히 기술해 주세요.'
@@ -78,13 +87,13 @@ export default function EquipmentsForm({
           <FormTextArea
             name='benefit'
             title='기대 효과'
-            value={formInfo?.benefit}
+            value={formDetail?.benefit}
             disabled={myCheckin}
           />
           <FormSelect
             name='period'
             title='대여 기간'
-            value={PERIODS[formInfo?.period]}
+            value={PERIODS[formDetail?.period]}
             disabled={myCheckin}
             options={PERIODS}
             span='1'
@@ -92,7 +101,7 @@ export default function EquipmentsForm({
           <FormInput
             name='returnDate'
             title='반납 예정일'
-            value={formInfo?.returnDate}
+            value={formDetail?.returnDate}
             disabled={myCheckin}
             type='date'
             span='1'

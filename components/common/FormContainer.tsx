@@ -1,3 +1,5 @@
+import { goBackIcon } from '@/assets/icons';
+import { useRouter } from 'next/router';
 import type { ReactElement, ReactNode } from 'react';
 
 interface FormContainerProps {
@@ -5,6 +7,7 @@ interface FormContainerProps {
 }
 
 export default function FormContainer({ children }: FormContainerProps): ReactElement {
+  const router = useRouter();
   return (
     <div className='isolate bg-white px-8 py-20'>
       <div
@@ -19,6 +22,15 @@ export default function FormContainer({ children }: FormContainerProps): ReactEl
           }}
         />
       </div>
+      <button
+        type='button'
+        onClick={() => {
+          router.back();
+        }}
+        className='absolute left-36 top-24 rounded-full text-gray-700 transition hover:text-[#6A70FF] hover:ring-2 hover:ring-[#6A70FF] hover:ring-offset-0'
+      >
+        {goBackIcon}
+      </button>
       {children}
     </div>
   );
