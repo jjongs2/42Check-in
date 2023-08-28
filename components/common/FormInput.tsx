@@ -32,7 +32,10 @@ export default function FormInput({
 
   return (
     <div className={`col-span-${span}`}>
-      <label htmlFor={title} className='block text-sm font-medium leading-6 text-gray-900 dark:text-gray-300'>
+      <label
+        htmlFor={title}
+        className='block text-sm font-medium leading-6 text-gray-900 dark:text-gray-300'
+      >
         {title}
       </label>
       <div className='mt-2'>

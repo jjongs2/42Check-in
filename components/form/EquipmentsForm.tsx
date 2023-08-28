@@ -37,7 +37,7 @@ export default function EquipmentsForm({
   return (
     <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-700'>
-        <h2 className='border-b dark:text-white border-[#6A70FF] dark:border-gray-300 pb-3 text-3xl font-bold tracking-tight text-[#6A70FF]'>
+        <h2 className='border-b border-[#6A70FF] pb-3 text-3xl font-bold tracking-tight text-[#6A70FF] dark:border-gray-300 dark:text-white'>
           기자재 대여 신청
         </h2>
       </div>

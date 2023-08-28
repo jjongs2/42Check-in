@@ -31,10 +31,14 @@ export default function Status({ status }: StatusProps): ReactElement {
       <div className='border-2 border-gray-300 dark:border-white' />
       <div className='dark:text-white'>{time}</div>
       <div className='border-2 border-gray-300 dark:border-white' />
-      <div className='w-56 overflow-hidden text-ellipsis whitespace-nowrap dark:text-white'>{details}</div>
+      <div className='w-56 overflow-hidden text-ellipsis whitespace-nowrap dark:text-white'>
+        {details}
+      </div>
       <div
         className={cls(
-          status.status !== 0 ? 'bg-green-400 dark:bg-green-900' : 'bg-yellow-300 dark:bg-yellow-500',
+          status.status !== 0
+            ? 'bg-green-400 dark:bg-green-900'
+            : 'bg-yellow-300 dark:bg-yellow-500',
           'relative -top-10 rounded-xl px-4 text-gray-700',
         )}
       >

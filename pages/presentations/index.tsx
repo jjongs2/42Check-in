@@ -36,11 +36,13 @@ export default function Presentations(): ReactElement {
   }, [date]);
 
   return (
-    <div className='m-8 rounded-2xl border-2 border-[#6A70FF] dark:border-green-800 bg-slate-100 dark:bg-gray-500 p-8 shadow-xl'>
+    <div className='m-8 rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-8 shadow-xl dark:border-green-800 dark:bg-gray-500'>
       <div className='flex items-center justify-between border-b-2 dark:text-gray-300'>
         <h1 className='text-xl font-semibold text-gray-600 dark:text-gray-300'>{year}</h1>
         <div>
-          <h3 className='text-xl font-semibold text-gray-600 dark:text-gray-300'>{Number(month)} 월</h3>
+          <h3 className='text-xl font-semibold text-gray-600 dark:text-gray-300'>
+            {Number(month)} 월
+          </h3>
         </div>
         <input
           type='month'
@@ -55,19 +57,21 @@ export default function Presentations(): ReactElement {
           <Link
             key={i}
             href={`/presentations/${item.date}`}
-            className='group flex items-center justify-between rounded-md bg-white dark:bg-gray-700 shadow-xl transition hover:bg-[#6AA6FF] dark:hover:bg-gray-300'
+            className='group flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF] dark:bg-gray-700 dark:hover:bg-gray-300'
           >
             <div className='justify-left flex items-center space-x-2'>
-              <button className='h-16 w-16 rounded-md text-2xl font-semibold text-gray-600 dark:text-white transition group-hover:text-white dark:group-hover:text-gray-700'>
+              <button className='h-16 w-16 rounded-md text-2xl font-semibold text-gray-600 transition group-hover:text-white dark:text-white dark:group-hover:text-gray-700'>
                 {item.date.split('-')[2]}
               </button>
               <div className='overflow-hidden'>
-                <h1 className='animate-slide whitespace-nowrap font-semibold text-gray-800 dark:text-white transition dark:group-hover:text-gray-800'>
+                <h1 className='animate-slide whitespace-nowrap font-semibold text-gray-800 transition dark:text-white dark:group-hover:text-gray-800'>
                   {item.subject !== null
                     ? `제목 : ${item.subject}`
                     : '신청을 기다리고 있습니다. 🤔'}
                 </h1>
-                <h5 className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>{item.intraId !== null && `${item.intraId} 😎`}</h5>
+                <h5 className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>
+                  {item.intraId !== null && `${item.intraId} 😎`}
+                </h5>
               </div>
             </div>
             <button className='mr-4 rounded-xl px-3 text-white group-hover:bg-white dark:group-hover:bg-gray-500'>

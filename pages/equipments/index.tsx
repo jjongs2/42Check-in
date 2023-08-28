@@ -11,11 +11,14 @@ export default function EquipmentsType(): ReactElement {
     <ModalWrapper>
       <ModalText>신청 유형을 선택해 주세요.</ModalText>
       <div className='flex justify-center space-x-2'>
-        <Link href={`${pathname}/new`} className='button-modal dark:border-white dark:border group'>
-          <p className= 'dark:text-white dark:group-hover:text-black'>신규</p>
+        <Link href={`${pathname}/new`} className='button-modal group dark:border dark:border-white'>
+          <p className='dark:text-white dark:group-hover:text-black'>신규</p>
         </Link>
-        <Link href={`${pathname}/extension`} className='button-modal dark:border-white dark:border group'>
-          <p className= 'dark:text-white dark:group-hover:text-black'>연장</p>
+        <Link
+          href={`${pathname}/extension`}
+          className='button-modal group dark:border dark:border-white'
+        >
+          <p className='dark:text-white dark:group-hover:text-black'>연장</p>
         </Link>
       </div>
     </ModalWrapper>
