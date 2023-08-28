@@ -74,7 +74,7 @@ export default function Presentations(): ReactElement {
                 </h5>
               </div>
             </div>
-            <button className='mr-4 rounded-xl px-3 text-white group-hover:bg-white dark:group-hover:bg-gray-500'>
+            <button className='mr-4 rounded-xl px-3 text-black dark:text-white group-hover:bg-white dark:group-hover:bg-gray-500'>
               {item.formId !== null ? '대기 ' : '신청'}
             </button>
           </Link>
