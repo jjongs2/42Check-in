@@ -82,7 +82,7 @@ export default function Calendar(): ReactElement {
             {` ${currentYear}년 ${currentMonth + 1}월`}
           </div>
           <div className='flex space-x-4'>
-            <button className='rounded bg-green-400 p-2 text-white' onClick={handlePrevMonthClick}>
+            <button className='rounded bg-green-400 dark:bg-gray-400 p-2 text-white' onClick={handlePrevMonthClick}>
               <svg width={15} height={15} fill='currentColor' viewBox='0 0 24 24'>
                 <path
                   fill='currentColor'
@@ -90,7 +90,7 @@ export default function Calendar(): ReactElement {
                 ></path>
               </svg>
             </button>
-            <button className='rounded bg-green-400 p-2 text-white' onClick={handleNextMonthClick}>
+            <button className='rounded bg-green-400 dark:bg-gray-400 p-2 text-white' onClick={handleNextMonthClick}>
               <svg width={15} height={15} fill='currentColor' viewBox='0 0 24 24'>
                 <path
                   fill='currentColor'

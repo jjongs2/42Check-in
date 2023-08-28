@@ -74,7 +74,7 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
   return (
     <div className='m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
       {/* 위에 버튼 4개있는 부분 */}
-      <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-10 pb-4'>
+      <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white dark:bg-slate-700 p-10 pb-4'>
         <div className='flex items-center space-x-2'>
           {vocal && (
             <input
@@ -110,7 +110,7 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
               pathname: `/my-checkin/${category}`,
               query: { formDetail: JSON.stringify(item) },
             }}
-            className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF]'
+            className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
           >
             {vocal && (
               <input

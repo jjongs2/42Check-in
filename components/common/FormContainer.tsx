@@ -27,7 +27,7 @@ export default function FormContainer({ children }: FormContainerProps): ReactEl
         onClick={() => {
           router.back();
         }}
-        className='absolute left-36 top-24 rounded-full text-gray-700 transition hover:text-[#6A70FF] hover:ring-2 hover:ring-[#6A70FF] hover:ring-offset-0'
+        className='absolute left-36 top-24 rounded-full text-gray-700 dark:text-white transition hover:text-[#6A70FF] hover:ring-2 hover:ring-[#6A70FF] dark:ring-white hover:ring-offset-0'
       >
         {goBackIcon}
       </button>

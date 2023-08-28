@@ -39,9 +39,9 @@ body {
 }
 
 .notSeletBtn {
-  @apply border-2 border-[#6A70FF] bg-[#6A70FF] dark:border-2 dark:border-slate-700 dark:bg-slate-700 dark:text-white dark:hover:text-slate-700;
+  @apply border-2 border-[#6A70FF] bg-[#6A70FF] dark:border-2 dark:border-white dark:bg-slate-700 dark:text-white dark:hover:text-slate-700;
 }
 
 .seletBtn {
-  @apply border-2 border-[#6AA6FF] bg-[#6AA6FF] dark:border-2 dark:border-slate-700 dark:bg-white dark:text-slate-700;
+  @apply border-2 border-[#6AA6FF] bg-[#6AA6FF] dark:border-2 dark:border-slate-700 dark:bg-white dark:text-black;
 }
