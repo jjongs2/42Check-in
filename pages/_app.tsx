@@ -31,6 +31,7 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   }, []);
 
   useEffect(() => {
+    if (!router.isReady) return;
     if (router.pathname.includes('/login')) {
       setHasAccess(true);
       return;

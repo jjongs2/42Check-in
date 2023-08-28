@@ -45,7 +45,6 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
   };
 
   useEffect(() => {
-    if (!router.isReady) return;
     const { date, formDetail } = router.query;
     setSelectedDate(formatDate(new Date(date as string)));
     if (formDetail !== undefined) {

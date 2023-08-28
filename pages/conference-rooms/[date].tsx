@@ -95,7 +95,6 @@ export default function Timetable(): ReactElement {
   }, [date]);
 
   useEffect(() => {
-    if (!router.isReady) return;
     const date = parseDate(router.query);
     if (date === null) {
       void router.push('/');

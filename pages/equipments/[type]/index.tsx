@@ -13,7 +13,6 @@ export default function EquipmentsType(): ReactElement {
   const [type, setType] = useState<string | string[]>();
 
   useEffect(() => {
-    if (!router.isReady) return;
     setType(router.query.type);
   }, [router]);
 

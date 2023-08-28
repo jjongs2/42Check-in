@@ -18,7 +18,6 @@ export default function Calendar(): ReactElement {
   const [lastDate, setLastDate] = useState(0);
   const [disabledDate, setDisabledDate] = useState(false);
 
-
   function handlePrevMonthClick(): void {
     if (prevMonth.current === 0) {
       setCurrentMonth(11);
@@ -42,7 +41,7 @@ export default function Calendar(): ReactElement {
       return;
     }
     setDisabledDate(false);
-  }, [currentMonth])
+  }, [currentMonth]);
 
   useEffect(() => {
     async function fetchData(): Promise<void> {

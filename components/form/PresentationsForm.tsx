@@ -38,7 +38,6 @@ export default function PresentationsForm({
   const [formDetail, setFormDetail] = useState<PresentationsFormInfo>();
 
   useEffect(() => {
-    if (!router.isReady) return;
     const { formDetail } = router.query;
     if (formDetail !== undefined) {
       setFormDetail(JSON.parse(formDetail as string));

@@ -27,7 +27,6 @@ export default function EquipmentsForm({
   const [formDetail, setFormDetail] = useState<EquipmentsFormInfo>();
 
   useEffect(() => {
-    if (!router.isReady) return;
     const { formDetail } = router.query;
     if (formDetail !== undefined) {
       setFormDetail(JSON.parse(formDetail as string));

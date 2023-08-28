@@ -8,7 +8,6 @@ export default function Login(): ReactElement {
   const router = useRouter();
 
   useEffect(() => {
-    if (!router.isReady) return;
     const fetchData = async (): Promise<void> => {
       const { code } = router.query;
       const config = {
@@ -25,7 +24,7 @@ export default function Login(): ReactElement {
       await router.push('/');
     };
     void fetchData();
-  }, [router, router.isReady]);
+  }, [router]);
 
   return <Loading />;
 }

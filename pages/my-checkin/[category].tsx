@@ -9,7 +9,6 @@ export default function FormDetail(): ReactElement {
   const router = useRouter();
 
   useEffect(() => {
-    if (!router.isReady) return;
     const data = router.query;
     switch (data.category) {
       case 'visitors':
