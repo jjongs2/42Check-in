@@ -56,7 +56,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
   return (
     <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900 dark:text-gray-300'>
-        <h2 className='border-b border-[#6A70FF] dark:border-gray-300 pb-3 text-3xl font-bold tracking-tight text-[#6A70FF] dark:text-gray-300'>
+        <h2 className='border-b border-[#6A70FF] pb-3 text-3xl font-bold tracking-tight text-[#6A70FF] dark:border-gray-300 dark:text-gray-300'>
           외부인 초대 사전 승인 신청
         </h2>
         <p className='pt-5'>안녕하세요. 폴라베어입니다.</p>
@@ -107,12 +107,12 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             disabled={myCheckin}
           />
           <FormInput
-            name='visitDate'
+            name='date'
             title='방문 예정 날짜'
             type='date'
             span='1'
             registerOptions={{ onChange: handleDateChange }}
-            value={formDetail?.visitDate || selectedDate}
+            value={formDetail?.date.toISOString() ?? selectedDate}
             disabled={myCheckin}
           />
           <FormInput

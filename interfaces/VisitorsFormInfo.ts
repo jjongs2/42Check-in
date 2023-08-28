@@ -2,7 +2,7 @@ export default interface VisitorsFormInfo {
   formId: number;
   intraId: string;
   visitorsName: string;
-  visitDate: Date;
+  date: Date;
   visitTime: string;
   visitPurpose: number;
   relationWithUser: number;
