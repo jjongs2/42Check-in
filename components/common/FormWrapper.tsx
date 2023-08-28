@@ -23,7 +23,7 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
     const config = {
       url: `/${category}/form`,
       method: 'POST',
-      data: { date: formattedDate, ...data },
+      data: { ...data, date: formattedDate },
     };
     if (category === 'equipments') {
       config.url = `/equipments/form/${rentalType}`;
