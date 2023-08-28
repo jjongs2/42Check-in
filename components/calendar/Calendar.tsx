@@ -16,6 +16,8 @@ export default function Calendar(): ReactElement {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [firstDays, setFirstDays] = useState<number[]>([]);
   const [lastDate, setLastDate] = useState(0);
+  const [disabledDate, setDisabledDate] = useState(false);
+
 
   function handlePrevMonthClick(): void {
     if (prevMonth.current === 0) {
@@ -32,6 +34,15 @@ export default function Calendar(): ReactElement {
     }
     setCurrentMonth(currentMonth + 1);
   }
+
+  useEffect(() => {
+    const today = new Date();
+    if (currentMonth <= today.getMonth() && currentYear <= today.getFullYear()) {
+      setDisabledDate(true);
+      return;
+    }
+    setDisabledDate(false);
+  }, [currentMonth])
 
   useEffect(() => {
     async function fetchData(): Promise<void> {
@@ -85,6 +96,7 @@ export default function Calendar(): ReactElement {
             <button
               className='rounded bg-green-400 p-2 text-white dark:bg-gray-400'
               onClick={handlePrevMonthClick}
+              disabled={disabledDate}
             >
               <svg width={15} height={15} fill='currentColor' viewBox='0 0 24 24'>
                 <path
