@@ -11,4 +11,5 @@ export default interface EquipmentsFormInfo {
   formId: number;
   etcEquipment: string;
   etcPurpose: string;
+  status: number;
 }

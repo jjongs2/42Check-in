@@ -11,4 +11,5 @@ export default interface VisitorsFormInfo {
   etcRelation: string;
   etcPlace: string;
   agreement: boolean;
+  status: number;
 }

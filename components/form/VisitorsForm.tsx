@@ -76,7 +76,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             title='방문자 이름'
             type='text'
             placeholder='어떤 분을 데려 오시나요? 이름을 알려 주세요.'
-            value={formDetail?.visitorsName ?? ''}
+            value={formDetail?.visitorsName}
             disabled={myCheckin}
           />
           <FormSelect
@@ -85,7 +85,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             options={RELATIONS}
             etcName='etcRelation'
             placeholder='방문자와 어떤 사이신가요?'
-            value={RELATIONS[formDetail?.relationWithUser - 1] ?? ''}
+            value={RELATIONS[formDetail?.relationWithUser - 1]}
             disabled={myCheckin}
           />
           <FormSelect
@@ -94,7 +94,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             options={PURPOSES}
             etcName='etcPurpose'
             placeholder='방문 목적을 선택해 주세요.'
-            value={PURPOSES[formDetail?.visitPurpose - 1] ?? ''}
+            value={PURPOSES[formDetail?.visitPurpose - 1]}
             disabled={myCheckin}
           />
           <FormSelect
@@ -103,7 +103,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             options={PLACES}
             etcName='etcPlace'
             placeholder='방문 목적을 선택해 주세요.'
-            value={PLACES[formDetail?.visitPlace - 1] ?? ''}
+            value={PLACES[formDetail?.visitPlace - 1]}
             disabled={myCheckin}
           />
           <FormInput
