@@ -36,8 +36,8 @@ export default function EquipmentsForm({
 
   return (
     <FormContainer>
-      <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
-        <h2 className='border-b border-[#6A70FF] pb-3 text-3xl font-bold tracking-tight text-[#6A70FF]'>
+      <div className='mx-auto max-w-2xl pb-5 text-gray-700'>
+        <h2 className='border-b dark:text-white border-[#6A70FF] dark:border-gray-300 pb-3 text-3xl font-bold tracking-tight text-[#6A70FF]'>
           기자재 대여 신청
         </h2>
       </div>
@@ -87,7 +87,8 @@ export default function EquipmentsForm({
           <FormTextArea
             name='benefit'
             title='기대 효과'
-            value={formDetail?.benefit}
+            placeholder='상세히 기술해 주세요.'
+            value={formInfo?.benefit}
             disabled={myCheckin}
           />
           <FormSelect

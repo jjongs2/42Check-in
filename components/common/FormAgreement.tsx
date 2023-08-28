@@ -20,8 +20,8 @@ export default function FormAgreement({ children }: FormAgreementProps): ReactEl
       <div className='flex h-6 items-center'>
         <button
           type='button'
-          className={`flex w-8 flex-none cursor-pointer rounded-full bg-gray-200 p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
-            isChecked ? 'bg-indigo-600' : ''
+          className={`flex w-8 flex-none cursor-pointer rounded-full first-letter:p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-900 ${
+            isChecked ? 'bg-indigo-600 dark:bg-indigo-800' : 'bg-gray-200 dark:bg-slate-300'
           }`}
           role='switch'
           aria-checked={isChecked}
@@ -43,7 +43,7 @@ export default function FormAgreement({ children }: FormAgreementProps): ReactEl
           {...register('agreement', { required: true })}
         />
       </div>
-      <label className='text-sm leading-6 text-gray-600' id='switch-1-label'>
+      <label className='text-sm leading-6 text-gray-600 dark:text-white' id='switch-1-label'>
         {children}
       </label>
     </div>

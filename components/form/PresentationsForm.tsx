@@ -47,8 +47,8 @@ export default function PresentationsForm({
 
   return (
     <FormContainer>
-      <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
-        <h2 className='border-b border-[#6A70FF] pb-3 text-3xl font-bold tracking-tight text-[#6A70FF]'>
+      <div className='mx-auto max-w-2xl pb-5 text-gray-900 dark:text-gray-300'>
+        <h2 className='border-b border-[#6A70FF] dark:border-gray-300 pb-3 text-3xl font-bold tracking-tight text-[#6A70FF] dark:text-gray-300'>
           수요지식회 신청
         </h2>
         <p className='pt-5'>1. 주제는 소프트웨어 개발자로 성장하기에 도움이 될 만한 주제입니다.</p>
