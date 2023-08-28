@@ -67,14 +67,9 @@ export default function Header(): ReactElement {
     <>
       <header className='fixed z-50 w-screen bg-[#4069FD] dark:bg-slate-700'>
         <nav className='flex items-center justify-between px-10'>
-          <button
-            className='flex py-2'
-            onClick={async () => {
-              await router.push('/');
-            }}
-          >
+          <Link href='/' className='flex py-2'>
             {Logo}
-          </button>
+          </Link>
           <div className='flex items-center justify-center space-x-4'>
             <div className='col-span-full flex space-x-2'>
               <div className='flex h-6 items-center'>
@@ -97,7 +92,8 @@ export default function Header(): ReactElement {
                 </button>
               </div>
             </div>
-            <button
+            <div
+              className='cursor-pointer'
               onClick={() => {
                 showNotice === 2 ? setShowNotice(1) : setShowNotice(showNotice ^ 1);
                 const config = {
@@ -136,8 +132,9 @@ export default function Header(): ReactElement {
               <div className='absolute right-[80px] top-2 flex aspect-square h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-sm text-white transition dark:bg-violet-300'>
                 {noticeInfo.length}
               </div>
-            </button>
-            <button
+            </div>
+            <div
+              className='cursor-pointer'
               onClick={() => {
                 showNotice === 1 ? setShowNotice(2) : setShowNotice(showNotice ^ 2);
               }}
@@ -173,7 +170,7 @@ export default function Header(): ReactElement {
                   </button>
                 </div>
               )}
-            </button>
+            </div>
           </div>
         </nav>
       </header>
