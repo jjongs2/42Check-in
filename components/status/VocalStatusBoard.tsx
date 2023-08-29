@@ -12,10 +12,6 @@ import Status from './Status';
 
 const btnContent = [
   {
-    text: '회의실 예약',
-    url: 'conference-rooms',
-  },
-  {
     text: '외부인 초대',
     url: 'visitors',
   },
@@ -30,16 +26,17 @@ const btnContent = [
 ];
 
 export default function StatusBoard(): ReactElement {
-  const [category, setCategory] = useState('visitors');
+  const [category, setCategory] = useState('equipments');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectForm, setSelectForm] = useState<FormInfo>();
   const { mouseOnIndex, handleMouseOut, handleMouseOver } = useHandleMouseIndex();
+  const [checkedList, setCheckedList] = useState<number[]>([]);
 
   useEffect(() => {
     const config = {
-      url: `/my-checkin/${category}`,
+      url: `/vocal/subscriptions/${category}`,
     };
     async function fecthForms(): Promise<void> {
       const { data } = await apiController(config);
@@ -68,20 +65,41 @@ export default function StatusBoard(): ReactElement {
     );
   });
 
-  const onClick = async (formId: number): Promise<void> => {
-    const config = {
-      url: `/${category}/cancel`,
-      method: 'POST',
-      data: { formId },
-    };
-    await apiController(config);
-  };
+  // const onClick = async (formId: number): Promise<void> => {
+  //   const config = {
+  //     url: `/${category}/cancel`,
+  //     method: 'POST',
+  //     data: { formId },
+  //   };
+  //   await apiController(config);
+  // };
 
   return (
-    <div className='m-10 flex max-h-[80wh] min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
+    <div className='m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
       {/* 위에 버튼 4개있는 부분 */}
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-10 pb-4 dark:bg-slate-700'>
-        <div className='flex items-center space-x-2'>{btnBox}</div>
+        <div className='flex items-center space-x-2'>
+          <input
+            value='white'
+            type='checkbox'
+            defaultChecked={false}
+            checked={checked}
+            onChange={() => {
+              setChecked(!checked);
+            }}
+            className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
+          />
+          {btnBox}
+        </div>
+        <div className='flex space-x-4'>
+          <button className='rounded-full px-2 transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl'>
+            승인
+          </button>
+          <div className='my-2 border-2 border-gray-300' />
+          <button className='rounded-full px-2 transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl'>
+            거절
+          </button>
+        </div>
       </div>
       <div
         onMouseOut={() => {
@@ -101,6 +119,16 @@ export default function StatusBoard(): ReactElement {
             }}
             className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
           >
+            <input
+              value='white'
+              type='checkbox'
+              defaultChecked={false}
+              checked={checked}
+              onChange={() => {
+                setChecked(!checked);
+              }}
+              className='h-6 w-6 rounded border-gray-300 transition'
+            />
             <Status
               status={item}
               setShowModal={setShowModal}
@@ -120,12 +148,12 @@ export default function StatusBoard(): ReactElement {
                 }}
                 className='button-modal'
               >
-                취소
+                승인
               </button>
               <button
                 onClick={(event) => {
                   event.preventDefault();
-                  void onClick(selectForm?.formId);
+                  // void onClick(selectForm?.formId);
                   setShowModal(false);
                 }}
                 className='button-modal'

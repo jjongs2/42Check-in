@@ -15,7 +15,7 @@ const PURPOSES = ['42 과제'];
 
 interface EquipmentsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
-  formInfo: EquipmentsFormInfo;
+  formInfo?: EquipmentsFormInfo;
 }
 
 export default function EquipmentsForm({

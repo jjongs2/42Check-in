@@ -1,6 +1,6 @@
 import ModalText from '@/components/common/ModalText';
 import ModalWrapper from '@/components/common/ModalWrapper';
-import StatusBoard from '@/components/status/StatusBoard';
+import VocalStatusBoard from '@/components/status/VocalStatusBoard';
 import Link from 'next/link';
 import { type ReactElement, useState } from 'react';
 
@@ -25,8 +25,7 @@ export default function Vocal(): ReactElement {
 
   return (
     <div>
-      <StatusBoard setSelectFormInfo={setSelectFormInfo} vocal />
-      {console.log('너들어왔니??')}
+      <VocalStatusBoard />
     </div>
   );
 }
