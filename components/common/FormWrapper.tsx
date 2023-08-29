@@ -1,5 +1,5 @@
 import apiController from '@/utils/apiController';
-import dayjs from 'dayjs';
+import getISODate from '@/utils/getISODate';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement, ReactNode, SetStateAction } from 'react';
@@ -23,7 +23,7 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
     const config = {
       url: `/${category}/form`,
       method: 'POST',
-      data: { ...data, date: dayjs(date).format('YYYY-MM-DD') },
+      data: { ...data, date: getISODate(date) },
     };
     if (category === 'equipments') {
       config.url = `/equipments/form/${rentalType}`;
