@@ -21,12 +21,11 @@ interface CalendarRowProps {
 function CalendarDate({ date, month, year, isToday = false }: CalendarDateProps): ReactElement {
   const { pathname } = useRouter();
   const config = {
-    href: `${pathname}/form`,
+    pathname: `${pathname}/form`,
     query: {
       date: `${year}-${month}-${date}`,
     },
   };
-  console.log(config)
   return (
     <td className='relative px-2 py-3 text-center text-gray-800 hover:text-blue-500 dark:text-gray-100 md:px-3'>
       <Link
