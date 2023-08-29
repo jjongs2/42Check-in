@@ -23,7 +23,7 @@ function CalendarDate({ date, month, year, isToday = false }: CalendarDateProps)
   const config = {
     pathname: `${router.asPath}/form`,
     query: {
-      date: `${year}-${month}-${date}`,
+      date: `${year}-${month + 1}-${date}`,
     },
   };
   return (

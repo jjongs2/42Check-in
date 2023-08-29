@@ -52,7 +52,6 @@ export default function Calendar(): ReactElement {
         url: `/conference-rooms/calendar/${currentYear}/${currentMonth + 1}`,
       };
       const { data } = await apiController(config);
-      console.log(data);
       setAvailableDates(decodeDates(data));
     }
     async function handleCurrentYear(): Promise<void> {

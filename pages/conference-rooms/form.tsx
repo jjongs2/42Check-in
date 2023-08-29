@@ -1,38 +1,81 @@
+import OkModal from '@/components/modal/OkModal';
 import apiController from '@/utils/apiController';
+import getDurations from '@/utils/getDurations';
+import getHoursIndex from '@/utils/getHoursIndex';
 import getISODate from '@/utils/getISODate';
 import { Calendar } from '@fullcalendar/core';
+import type { EventInput, EventSourceInput } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
-function getHoursIndex(time: Date): number {
-  const hours = time.getHours() + time.getMinutes() / 60;
-  return (hours - 8) * 2;
+interface TimeMasks {
+  gaepo: number[];
+  seocho: number[];
 }
+
+const ROOM_IDS = [
+  '0b01000001111111111111111111111111',
+  '0b01000010111111111111111111111111',
+  '0b01000100111111111111111111111111',
+  '0b01001000111111111111111111111111',
+  '0b01010000111111111111111111111111',
+  '0b10000001111111111111111111111111',
+  '0b10000010111111111111111111111111',
+];
 
 export default function Timeline(): ReactElement {
   const calendarRef = useRef(null);
   const router = useRouter();
   const [date, setDate] = useState<string>();
+  const [events, setEvents] = useState<EventSourceInput>();
+  const [roomId, setRoomId] = useState<number>();
+  const [showModal, setShowModal] = useState(false);
   const [startIndex, setStartIndex] = useState<number>();
   const [endIndex, setEndIndex] = useState<number>();
 
-  function getTimeMask(): number {
-    let mask = 0b0;
+  function getMask(): number {
+    let mask = 0xff000000;
     for (let i = 0; i < 24; ++i) {
       if (startIndex <= i && i < endIndex) {
         mask |= 1 << i;
       }
     }
-    for (let i = 24; i < 30; ++i) {}
-    for (let i = 30; i < 32; ++i) {}
-    return mask;
+    return mask & roomId;
+  }
+
+  function setEventTimes(timeMasks: TimeMasks): void {
+    const eventInputs: EventInput[] = [];
+    const masks = [...Object.values(timeMasks.gaepo), ...Object.values(timeMasks.seocho)];
+    masks.forEach((mask, index) => {
+      const durations = getDurations(mask, date);
+      durations.forEach((duration) => {
+        const [start, end] = duration;
+        eventInputs.push({
+          resourceId: ROOM_IDS[index],
+          start,
+          end,
+        });
+      });
+    });
+    setEvents(eventInputs);
   }
 
   function handleSubmitClick(): void {
-    console.log(getTimeMask().toString(2));
+    if (roomId === undefined) return;
+    async function fetchData(): Promise<void> {
+      const reservationInfo = getMask();
+      const config = {
+        url: '/conference-rooms/form',
+        method: 'post',
+        data: { date, reservationInfo },
+      };
+      await apiController(config);
+      setShowModal(true);
+    }
+    void fetchData();
   }
 
   useEffect(() => {
@@ -42,20 +85,17 @@ export default function Timeline(): ReactElement {
         url: `/conference-rooms/place-time/${date}`,
       };
       const { data } = await apiController(config);
-      console.log(data);
-      // setData(data);
+      setEventTimes(data);
     }
     void fetchData();
+  }, [date]);
+
+  useEffect(() => {
+    if (events === undefined) return;
     if (calendarRef.current === null) return;
     const calendarEl = calendarRef.current;
     const calendar = new Calendar(calendarEl, {
-      events: [
-        {
-          resourceId: '3',
-          start: '2023-08-28T14:00:00+09:00',
-          end: '2023-08-28T15:00:00+09:00',
-        },
-      ],
+      events,
       eventDisplay: 'background',
       headerToolbar: {
         left: '',
@@ -68,18 +108,19 @@ export default function Timeline(): ReactElement {
       locale: 'ko',
       plugins: [interactionPlugin, resourceTimelinePlugin],
       resources: [
-        { id: '1', location: '개포', title: 'Cluster1-1' },
-        { id: '2', location: '개포', title: 'Cluster1-2' },
-        { id: '3', location: '개포', title: 'Cluster-X' },
-        { id: '4', location: '개포', title: 'Cluster3-1' },
-        { id: '5', location: '개포', title: 'Cluster3-2' },
-        { id: '6', location: '서초', title: 'Cluster7' },
-        { id: '7', location: '서초', title: 'Cluster9' },
+        { id: ROOM_IDS[0], location: '개포', title: 'Cluster1-1' },
+        { id: ROOM_IDS[1], location: '개포', title: 'Cluster1-2' },
+        { id: ROOM_IDS[2], location: '개포', title: 'Cluster-X' },
+        { id: ROOM_IDS[3], location: '개포', title: 'Cluster3-1' },
+        { id: ROOM_IDS[4], location: '개포', title: 'Cluster3-2' },
+        { id: ROOM_IDS[5], location: '서초', title: 'Cluster7' },
+        { id: ROOM_IDS[6], location: '서초', title: 'Cluster9' },
       ],
       resourceAreaWidth: '150px',
       resourceAreaColumns: [{ field: 'title' }],
       resourceGroupField: 'location',
-      select: function ({ start, end }) {
+      select: function ({ resource, start, end }) {
+        setRoomId(Number(resource._resource.id));
         setStartIndex(getHoursIndex(start));
         setEndIndex(getHoursIndex(end));
       },
@@ -100,11 +141,11 @@ export default function Timeline(): ReactElement {
       },
     });
     calendar.render();
-  }, [date]);
+  }, [events]);
 
   useEffect(() => {
-    const date = router.query.date as string;
-    setDate(getISODate(date));
+    const { date } = router.query;
+    setDate(getISODate(date as string));
   }, [router]);
 
   return (
@@ -115,6 +156,11 @@ export default function Timeline(): ReactElement {
       >
         Check-in
       </button>
+      {showModal && (
+        <OkModal>
+          <p>회의실 예약이 완료되었습니다.</p>
+        </OkModal>
+      )}
     </div>
   );
 }
