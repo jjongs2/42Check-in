@@ -1,4 +1,5 @@
 import type VisitorsFormInfo from '@/interfaces/VisitorsFormInfo';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import type { ChangeEvent, Dispatch, ReactElement, SetStateAction } from 'react';
@@ -45,7 +46,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
 
   useEffect(() => {
     const { date, formDetail } = router.query;
-    setSelectedDate(date as string);
+    setSelectedDate(dayjs(date as string).format('YYYY-MM-DD'));
     if (formDetail !== undefined) {
       setFormDetail(JSON.parse(formDetail as string));
     }

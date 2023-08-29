@@ -1,8 +1,9 @@
 import apiController from '@/utils/apiController';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement, ReactNode, SetStateAction } from 'react';
-import { FormProvider, set, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import FormSubmitButton from '../common/FormSubmitButton';
 
@@ -22,7 +23,7 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
     const config = {
       url: `/${category}/form`,
       method: 'POST',
-      data: { ...data, date },
+      data: { ...data, date: dayjs(date).format('YYYY-MM-DD') },
     };
     if (category === 'equipments') {
       config.url = `/equipments/form/${rentalType}`;

@@ -22,7 +22,6 @@ export default function Presentations(): ReactElement {
   const [presentationsInfo, setPresentationsInfo] = useState<Data[]>([]);
 
   useEffect(() => {
-    console.log(date);
     async function getMonthData(): Promise<void> {
       const config = {
         url: '/presentations',
@@ -57,7 +56,12 @@ export default function Presentations(): ReactElement {
         {presentationsInfo.map((item, i: number) => (
           <Link
             key={i}
-            href={`/presentations/${item.date}`}
+            href={{
+              pathname: '/presentations/form',
+              query: {
+                date: date.format('YYYY-M-D'),
+              },
+            }}
             className='group flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF] dark:bg-gray-700 dark:hover:bg-gray-300'
           >
             <div className='justify-left flex items-center space-x-2'>

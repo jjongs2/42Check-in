@@ -19,9 +19,9 @@ interface CalendarRowProps {
 }
 
 function CalendarDate({ date, month, year, isToday = false }: CalendarDateProps): ReactElement {
-  const { pathname } = useRouter();
+  const router = useRouter();
   const config = {
-    pathname: `${pathname}/form`,
+    pathname: `${router.asPath}/form`,
     query: {
       date: `${year}-${month}-${date}`,
     },
