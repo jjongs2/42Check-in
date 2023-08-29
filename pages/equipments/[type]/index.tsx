@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 
-export default function EquipmentsType(): ReactElement {
+export default function RentalList(): ReactElement {
   const router = useRouter();
   const [formInfos, setFormInfos] = useState<EquipmentsFormInfo[]>([]);
   const [type, setType] = useState<string | string[]>();

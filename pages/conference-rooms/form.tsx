@@ -1,6 +1,4 @@
 import apiController from '@/utils/apiController';
-import formatDate from '@/utils/formatDate';
-import parseDate from '@/utils/parseDate';
 import { Calendar } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
@@ -13,10 +11,10 @@ function getHoursIndex(time: Date): number {
   return (hours - 8) * 2;
 }
 
-export default function Timetable(): ReactElement {
+export default function Timeline(): ReactElement {
   const calendarRef = useRef(null);
   const router = useRouter();
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<string>();
   const [startIndex, setStartIndex] = useState<number>();
   const [endIndex, setEndIndex] = useState<number>();
 
@@ -95,16 +93,11 @@ export default function Timetable(): ReactElement {
   }, [date]);
 
   useEffect(() => {
-    const date = parseDate(router.query);
-    if (date === null) {
-      void router.push('/');
-      return;
-    }
+    const date = router.query.date as string;
     setDate(date);
-    const formattedDate = formatDate(date);
     async function fetchData(): Promise<void> {
       const config = {
-        url: `/conference-rooms/place-time/${formattedDate}`,
+        url: `/conference-rooms/place-time/${date}`,
       };
       const { data } = await apiController(config);
       console.log(data);

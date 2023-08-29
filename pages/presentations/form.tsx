@@ -3,7 +3,7 @@ import OkModal from '@/components/modal/OkModal';
 import { useState } from 'react';
 import type { ReactElement } from 'react';
 
-export default function PresentationApplication(): ReactElement {
+export default function Form(): ReactElement {
   const [showModal, setShowModal] = useState(false);
   return (
     <div>

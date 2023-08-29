@@ -1,8 +1,8 @@
 import apiController from '@/utils/apiController';
-import formatDate from '@/utils/formatDate';
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import dayjs from 'dayjs';
 import Link from 'next/link';
-import { type ReactElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { ReactElement } from 'react';
 
 interface Data {
   formId: number;
@@ -18,16 +18,15 @@ interface Data {
 }
 
 export default function Presentations(): ReactElement {
-  const [date, setDate] = useState(formatDate());
+  const [date, setDate] = useState(dayjs());
   const [presentationsInfo, setPresentationsInfo] = useState<Data[]>([]);
-  const [year, month] = date.split('-').map(Number);
-  const today = new Date().getDate();
 
   useEffect(() => {
+    console.log(date);
     async function getMonthData(): Promise<void> {
       const config = {
         url: '/presentations',
-        params: { month: date },
+        params: { month: date.format('YYYY-MM-DD') },
       };
       const { data } = await apiController(config);
       setPresentationsInfo(data);
@@ -38,17 +37,19 @@ export default function Presentations(): ReactElement {
   return (
     <div className='m-8 rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-8 shadow-xl dark:border-green-800 dark:bg-gray-500'>
       <div className='flex items-center justify-between border-b-2 dark:text-gray-300'>
-        <h1 className='text-xl font-semibold text-gray-600 dark:text-gray-300'>{year}</h1>
+        <h1 className='text-xl font-semibold text-gray-600 dark:text-gray-300'>
+          {date.get('year')}
+        </h1>
         <div>
           <h3 className='text-xl font-semibold text-gray-600 dark:text-gray-300'>
-            {Number(month)} 월
+            {date.get('month') + 1} 월
           </h3>
         </div>
         <input
           type='month'
           className='bg-slate-100 dark:bg-gray-500'
-          onChange={(e) => {
-            setDate(formatDate(new Date(`${e.target.value}-${today}`)));
+          onChange={(event) => {
+            setDate(dayjs(`${event.target.value}-01`));
           }}
         />
       </div>
@@ -74,7 +75,7 @@ export default function Presentations(): ReactElement {
                 </h5>
               </div>
             </div>
-            <button className='mr-4 rounded-xl px-3 text-black dark:text-white group-hover:bg-white dark:group-hover:bg-gray-500'>
+            <button className='mr-4 rounded-xl px-3 text-black group-hover:bg-white dark:text-white dark:group-hover:bg-gray-500'>
               {item.formId !== null ? '대기 ' : '신청'}
             </button>
           </Link>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
-export default function EquipmentsType(): ReactElement {
+export default function RentalType(): ReactElement {
   const { pathname } = useRouter();
 
   return (

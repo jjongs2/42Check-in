@@ -4,7 +4,7 @@ import VisitorsForm from '@/components/form/VisitorsForm';
 import { useRouter } from 'next/router';
 import { type ReactElement, useEffect, useState } from 'react';
 
-export default function FormDetail(): ReactElement {
+export default function CheckinList(): ReactElement {
   const [formBox, setFormBox] = useState<ReactElement>();
   const router = useRouter();
 
