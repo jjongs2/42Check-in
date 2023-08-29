@@ -30,7 +30,7 @@ function CalendarDate({ date, month, year, isToday = false }: CalendarDateProps)
     <td className='relative px-2 py-3 text-center text-gray-800 hover:text-blue-500 dark:text-gray-100 md:px-3'>
       <Link
         href={config}
-        className={isToday ? 'rounded-full border-2 border-green-400 p-1 dark:border-white' : ''}
+        className={isToday ? 'rounded-full border-2 border-[#4069FD] p-1 dark:border-white' : ''}
       >
         {date}
       </Link>

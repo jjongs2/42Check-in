@@ -1,5 +1,6 @@
-import { noticeIcon, userIcon } from '@/assets/icons';
+import { noticeIcon, threeBarsIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
+import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import logout from '@/utils/logout';
 import Link from 'next/link';
@@ -14,7 +15,7 @@ interface Data {
   notice: boolean;
 }
 
-export default function Header(): ReactElement {
+export default function Header({setShowSideBar, showSidebar}): ReactElement {
   const router = useRouter();
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
@@ -67,9 +68,15 @@ export default function Header(): ReactElement {
     <>
       <header className='fixed z-50 w-screen bg-[#4069FD] dark:bg-slate-700'>
         <nav className='flex items-center justify-between px-10'>
+          <div className='flex justify-center items-center'>
           <Link href='/' className='flex py-2'>
             {Logo}
           </Link>
+          <button onClick={()=> {setShowSideBar(!showSidebar)}}
+            className='full-sidebar w-[50px] h-[50px] mt-2 ml-2 dark:text-white'>
+            {threeBarsIcon}
+          </button>
+          </div>
           <div className='flex items-center justify-center space-x-4'>
             <div className='col-span-full flex space-x-2'>
               <div className='flex h-6 items-center'>

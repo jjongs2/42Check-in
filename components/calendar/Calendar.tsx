@@ -92,7 +92,7 @@ export default function Calendar(): ReactElement {
           </div>
           <div className='flex space-x-4'>
             <button
-              className='rounded bg-green-400 p-2 text-white dark:bg-gray-400'
+              className='rounded bg-[#4069FD] p-2 text-white dark:bg-gray-400'
               onClick={handlePrevMonthClick}
               disabled={disabledDate}
             >
@@ -104,7 +104,7 @@ export default function Calendar(): ReactElement {
               </svg>
             </button>
             <button
-              className='rounded bg-green-400 p-2 text-white dark:bg-gray-400'
+              className='rounded bg-[#4069FD] p-2 text-white dark:bg-gray-400'
               onClick={handleNextMonthClick}
             >
               <svg width={15} height={15} fill='currentColor' viewBox='0 0 24 24'>

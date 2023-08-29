@@ -39,9 +39,26 @@ body {
 }
 
 .notSeletBtn {
-  @apply border-2 border-[#6A70FF] bg-[#6A70FF] dark:border-2 dark:border-white dark:bg-slate-700 dark:text-white dark:hover:text-slate-700;
+  @apply border-2 text-white border-[#4069FD] bg-[#4069FD] dark:border-2 dark:border-white dark:bg-slate-700 dark:text-white dark:hover:text-slate-700;
 }
 
 .seletBtn {
-  @apply border-2 border-[#6AA6FF] bg-[#6AA6FF] dark:border-2 dark:border-slate-700 dark:bg-white dark:text-black;
+  @apply border-2 border-black bg-black dark:border-2 dark:border-slate-700 dark:bg-white dark:text-white dark:hover:text-black;
+}
+
+@media (max-width: 640px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    width: 100%;
+    margin-left: 0px;
+  }
+}
+@media (min-width: 641px) {
+  .full-sidebar {
+    display: none;
+  }
+
 }

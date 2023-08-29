@@ -1,6 +1,6 @@
 import { cls } from '@/styles/cls';
 import { useRouter } from 'next/router';
-import type { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -20,11 +20,14 @@ export default function Layout({ children }: LayoutProps): ReactElement {
   const noSidebarPages = new Set(['/', '/my-checkin', '/vocal']);
   const hasSidebar = !noSidebarPages.has(pathname);
 
+  const [showSidebar, setShowSideBar] = useState(false);
+
   return (
     <>
-      <Header />
-      {hasSidebar && <Sidebar />}
-      <div className={cls(hasSidebar ? 'ml-28' : '', 'pt-14')}>{children}</div>
+      <Header setShowSideBar={setShowSideBar} showSidebar={showSidebar} />
+      {hasSidebar && <Sidebar showSidebar={showSidebar} />}
+      {/* onClick했을 때 화면이 안밀림 click 했을 때 true -> 화면이 커지면 false로 만들어야함 */}
+      <div className={cls(hasSidebar ? 'ml-28 main-content duration-700' : ' ', 'pt-16')}>{children}</div>
     </>
   );
 }
