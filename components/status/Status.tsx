@@ -6,8 +6,9 @@ import { type ReactElement } from 'react';
 interface StatusProps {
   status: FormInfo;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectForm: React.Dispatch<React.SetStateAction<FormInfo | undefined>>;
-  mouseOnIndex: number;
+  setSelectForm?: React.Dispatch<React.SetStateAction<FormInfo | undefined>>;
+  mouseOnIndex?: number;
+  vocal?: boolean;
 }
 
 const STATUS = ['승인 대기', '승인', '아젠다 등록', '강의 완료', '차례 대기 중'];
@@ -16,6 +17,7 @@ export default function Status({
   setShowModal,
   setSelectForm,
   mouseOnIndex,
+  vocal,
 }: StatusProps): ReactElement {
   let date, time, details;
 
@@ -43,14 +45,14 @@ export default function Status({
         {details}
       </div>
       <div
-      className= {cls(
-        status.status !== 0
-          ? 'bg-green-400 dark:bg-green-900'
-          : 'bg-yellow-300 dark:bg-yellow-500',
-        'relative -top-10 rounded-xl px-4 text-gray-700 -right-[14%]',
-      )}
-    >
-      {STATUS[status.status]}
+        className={cls(
+          status.status !== 0
+            ? 'bg-green-400 dark:bg-green-900'
+            : 'bg-yellow-300 dark:bg-yellow-500',
+          'relative -right-[14%] -top-10 rounded-xl px-4 text-gray-700',
+        )}
+      >
+        {STATUS[status.status]}
       </div>
       <button
         onClick={(event) => {
@@ -58,7 +60,9 @@ export default function Status({
           setShowModal(true);
           setSelectForm(status);
         }}
-        className={`rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500 ${mouseOnIndex === status.formId ? '' : 'invisible'}`}
+        className={`rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500 ${
+          !vocal && mouseOnIndex === status.formId ? '' : 'invisible'
+        }`}
       >
         취소
       </button>

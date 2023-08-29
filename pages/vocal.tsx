@@ -1,11 +1,16 @@
 import ModalText from '@/components/common/ModalText';
 import ModalWrapper from '@/components/common/ModalWrapper';
+import EquipmentsForm from '@/components/form/EquipmentsForm';
+import PresentationsForm from '@/components/form/PresentationsForm';
+import VisitorsForm from '@/components/form/VisitorsForm';
 import VocalStatusBoard from '@/components/status/VocalStatusBoard';
+import type FormInfo from '@/interfaces/FormInfo';
 import Link from 'next/link';
 import { type ReactElement, useState } from 'react';
 
 export default function Vocal(): ReactElement {
-  const [selectFormInfo, setSelectFormInfo] = useState({});
+  const [selectFormInfo, setSelectFormInfo] = useState<FormInfo>({});
+  const [category, setCategory] = useState('visitors');
 
   const staff = localStorage.getItem('staff');
   if (staff === 'false') {
@@ -23,9 +28,29 @@ export default function Vocal(): ReactElement {
     );
   }
 
+  const selectedForm = (): ReactElement => {
+    if (selectFormInfo !== undefined) {
+      switch (category) {
+        case 'visitors':
+          return <VisitorsForm formInfo={selectFormInfo} />;
+        case 'presentations':
+          return <PresentationsForm formInfo={selectFormInfo} />;
+        case 'equipments':
+          return <EquipmentsForm formInfo={selectFormInfo} />;
+      }
+    }
+  };
+
   return (
-    <div>
-      <VocalStatusBoard />
+    <div className='flex max-h-max flex-col justify-between lg:flex-row'>
+      <VocalStatusBoard
+        setSelectFormInfo={setSelectFormInfo}
+        category={category}
+        setCategory={setCategory}
+      />
+      <div className='m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
+        {selectedForm()}
+      </div>
     </div>
   );
 }

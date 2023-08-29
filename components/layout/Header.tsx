@@ -11,7 +11,7 @@ interface Data {
   category: number;
   formId: number;
   date: string;
-  checkNotice: boolean;
+  notice: boolean;
 }
 
 export default function Header(): ReactElement {

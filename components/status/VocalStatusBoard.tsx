@@ -1,10 +1,8 @@
 import type FormInfo from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
-import useHandleMouseIndex from '@/utils/handleMouse';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import type { ReactElement } from 'react';
+import type { Dispatch, ReactElement } from 'react';
 
 import ModalText from '../common/ModalText';
 import ModalWrapper from '../common/ModalWrapper';
@@ -25,13 +23,20 @@ const btnContent = [
   },
 ];
 
-export default function StatusBoard(): ReactElement {
-  const [category, setCategory] = useState('equipments');
+interface VocalStatusBoardProps {
+  setSelectFormInfo: Dispatch<React.SetStateAction<FormInfo>>;
+  setCategory: Dispatch<React.SetStateAction<string>>;
+  category: string;
+}
+
+export default function StatusBoard({
+  setSelectFormInfo,
+  setCategory,
+  category,
+}: VocalStatusBoardProps): ReactElement {
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [selectForm, setSelectForm] = useState<FormInfo>();
-  const { mouseOnIndex, handleMouseOut, handleMouseOver } = useHandleMouseIndex();
   const [checkedList, setCheckedList] = useState<number[]>([]);
 
   useEffect(() => {
@@ -51,6 +56,9 @@ export default function StatusBoard(): ReactElement {
         key={items.text}
         onClick={() => {
           setCategory(items.url);
+          setSelectFormInfo(undefined);
+          setChecked(false);
+          setCheckedList([]);
         }}
       >
         <button
@@ -65,17 +73,17 @@ export default function StatusBoard(): ReactElement {
     );
   });
 
-  // const onClick = async (formId: number): Promise<void> => {
-  //   const config = {
-  //     url: `/${category}/cancel`,
-  //     method: 'POST',
-  //     data: { formId },
-  //   };
-  //   await apiController(config);
-  // };
+  const onClick = async (formIds: number[]): Promise<void> => {
+    const config = {
+      url: `/vocal/subscriptions/${category}`,
+      method: 'POST',
+      data: { formIds },
+    };
+    await apiController(config);
+  };
 
   return (
-    <div className='m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
+    <div className='z-30 m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border bg-white'>
       {/* 위에 버튼 4개있는 부분 */}
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-10 pb-4 dark:bg-slate-700'>
         <div className='flex items-center space-x-2'>
@@ -86,13 +94,20 @@ export default function StatusBoard(): ReactElement {
             checked={checked}
             onChange={() => {
               setChecked(!checked);
+              if (checked) setCheckedList([]);
+              else setCheckedList(responseDataList.map((item) => item.formId));
             }}
             className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
           />
           {btnBox}
         </div>
         <div className='flex space-x-4'>
-          <button className='rounded-full px-2 transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl'>
+          <button
+            onClick={() => {
+              setShowModal(true);
+            }}
+            className='rounded-full px-2 transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl'
+          >
             승인
           </button>
           <div className='my-2 border-2 border-gray-300' />
@@ -101,64 +116,50 @@ export default function StatusBoard(): ReactElement {
           </button>
         </div>
       </div>
-      <div
-        onMouseOut={() => {
-          handleMouseOut(-1);
-        }}
-        className=' mt-6 space-y-5'
-      >
+      <div className=' mt-6 space-y-5'>
         {responseDataList.map((item, i) => (
-          <Link
+          <div
             key={item.formId}
-            href={{
-              pathname: `/my-checkin/${category}`,
-              query: { formDetail: JSON.stringify(item) },
-            }}
-            onMouseOver={() => {
-              handleMouseOver(item.formId);
-            }}
             className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
+            onClick={() => {
+              setSelectFormInfo(item);
+            }}
           >
             <input
               value='white'
               type='checkbox'
               defaultChecked={false}
-              checked={checked}
+              checked={checkedList.includes(item.formId)}
               onChange={() => {
-                setChecked(!checked);
+                checkedList.includes(item.formId)
+                  ? setCheckedList(checkedList.filter((id) => id !== item.formId))
+                  : setCheckedList([...checkedList, item.formId]);
               }}
               className='h-6 w-6 rounded border-gray-300 transition'
             />
-            <Status
-              status={item}
-              setShowModal={setShowModal}
-              setSelectForm={setSelectForm}
-              mouseOnIndex={mouseOnIndex}
-            />
-          </Link>
+            <Status status={item} setShowModal={setShowModal} vocal />
+          </div>
         ))}
         {showModal && (
           <ModalWrapper>
-            <ModalText>취소하시나요??</ModalText>
+            <ModalText>해당 신청서를 승인 하시나요??</ModalText>
             <div className='flex justify-center space-x-2'>
               <button
                 onClick={(event) => {
-                  event.preventDefault();
+                  setShowModal(false);
+                }}
+                className='button-modal'
+              >
+                취소
+              </button>
+              <button
+                onClick={(event) => {
+                  void onClick(checkedList);
                   setShowModal(false);
                 }}
                 className='button-modal'
               >
                 승인
-              </button>
-              <button
-                onClick={(event) => {
-                  event.preventDefault();
-                  // void onClick(selectForm?.formId);
-                  setShowModal(false);
-                }}
-                className='button-modal'
-              >
-                확인
               </button>
             </div>
           </ModalWrapper>

@@ -24,7 +24,7 @@ export default function Layout({ children }: LayoutProps): ReactElement {
     <>
       <Header />
       {hasSidebar && <Sidebar />}
-      <div className={cls(hasSidebar ? 'ml-28' : '', 'pt-20')}>{children}</div>
+      <div className={cls(hasSidebar ? 'ml-28' : '', 'pt-14')}>{children}</div>
     </>
   );
 }
