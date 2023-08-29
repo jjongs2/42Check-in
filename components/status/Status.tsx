@@ -43,27 +43,25 @@ export default function Status({
         {details}
       </div>
       <div
-        className={cls(
-          status.status !== 0
-            ? 'bg-green-400 dark:bg-green-900'
-            : 'bg-yellow-300 dark:bg-yellow-500',
-          'relative -top-10 rounded-xl px-4 text-gray-700',
-        )}
-      >
-        {STATUS[status.status]}
-      </div>
-      {mouseOnIndex === status.formId && (
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            setShowModal(true);
-            setSelectForm(status);
-          }}
-          className='rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500'
-        >
-          취소
-        </button>
+      className= {cls(
+        status.status !== 0
+          ? 'bg-green-400 dark:bg-green-900'
+          : 'bg-yellow-300 dark:bg-yellow-500',
+        'relative -top-10 rounded-xl px-4 text-gray-700 -right-[14%]',
       )}
+    >
+      {STATUS[status.status]}
+      </div>
+      <button
+        onClick={(event) => {
+          event.preventDefault();
+          setShowModal(true);
+          setSelectForm(status);
+        }}
+        className={`rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500 ${mouseOnIndex === status.formId ? '' : 'invisible'}`}
+      >
+        취소
+      </button>
     </>
   );
 }
