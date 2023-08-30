@@ -47,6 +47,7 @@ export default function Presentations(): ReactElement {
         <input
           type='month'
           className='bg-slate-100 dark:bg-gray-500'
+          defaultValue={date.format('YYYY-MM')}
           onChange={(event) => {
             setDate(dayjs(`${event.target.value}-01`));
           }}
