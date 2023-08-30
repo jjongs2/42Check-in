@@ -2,6 +2,7 @@ import type FormInfo from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
 import useHandleMouseIndex from '@/utils/handleMouse';
 import { type ReactElement } from 'react';
+import dayjs from 'dayjs';
 
 interface StatusProps {
   status: FormInfo;
@@ -12,6 +13,7 @@ interface StatusProps {
 }
 
 const STATUS = ['승인 대기', '승인', '아젠다 등록', '강의 완료', '차례 대기 중'];
+const SPEECHTIME = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 export default function Status({
   status,
   setShowModal,
@@ -22,15 +24,15 @@ export default function Status({
   let date, time, details;
 
   if (status.equipment !== undefined) {
-    date = status.date;
+    date = dayjs(status.date).format('YYYY년 MM월 DD일');
     time = status.period;
     details = status.equipment;
   } else if (status.subject !== undefined) {
-    date = status.date;
-    time = status.time;
+    date = dayjs(status.date).format('YYYY년 MM월 DD일');
+    time = SPEECHTIME[status.time];
     details = status.subject;
   } else if (status.visitorsName !== undefined) {
-    date = status.date;
+    date = dayjs(status.date).format('YYYY년 MM월 DD일');
     time = status.visitTime;
     details = status.visitorsName;
   }
