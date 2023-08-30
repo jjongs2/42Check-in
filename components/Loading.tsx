@@ -1,5 +1,6 @@
-import { Logo } from '@/assets/images';
-import { type ReactElement, useEffect, useState } from 'react';
+import IMAGES from '@/assets/images';
+import { useEffect, useState } from 'react';
+import type { ReactElement } from 'react';
 
 export default function Loading(): ReactElement {
   const [showLogo, setShowLogo] = useState(false);
@@ -18,7 +19,7 @@ export default function Loading(): ReactElement {
     <div className='flex h-screen flex-col items-center justify-center'>
       <div className={`box show`}>
         <div className='box-content'>
-          {showLogo && <div className='logo w-[100px]'>{Logo}</div>}
+          {showLogo && <div className='logo w-[100px]'>{IMAGES.logo}</div>}
         </div>
       </div>
       <div className='loading-text'>

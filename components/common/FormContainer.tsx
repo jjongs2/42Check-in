@@ -1,4 +1,4 @@
-import { goBackIcon } from '@/assets/icons';
+import ICONS from '@/assets/icons';
 import { useRouter } from 'next/router';
 import type { ReactElement, ReactNode } from 'react';
 
@@ -30,7 +30,7 @@ export default function FormContainer({ children }: FormContainerProps): ReactEl
           }}
           className='absolute left-36 top-24 rounded-full text-gray-700 transition hover:text-[#6A70FF] hover:ring-2 hover:ring-[#6A70FF] hover:ring-offset-0 dark:text-white dark:ring-white'
         >
-          {goBackIcon}
+          {ICONS.goBack}
         </button>
       )}
       {children}
