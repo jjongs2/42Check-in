@@ -47,9 +47,9 @@ export default function Status({
       <div
         className={cls(
           status.status !== 0
-            ? 'bg-green-400 dark:bg-green-900'
+            ? 'bg-green-400 dark:bg-green-800'
             : 'bg-yellow-300 dark:bg-yellow-500',
-          'relative -right-[14%] -top-10 rounded-xl px-4 text-gray-700',
+          'relative -right-[14%] -top-10 rounded-xl px-4 text-gray-700 dark:text-black',
         )}
       >
         {STATUS[status.status]}

@@ -83,7 +83,7 @@ export default function StatusBoard({
   };
 
   return (
-    <div className='z-30 m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border bg-white'>
+    <div className='z-30 m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border bg-white dark:bg-slate-800'>
       {/* 위에 버튼 4개있는 부분 */}
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-10 pb-4 dark:bg-slate-700'>
         <div className='flex items-center space-x-2'>
@@ -106,12 +106,12 @@ export default function StatusBoard({
             onClick={() => {
               setShowModal(true);
             }}
-            className='rounded-full px-2 transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl'
+            className='rounded-full px-2 transition-colors text-lg dark:text-white hover:bg-[#6AA6FF] dark:hover:bg-white hover:text-white dark:hover:text-black hover:shadow-xl'
           >
             승인
           </button>
           <div className='my-2 border-2 border-gray-300' />
-          <button className='rounded-full px-2 transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl'>
+          <button className='rounded-full px-2 transition-colors text-lg dark:text-white hover:bg-[#6AA6FF] dark:hover:bg-white hover:text-white dark:hover:text-black hover:shadow-xl'>
             거절
           </button>
         </div>
@@ -148,7 +148,7 @@ export default function StatusBoard({
                 onClick={(event) => {
                   setShowModal(false);
                 }}
-                className='button-modal'
+                className='button-modal dark:text-white'
               >
                 취소
               </button>
@@ -157,7 +157,7 @@ export default function StatusBoard({
                   void onClick(checkedList);
                   setShowModal(false);
                 }}
-                className='button-modal'
+                className='button-modal dark:text-white'
               >
                 승인
               </button>
