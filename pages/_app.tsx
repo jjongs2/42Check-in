@@ -1,4 +1,5 @@
 import Loading from '@/components/Loading';
+import ErrorBoundary from '@/components/error/ErrorBoundary';
 import Layout from '@/components/layout/Layout';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -47,7 +48,7 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   if (!hasAccess || isLoading) return <Loading />;
 
   return (
-    <>
+    <ErrorBoundary>
       <Head>
         <title>42Check-in</title>
         <meta charSet='utf-8' />
@@ -56,6 +57,6 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
       <Layout>
         <Component pageProps={pageProps} />
       </Layout>
-    </>
+    </ErrorBoundary>
   );
 }

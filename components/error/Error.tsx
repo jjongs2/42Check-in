@@ -26,7 +26,7 @@ export default function Error(): ReactElement {
       </div>
       <div className='flex justify-center'>
         <Link href='/' className='button-modal'>
-          <p>메인 페이지로 돌아가기</p>
+          <p>로그인 페이지로 돌아가기</p>
         </Link>
       </div>
     </ModalWrapper>

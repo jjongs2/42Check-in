@@ -45,9 +45,10 @@ apiController.interceptors.response.use(
       const { accessToken } = data;
       localStorage.setItem('accessToken', accessToken);
       return await apiController(config);
+    } else if (status >= 400 && status < 500) {
+      throw error;
     }
-    console.error(error);
-    // window.location.href = '/error';
+    console.error('apiController: ', error);
   },
 );
 
