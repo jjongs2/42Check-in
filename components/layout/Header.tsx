@@ -62,6 +62,12 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
       setNoticeInfo(data);
     }
     void fetchData();
+
+    if (theme === null) {
+      localStorage.setItem('theme', 'light');
+    } else if (theme === 'dark') {
+      document.documentElement.classList.toggle('dark', true);
+    }
   }, []);
 
   useEffect(() => {
@@ -81,14 +87,6 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, [showNotice]);
-
-  useEffect(() => {
-    if (theme === null) {
-      localStorage.setItem('theme', 'light');
-    } else if (theme === 'dark') {
-      document.documentElement.classList.toggle('dark', true);
-    }
-  }, [theme]);
 
   return (
     <>
