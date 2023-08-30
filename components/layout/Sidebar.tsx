@@ -28,7 +28,7 @@ export default function Sidebar({ showSidebar }): ReactElement {
     <div
       className={cls(
         showSidebar ? 'sidebar' : '',
-        'fixed left-0 z-40 bg-[#597bf8] pt-[62px] dark:bg-slate-800 ',
+        'fixed left-0 z-40 bg-[#6282f7] pt-[62px] dark:bg-slate-800 ',
       )}
     >
       <div className='flex h-screen w-28 flex-col space-y-2.5 border-r border-[#909090] px-2 py-3.5 dark:border-none'>
