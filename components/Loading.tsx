@@ -1,8 +1,7 @@
-import { ReactElement, useEffect, useState } from 'react';
-import { LoadLogo } from '@/assets/images';
+import { Logo } from '@/assets/images';
+import { type ReactElement, useEffect, useState } from 'react';
 
 export default function Loading(): ReactElement {
-  const [showBox, setShowBox] = useState(true);
   const [showLogo, setShowLogo] = useState(false);
 
   useEffect(() => {
@@ -17,13 +16,9 @@ export default function Loading(): ReactElement {
 
   return (
     <div className='flex h-screen flex-col items-center justify-center'>
-      <div className={`box ${showBox ? 'show' : ''}`}>
+      <div className={`box show`}>
         <div className='box-content'>
-        {showLogo && (
-         <div className='logo'>
-            {LoadLogo}
-          </div>
-          )}
+          {showLogo && <div className='logo w-[100px]'>{Logo}</div>}
         </div>
       </div>
       <div className='loading-text'>
@@ -33,12 +28,12 @@ export default function Loading(): ReactElement {
         .box {
           width: 150px; /* Adjust the width */
           height: 150px; /* Adjust the height */
-          background-color: #4069FD;
+          background-color: #4069fd;
           border-radius: 12px; /* Adjust the border radius */
           display: flex;
           justify-content: center;
           align-items: center;
-          animation: ${showBox ? 'appear-rotate' : ''} 0.5s ease-in-out;
+          animation: appear-rotate 0.5s ease-in-out;
           transform-origin: center;
         }
 
@@ -57,13 +52,16 @@ export default function Loading(): ReactElement {
         }
 
         @keyframes dotsAnimation {
-          0%, 33% {
+          0%,
+          33% {
             content: '.';
           }
-          34%, 66% {
+          34%,
+          66% {
             content: '..';
           }
-          67%, 100% {
+          67%,
+          100% {
             content: '...';
           }
         }
@@ -79,7 +77,6 @@ export default function Loading(): ReactElement {
         }
 
         .logo {
-
           display: flex;
           align-items: center;
           justify-content: center;

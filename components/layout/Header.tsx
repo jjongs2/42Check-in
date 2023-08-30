@@ -95,7 +95,7 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
       <header className='fixed z-50 w-screen bg-[#4069FD] dark:bg-slate-700'>
         <nav className='flex items-center justify-between px-10'>
           <div className='flex items-center justify-center'>
-            <Link href='/' className='flex py-2'>
+            <Link href='/' className='flex w-12 py-2'>
               {Logo}
             </Link>
             <button
