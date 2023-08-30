@@ -4,7 +4,8 @@
 
 @font-face {
   font-family: 'NanumSquareNeo-Variable';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2')
+    format('woff2');
   font-weight: normal;
   font-style: normal;
 }
@@ -21,9 +22,8 @@ div#__next > div {
   height: 100%;
 }
 
-
 body {
-  @apply bg-white transition dark:bg-slate-900;
+  @apply bg-white transition dark:bg-slate-900 dark:text-[#F1F1F1];
 }
 
 .button {
@@ -50,8 +50,16 @@ body {
   @apply fill-slate-700 text-slate-700 transition dark:fill-white;
 }
 
+.fc-datagrid-cell-frame {
+  @apply dark:bg-slate-900;
+}
+
+.fc-timeline-slot-frame {
+  @apply dark:bg-slate-900;
+}
+
 .notSeletBtn {
-  @apply border-2 text-white border-[#4069FD] bg-[#4069FD] dark:border-2 dark:border-white dark:bg-slate-700 dark:text-white dark:hover:text-slate-700;
+  @apply border-2 border-[#4069FD] bg-[#4069FD] text-white dark:border-2 dark:border-white dark:bg-slate-700 dark:text-white dark:hover:text-slate-700;
 }
 
 .seletBtn {
@@ -72,5 +80,4 @@ body {
   .full-sidebar {
     display: none;
   }
-
 }

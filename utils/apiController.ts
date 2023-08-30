@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-import logout from './logout';
-
 const apiController = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_DOMAIN,
 });
