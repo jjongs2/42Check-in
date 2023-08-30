@@ -1,5 +1,4 @@
 import ICONS from '@/assets/icons';
-import IMAGES from '@/assets/images';
 import apiController from '@/utils/apiController';
 import logout from '@/utils/logout';
 import Link from 'next/link';
@@ -94,7 +93,7 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
         <nav className='flex items-center justify-between px-10'>
           <div className='flex items-center justify-center'>
             <Link href='/' className='flex w-12 py-2'>
-              {IMAGES.logo}
+              {ICONS.logo}
             </Link>
             <button
               onClick={() => {
