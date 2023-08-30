@@ -32,7 +32,6 @@ const btnContent = [
 export default function StatusBoard(): ReactElement {
   const [category, setCategory] = useState('visitors');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
-  const [checked, setChecked] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectForm, setSelectForm] = useState<FormInfo>();
   const { mouseOnIndex, handleMouseOut, handleMouseOver } = useHandleMouseIndex();

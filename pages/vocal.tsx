@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { type ReactElement, useState } from 'react';
 
 export default function Vocal(): ReactElement {
-  const [selectFormInfo, setSelectFormInfo] = useState<FormInfo>({});
+  const [selectFormInfo, setSelectFormInfo] = useState<FormInfo>(undefined);
   const [category, setCategory] = useState('visitors');
 
   const staff = localStorage.getItem('staff');
@@ -42,13 +42,13 @@ export default function Vocal(): ReactElement {
   };
 
   return (
-    <div className='flex max-h-max flex-col justify-between lg:flex-row'>
+    <div className='flex flex-col justify-between lg:flex-row'>
       <VocalStatusBoard
         setSelectFormInfo={setSelectFormInfo}
         category={category}
         setCategory={setCategory}
       />
-      <div className='m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
+      <div className='m-10 flex min-w-max flex-col overflow-auto rounded-xl border'>
         {selectedForm()}
       </div>
     </div>

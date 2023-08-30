@@ -60,7 +60,7 @@ export default function Presentations(): ReactElement {
             href={{
               pathname: '/presentations/form',
               query: {
-                date: date.format('YYYY-M-D'),
+                date: dayjs(item.date).format('YYYY-M-D'),
               },
             }}
             className='group flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF] dark:bg-gray-700 dark:hover:bg-gray-300'

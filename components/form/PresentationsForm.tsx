@@ -26,7 +26,7 @@ const TIMES = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 
 interface PresentationsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
-  formInfo: PresentationsFormInfo;
+  formInfo?: PresentationsFormInfo;
 }
 
 export default function PresentationsForm({
@@ -68,13 +68,13 @@ export default function PresentationsForm({
           5. 만약 스케줄이 꽉 찼거나 관련 요청, 질문이 있다면 @42_holly에게 DM 요청해 주세요!
         </p>
       </div>
-      <FormWrapper setShowModal={setShowModal}>
+      <FormWrapper setShowModal={setShowModal} formInfo={formInfo}>
         <div className='grid grid-cols-3 gap-x-8 gap-y-6 pb-10'>
           <FormInput
             name='userName'
             title='신청자 이름'
             type='text'
-            value={formDetail?.userName}
+            value={formDetail?.userName ?? formInfo?.userName}
             disabled={myCheckin}
             placeholder='실명을 알려 주세요. (예시: 이정재)'
           />
@@ -82,7 +82,7 @@ export default function PresentationsForm({
             name='title'
             title='수요지식회 제목'
             type='text'
-            value={formDetail?.title}
+            value={formDetail?.title ?? formInfo?.title}
             disabled={myCheckin}
             placeholder='강연 제목을 입력해 주세요.'
           />
@@ -90,14 +90,14 @@ export default function PresentationsForm({
             name='subject'
             title='수요지식회 주제'
             type='text'
-            value={formDetail?.subject}
+            value={formDetail?.subject ?? formInfo?.subject}
             disabled={myCheckin}
             placeholder='어떤 주제로 강연하시나요?'
           />
           <FormTextArea
             name='detail'
             title='상세 내용'
-            value={formDetail?.detail}
+            value={formDetail?.detail ?? formInfo?.detail}
             disabled={myCheckin}
           />
           <FormSelect
@@ -105,7 +105,7 @@ export default function PresentationsForm({
             title='소요 시간'
             options={TIMES}
             span='1'
-            value={TIMES[formDetail?.time]}
+            value={TIMES[formDetail?.time] ?? TIMES[formInfo?.time]}
             disabled={myCheckin}
           />
           <FormSelect
@@ -113,7 +113,7 @@ export default function PresentationsForm({
             title='강연 종류'
             options={LECTURES}
             span='1'
-            value={LECTURES[formDetail?.type]}
+            value={LECTURES[formDetail?.type] ?? LECTURES[formInfo?.type]}
             disabled={myCheckin}
           />
           <FormSelect
@@ -121,7 +121,7 @@ export default function PresentationsForm({
             title='영상 촬영'
             options={IS_VIDEO}
             span='1'
-            value={IS_VIDEO[formDetail?.screen]}
+            value={IS_VIDEO[formDetail?.screen] ?? IS_VIDEO[formInfo?.screen]}
             disabled={myCheckin}
           />
         </div>

@@ -1,3 +1,4 @@
+import type FormInfo from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
 import getISODate from '@/utils/getISODate';
 import { useRouter } from 'next/router';
@@ -10,9 +11,14 @@ import FormSubmitButton from '../common/FormSubmitButton';
 interface FormWrapperProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
+  formInfo?: FormInfo;
 }
 
-export default function FormWrapper({ setShowModal, children }: FormWrapperProps): ReactElement {
+export default function FormWrapper({
+  setShowModal,
+  children,
+  formInfo,
+}: FormWrapperProps): ReactElement {
   const methods = useForm();
   const router = useRouter();
   const [date, setDate] = useState<string>();
@@ -38,6 +44,14 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
     setRentalType(type as string);
   }, [router]);
 
+  const BtnSwitch = (): ReactElement => {
+    const pathname = router.pathname;
+    if (pathname.includes('/my-checkin')) return null;
+    else if (pathname.includes('/vocal'))
+      return <FormSubmitButton text='승인' formId={formInfo.formId} />;
+    else return <FormSubmitButton text='Check-in' />;
+  };
+
   return (
     <FormProvider {...methods}>
       <form
@@ -47,7 +61,8 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
         className='mx-auto my-10 max-w-xl'
       >
         {children}
-        {!router.pathname.includes('/my-checkin') && <FormSubmitButton />}
+        {/* {!router.pathname.includes('/my-checkin') && <FormSubmitButton />} */}
+        {BtnSwitch()}
       </form>
     </FormProvider>
   );

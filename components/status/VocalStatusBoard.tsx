@@ -106,12 +106,12 @@ export default function StatusBoard({
             onClick={() => {
               setShowModal(true);
             }}
-            className='rounded-full px-2 transition-colors text-lg dark:text-white hover:bg-[#6AA6FF] dark:hover:bg-white hover:text-white dark:hover:text-black hover:shadow-xl'
+            className='rounded-full px-2 text-lg transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl dark:text-white dark:hover:bg-white dark:hover:text-black'
           >
             승인
           </button>
           <div className='my-2 border-2 border-gray-300' />
-          <button className='rounded-full px-2 transition-colors text-lg dark:text-white hover:bg-[#6AA6FF] dark:hover:bg-white hover:text-white dark:hover:text-black hover:shadow-xl'>
+          <button className='rounded-full px-2 text-lg transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl dark:text-white dark:hover:bg-white dark:hover:text-black'>
             거절
           </button>
         </div>
