@@ -43,7 +43,7 @@ body {
 }
 
 .seletBtn {
-  @apply border-2 border-black bg-black dark:border-2 dark:border-slate-700 dark:bg-white dark:text-black;
+  @apply border-2 border-[#6AA6FF] bg-[#6AA6FF] dark:border-2 dark:border-slate-700 dark:bg-white dark:text-slate-800;
 }
 
 @media (max-width: 640px) {
