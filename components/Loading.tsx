@@ -1,22 +1,14 @@
 import { ReactElement, useEffect, useState } from 'react';
-import { Logo } from '@/assets/images';
+import { LoadLogo } from '@/assets/images';
 
 export default function Loading(): ReactElement {
-  const [showBox, setShowBox] = useState(false);
+  const [showBox, setShowBox] = useState(true);
   const [showLogo, setShowLogo] = useState(false);
 
   useEffect(() => {
     const animationInterval = setInterval(() => {
-      setShowBox(false);
-      setShowLogo(false);
-
-      setTimeout(() => {
-        setShowBox(true);
-        setTimeout(() => {
-          setShowLogo(true);
-        }, 1000); // 1 second delay before showing the logo
-      }, 1000); // 1 second delay before showing the box
-    }, 3000); // 3 second interval for repeating the animation
+      setShowLogo((prevShowLogo) => !prevShowLogo);
+    }, 1000);
 
     return () => {
       clearInterval(animationInterval);
@@ -27,10 +19,10 @@ export default function Loading(): ReactElement {
     <div className='flex h-screen flex-col items-center justify-center'>
       <div className={`box ${showBox ? 'show' : ''}`}>
         <div className='box-content'>
-          {showLogo && (
-            <div className='logo'>
-              {Logo}
-            </div>
+        {showLogo && (
+         <div className='logo'>
+            {LoadLogo}
+          </div>
           )}
         </div>
       </div>
@@ -39,14 +31,14 @@ export default function Loading(): ReactElement {
       </div>
       <style jsx>{`
         .box {
-          width: 100px;
-          height: 100px;
+          width: 150px; /* Adjust the width */
+          height: 150px; /* Adjust the height */
           background-color: #4069FD;
-          border-radius: 8px;
+          border-radius: 12px; /* Adjust the border radius */
           display: flex;
           justify-content: center;
           align-items: center;
-          animation: appear 1s ease-in-out;
+          animation: ${showBox ? 'appear-rotate' : ''} 0.5s ease-in-out;
           transform-origin: center;
         }
 
@@ -61,9 +53,8 @@ export default function Loading(): ReactElement {
         .dots::after {
           content: '...';
           display: inline-block;
-          animation: dotsAnimation 1.5s infinite steps(4);
+          animation: dotsAnimation 1s infinite steps(3);
         }
-
 
         @keyframes dotsAnimation {
           0%, 33% {
@@ -76,8 +67,9 @@ export default function Loading(): ReactElement {
             content: '...';
           }
         }
+
         .box.show {
-          animation: appear-rotate 1s ease-in-out;
+          animation: appear-rotate 0.5s ease-in-out;
         }
 
         .box-content {
@@ -87,22 +79,12 @@ export default function Loading(): ReactElement {
         }
 
         .logo {
-          width: 150px;
-          height: 150px;
+
           display: flex;
           align-items: center;
           justify-content: center;
-          animation: drawLogo 1.5s ease-in-out forwards;
+          animation: drawLogo 1s ease-in-out forwards;
           opacity: 0;
-        }
-
-        @keyframes appear {
-          0% {
-            transform: scale(0);
-          }
-          100% {
-            transform: scale(1);
-          }
         }
 
         @keyframes appear-rotate {
@@ -122,8 +104,6 @@ export default function Loading(): ReactElement {
             opacity: 1;
           }
         }
-
-        
       `}</style>
     </div>
   );
