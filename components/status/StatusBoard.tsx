@@ -75,6 +75,7 @@ export default function StatusBoard(): ReactElement {
       data: { formId },
     };
     await apiController(config);
+    setResponseDataList(responseDataList.filter((data) => data.formId !== formId));
   };
 
   return (
@@ -118,7 +119,7 @@ export default function StatusBoard(): ReactElement {
                   event.preventDefault();
                   setShowModal(false);
                 }}
-                className='button-modal'
+                className='button-modal dark:text-lg border dark:border-white dark:text-white dark:hover:text-[#54595E]'
               >
                 취소
               </button>
@@ -128,7 +129,7 @@ export default function StatusBoard(): ReactElement {
                   void onClick(selectForm?.formId);
                   setShowModal(false);
                 }}
-                className='button-modal'
+                className='button-modal dark:text-lg border dark:border-white dark:text-white dark:hover:text-[#54595E]'
               >
                 확인
               </button>
