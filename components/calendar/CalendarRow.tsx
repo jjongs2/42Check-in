@@ -24,7 +24,7 @@ function CalendarDate({ date, month, year, isToday = false }: CalendarDateProps)
 
   function handleDateClick(): void {
     const href = {
-      pathname: `${router.pathname}/form`,
+      pathname: `${router.asPath}/form`,
       query: {
         date: `${year}-${month + 1}-${date}`,
       },
