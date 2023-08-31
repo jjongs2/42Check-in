@@ -52,11 +52,12 @@ export default function CalendarRow({
     for (let i = 0; i < firstDay; ++i) {
       contents.push(<td></td>);
     }
-    contents.push(<CalendarDate date={1} month={month} year={year} />);
+    contents.push(<CalendarDate key={0} date={1} month={month} year={year} />);
     const len = 7 - contents.length;
     for (let i = 1; i <= len; ++i) {
       contents.push(
         <CalendarDate
+          key={i}
           date={i + 1}
           month={month}
           year={year}
@@ -72,6 +73,7 @@ export default function CalendarRow({
     if (i + (7 * row - firstDay) <= lastDate) {
       contents.push(
         <CalendarDate
+          key={i + (7 * row - firstDay) - 1}
           date={i + (7 * row - firstDay)}
           month={month}
           year={year}
