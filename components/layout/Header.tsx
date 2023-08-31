@@ -59,15 +59,6 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
   }
 
   useEffect(() => {
-    const config = {
-      url: '/notice',
-    };
-    async function fetchData(): Promise<void> {
-      const { data } = await apiController(config);
-      setNoticeInfo(data);
-    }
-    void fetchData();
-
     if (theme === null) {
       localStorage.setItem('theme', 'light');
     } else if (theme === 'dark') {
@@ -77,6 +68,14 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
 
   useEffect(() => {
     setShowNotice(0);
+    const config = {
+      url: '/notice',
+    };
+    async function fetchData(): Promise<void> {
+      const { data } = await apiController(config);
+      setNoticeInfo(data);
+    }
+    void fetchData();
   }, [router]);
 
   useEffect(() => {
