@@ -43,7 +43,7 @@ export default function Timeline(): ReactElement {
         mask |= 1 << i;
       }
     }
-    return mask & roomId;
+    return (mask & roomId) >>> 0;
   }
 
   function handleSubmitClick(): void {

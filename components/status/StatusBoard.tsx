@@ -12,25 +12,25 @@ import Status from './Status';
 
 const btnContent = [
   {
+    category: 'conference-rooms',
     text: '회의실 예약',
-    url: 'conference-rooms',
   },
   {
+    category: 'visitors',
     text: '외부인 초대',
-    url: 'visitors',
   },
   {
+    category: 'presentations',
     text: '수요지식회',
-    url: 'presentations',
   },
   {
+    category: 'equipments',
     text: '기자재 대여',
-    url: 'equipments',
   },
 ];
 
 export default function StatusBoard(): ReactElement {
-  const [category, setCategory] = useState('visitors');
+  const [category, setCategory] = useState('conference-rooms');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [selectForm, setSelectForm] = useState<FormInfo>();
@@ -47,21 +47,21 @@ export default function StatusBoard(): ReactElement {
     void fecthForms();
   }, [category]);
 
-  const btnBox = btnContent.map((items) => {
+  const btnBox = btnContent.map((item) => {
     return (
       <div
-        key={items.text}
+        key={item.text}
         onClick={() => {
-          setCategory(items.url);
+          setCategory(item.category);
         }}
       >
         <button
           className={cls(
-            category === items.url ? 'seletBtn' : 'notSeletBtn',
+            category === item.category ? 'seletBtn' : 'notSeletBtn',
             'rounded-[20px] px-5 py-2 font-bold text-white hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:hover:border-slate-700 dark:hover:bg-white',
           )}
         >
-          {items.text}
+          {item.text}
         </button>
       </div>
     );
@@ -118,7 +118,7 @@ export default function StatusBoard(): ReactElement {
                   event.preventDefault();
                   setShowModal(false);
                 }}
-                className='button-modal dark:text-lg border dark:border-white dark:text-white dark:hover:text-[#54595E]'
+                className='button-modal border dark:border-white dark:text-lg dark:text-white dark:hover:text-[#54595E]'
               >
                 취소
               </button>
@@ -128,7 +128,7 @@ export default function StatusBoard(): ReactElement {
                   void onClick(selectForm?.formId);
                   setShowModal(false);
                 }}
-                className='button-modal dark:text-lg border dark:border-white dark:text-white dark:hover:text-[#54595E]'
+                className='button-modal border dark:border-white dark:text-lg dark:text-white dark:hover:text-[#54595E]'
               >
                 확인
               </button>
