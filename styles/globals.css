@@ -26,6 +26,9 @@ body {
   @apply bg-white transition dark:bg-slate-900 dark:text-[#F1F1F1];
 }
 
+.bg-main {
+  @apply bg-[#4069FD];
+}
 .button {
   @apply rounded-[20px] bg-[#6A70FF] font-bold text-white hover:bg-[#6AA6FF];
 }

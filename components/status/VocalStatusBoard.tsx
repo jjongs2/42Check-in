@@ -4,8 +4,7 @@ import apiController from '@/utils/apiController';
 import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement } from 'react';
 
-import ModalText from '../common/ModalText';
-import ModalWrapper from '../common/ModalWrapper';
+import PresentationsStatus from './PresentationsStatus';
 import Status from './Status';
 
 const btnContent = [
@@ -27,17 +26,23 @@ interface VocalStatusBoardProps {
   setSelectFormInfo: Dispatch<React.SetStateAction<FormInfo>>;
   setCategory: Dispatch<React.SetStateAction<string>>;
   category: string;
+  setCheckedList: Dispatch<React.SetStateAction<number[]>>;
+  checkedList: number[];
+  setChangePresentations: Dispatch<React.SetStateAction<{}>>;
+  changePresentations: {};
 }
 
 export default function StatusBoard({
   setSelectFormInfo,
   setCategory,
   category,
+  setCheckedList,
+  checkedList,
+  setChangePresentations,
+  changePresentations,
 }: VocalStatusBoardProps): ReactElement {
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [checkedList, setCheckedList] = useState<number[]>([]);
 
   useEffect(() => {
     const config = {
@@ -73,47 +78,26 @@ export default function StatusBoard({
     );
   });
 
-  const onClick = async (formIds: number[]): Promise<void> => {
-    const config = {
-      url: `/vocal/subscriptions/${category}`,
-      method: 'POST',
-      data: { formIds },
-    };
-    await apiController(config);
-  };
-
   return (
-    <div className='z-30 m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border bg-white dark:bg-slate-800'>
+    <div className='z-10 m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border bg-white dark:bg-slate-800'>
       {/* 위에 버튼 4개있는 부분 */}
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-10 pb-4 dark:bg-slate-700'>
         <div className='flex items-center space-x-2'>
-          <input
-            value='white'
-            type='checkbox'
-            defaultChecked={false}
-            checked={checked}
-            onChange={() => {
-              setChecked(!checked);
-              if (checked) setCheckedList([]);
-              else setCheckedList(responseDataList.map((item) => item.formId));
-            }}
-            className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
-          />
+          {category !== 'presentations' && (
+            <input
+              value='white'
+              type='checkbox'
+              defaultChecked={false}
+              checked={checked}
+              onChange={() => {
+                setChecked(!checked);
+                if (checked) setCheckedList([]);
+                else setCheckedList(responseDataList.map((item) => item.formId));
+              }}
+              className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
+            />
+          )}
           {btnBox}
-        </div>
-        <div className='flex space-x-4'>
-          <button
-            onClick={() => {
-              setShowModal(true);
-            }}
-            className='rounded-full px-2 text-lg transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl dark:text-white dark:hover:bg-white dark:hover:text-black'
-          >
-            승인
-          </button>
-          <div className='my-2 border-2 border-gray-300' />
-          <button className='rounded-full px-2 text-lg transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl dark:text-white dark:hover:bg-white dark:hover:text-black'>
-            거절
-          </button>
         </div>
       </div>
       <div className=' mt-6 space-y-5'>
@@ -125,45 +109,31 @@ export default function StatusBoard({
               setSelectFormInfo(item);
             }}
           >
-            <input
-              value='white'
-              type='checkbox'
-              defaultChecked={false}
-              checked={checkedList.includes(item.formId)}
-              onChange={() => {
-                checkedList.includes(item.formId)
-                  ? setCheckedList(checkedList.filter((id) => id !== item.formId))
-                  : setCheckedList([...checkedList, item.formId]);
-              }}
-              className='h-6 w-6 rounded border-gray-300 transition'
-            />
-            <Status status={item} setShowModal={setShowModal} vocal />
+            {category !== 'presentations' && (
+              <input
+                value='white'
+                type='checkbox'
+                defaultChecked={false}
+                checked={checkedList.includes(item.formId)}
+                onChange={() => {
+                  checkedList.includes(item.formId)
+                    ? setCheckedList(checkedList.filter((id) => id !== item.formId))
+                    : setCheckedList([...checkedList, item.formId]);
+                }}
+                className='h-6 w-6 rounded border-gray-300 transition'
+              />
+            )}
+            {category !== 'presentations' ? (
+              <Status status={item} vocal />
+            ) : (
+              <PresentationsStatus
+                status={item}
+                changePresentations={changePresentations}
+                setChangePresentations={setChangePresentations}
+              />
+            )}
           </div>
         ))}
-        {showModal && (
-          <ModalWrapper>
-            <ModalText>해당 신청서를 승인 하시나요??</ModalText>
-            <div className='flex justify-center space-x-2'>
-              <button
-                onClick={(event) => {
-                  setShowModal(false);
-                }}
-                className='button-modal dark:text-white'
-              >
-                취소
-              </button>
-              <button
-                onClick={(event) => {
-                  void onClick(checkedList);
-                  setShowModal(false);
-                }}
-                className='button-modal dark:text-white'
-              >
-                승인
-              </button>
-            </div>
-          </ModalWrapper>
-        )}
       </div>
     </div>
   );

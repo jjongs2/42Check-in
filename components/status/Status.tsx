@@ -7,14 +7,13 @@ import { type ReactElement } from 'react';
 
 interface StatusProps {
   status: FormInfo;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectForm?: React.Dispatch<React.SetStateAction<FormInfo | undefined>>;
   mouseOnIndex?: number;
   vocal?: boolean;
 }
 
-const SPEECHTIME = ['15분', '30분', '45분', '1시간', '1시간 이상'];
-const STATUS = ['신청 중', '승인', '스케줄 등록 완료', '아젠다 등록', '강의 완료', '차례 대기 중'];
+const STATUS = ['승인 대기중', '승인'];
 
 export default function Status({
   status,
@@ -28,9 +27,6 @@ export default function Status({
   if (status.equipment !== undefined) {
     time = status.period;
     details = status.equipment;
-  } else if (status.subject !== undefined) {
-    time = SPEECHTIME[status.time];
-    details = status.subject;
   } else if (status.visitorsName !== undefined) {
     time = status.visitTime;
     details = status.visitorsName;
