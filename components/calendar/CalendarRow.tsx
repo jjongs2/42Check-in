@@ -1,3 +1,4 @@
+import { cls } from '@/styles/cls';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -20,20 +21,27 @@ interface CalendarRowProps {
 
 function CalendarDate({ date, month, year, isToday = false }: CalendarDateProps): ReactElement {
   const router = useRouter();
-  const config = {
-    pathname: `${router.asPath}/form`,
-    query: {
-      date: `${year}-${month + 1}-${date}`,
-    },
-  };
+
+  function handleDateClick(): void {
+    const href = {
+      pathname: `${router.pathname}/form`,
+      query: {
+        date: `${year}-${month + 1}-${date}`,
+      },
+    };
+    router.push(href);
+  }
+
   return (
-    <td className='relative px-2 py-7 text-center text-gray-800 hover:text-blue-500 dark:text-gray-100 md:px-3'>
-      <Link
-        href={config}
-        className={isToday ? 'rounded-full border-2 border-[#4069FD] p-1 dark:border-white' : ''}
+    <td onClick={handleDateClick} className='relative cursor-pointer px-2 py-7 md:px-3'>
+      <p
+        className={cls(
+          isToday ? 'border-2 border-[#4069FD] dark:border-white' : '',
+          'mx-auto h-7 w-7 rounded-full text-center text-gray-800 hover:text-blue-500 dark:text-gray-100',
+        )}
       >
         {date}
-      </Link>
+      </p>
     </td>
   );
 }
