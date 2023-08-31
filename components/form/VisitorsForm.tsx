@@ -46,7 +46,6 @@ export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormPro
 
   useEffect(() => {
     const { date, formDetail } = router.query;
-    console.log(formDetail);
     if (formDetail !== undefined) {
       setFormDetail(JSON.parse(formDetail as string));
     }
