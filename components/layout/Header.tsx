@@ -15,8 +15,8 @@ interface Data {
 
 const CATEGORY = {
   0: { category: '외부인 초대', url: 'visitors' },
-  1: { category: '수요지식회', url: 'presentations' },
-  2: { category: '기자재 대여', url: 'equipments' },
+  1: { category: '기자재 대여', url: 'equipments' },
+  2: { category: '수요지식회', url: 'presentations' },
 };
 
 export default function Header({ setShowSideBar, showSidebar }): ReactElement {
@@ -94,9 +94,10 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
 
   const routeSelectForm = async (item: Data): Promise<void> => {
     const config = {
-      url: `my-checkin/${CATEGORY[item.category].category}/${item.formId}`,
+      url: `my-checkin/${CATEGORY[item.category].url}/${item.formId}`,
     };
     const { data } = await apiController(config);
+    console.log(data);
     const pathUrl = {
       pathname: `/my-checkin/${CATEGORY[item.category].category}`,
       query: { formDetail: JSON.stringify(data) },
