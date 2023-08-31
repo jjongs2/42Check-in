@@ -2,7 +2,7 @@ import type { ReactElement } from 'react';
 
 export default function Contact(): ReactElement {
   return (
-    <div className='container mx-auto my-24 md:px-6'>
+    <div className='container z-10 mx-auto my-24 md:px-6'>
       <section className='mb-32'>
         <div className='flex justify-center'>
           <div className='text-center md:max-w-xl lg:max-w-3xl'>
