@@ -13,6 +13,12 @@ interface Data {
   notice: boolean;
 }
 
+const CATEGORY = {
+  0: { category: '외부인 초대', url: 'visitors' },
+  1: { category: '수요지식회', url: 'presentations' },
+  2: { category: '기자재 대여', url: 'equipments' },
+};
+
 export default function Header({ setShowSideBar, showSidebar }): ReactElement {
   const router = useRouter();
   const noticeIconRef = useRef<HTMLDivElement>(null);
@@ -87,6 +93,18 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
     };
   }, [showNotice]);
 
+  const routeSelectForm = async (item: Data): Promise<void> => {
+    const config = {
+      url: `my-checkin/${CATEGORY[item.category].category}/${item.formId}`,
+    };
+    const { data } = await apiController(config);
+    const pathUrl = {
+      pathname: `/my-checkin/${CATEGORY[item.category].category}`,
+      query: { formDetail: JSON.stringify(data) },
+    };
+    await router.push(pathUrl);
+  };
+
   return (
     <>
       <header className='fixed z-50 w-screen bg-[#4069FD] dark:bg-slate-700'>
@@ -138,9 +156,12 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
                       <div
                         key={item.formId}
                         className='group flex h-16 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
+                        onClick={() => {
+                          routeSelectForm(item);
+                        }}
                       >
                         <span className=' text-base font-semibold text-gray-700 group-hover:text-white'>
-                          {item.category} 신청이 수락되었습니다.
+                          {CATEGORY[item.category].category} 신청이 수락되었습니다.
                         </span>
                         <span className=' align-top text-sm text-gray-500  group-hover:text-white'>
                           {item.date}
