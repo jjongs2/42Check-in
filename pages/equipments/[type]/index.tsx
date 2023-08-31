@@ -1,5 +1,4 @@
 import Calendar from '@/components/calendar/Calendar';
-import ModalText from '@/components/common/ModalText';
 import ModalWrapper from '@/components/common/ModalWrapper';
 import type EquipmentsFormInfo from '@/interfaces/EquipmentsFormInfo';
 import apiController from '@/utils/apiController';
@@ -32,7 +31,7 @@ export default function RentalList(): ReactElement {
     <>
       {type === 'extension' && (
         <ModalWrapper>
-          <ModalText>연장할 장비를 선택해 주세요.</ModalText>
+          <div className='text-modal'>연장할 장비를 선택해 주세요.</div>
           <div className='flex-col justify-center space-y-2'>
             {formInfos.map(({ formId, equipment, returnDate }) => (
               <div key={formId}>

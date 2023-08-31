@@ -1,4 +1,3 @@
-import ModalText from '@/components/common/ModalText';
 import ModalWrapper from '@/components/common/ModalWrapper';
 import Link from 'next/link';
 import type { ReactElement, ReactNode } from 'react';
@@ -17,7 +16,7 @@ export default function OkModal({
 }: OkModalProps): ReactElement {
   return (
     <ModalWrapper>
-      <ModalText>{children}</ModalText>
+      <div className='text-modal'>{children}</div>
       <div className='flex justify-center'>
         <Link href='/' className='button-modal group dark:border dark:border-white'>
           <p className='dark:text-white dark:group-hover:text-black'>오예~~!!</p>

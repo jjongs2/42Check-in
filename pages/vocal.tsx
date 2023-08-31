@@ -1,4 +1,3 @@
-import ModalText from '@/components/common/ModalText';
 import ModalWrapper from '@/components/common/ModalWrapper';
 import EquipmentsForm from '@/components/form/EquipmentsForm';
 import PresentationsForm from '@/components/form/PresentationsForm';
@@ -20,9 +19,9 @@ export default function Vocal(): ReactElement {
   if (staff === 'false') {
     return (
       <ModalWrapper>
-        <ModalText>
+        <div className='text-modal'>
           <p>접근 권한이 없습니다.</p>
-        </ModalText>
+        </div>
         <div className='flex justify-center'>
           <Link href='/' className='button-modal'>
             <p>오예~~!!</p>
@@ -90,7 +89,7 @@ export default function Vocal(): ReactElement {
       </div>
       {showModal && (
         <ModalWrapper>
-          <ModalText>해당 신청서를 승인 하시나요??</ModalText>
+          <div className='text-modal'>해당 신청서를 승인 하시나요??</div>
           <div className='flex justify-center space-x-2'>
             <button
               onClick={(event) => {

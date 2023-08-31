@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 
-import ModalText from '../common/ModalText';
 import ModalWrapper from '../common/ModalWrapper';
 import Status from './Status';
 
@@ -130,7 +129,7 @@ export default function StatusBoard(): ReactElement {
         ))}
         {showModal && (
           <ModalWrapper>
-            <ModalText>취소하시나요??</ModalText>
+            <div className='text-modal'>취소하시나요??</div>
             <div className='flex justify-center space-x-2'>
               <button
                 onClick={(event) => {

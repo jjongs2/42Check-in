@@ -69,6 +69,10 @@ body {
   @apply border-2 border-[#6AA6FF] bg-[#6AA6FF] dark:border-2 dark:border-slate-700 dark:bg-white dark:text-slate-800;
 }
 
+.text-modal {
+  @apply text-[20px] font-bold text-[#54595E] dark:text-white;
+}
+
 @media (max-width: 640px) {
   .sidebar {
     display: none;
