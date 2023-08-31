@@ -97,7 +97,6 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
       url: `my-checkin/${CATEGORY[item.category].url}/${item.formId}`,
     };
     const { data } = await apiController(config);
-    console.log(data);
     const pathUrl = {
       pathname: `/my-checkin/${CATEGORY[item.category].url}`,
       query: { formDetail: JSON.stringify(data) },
