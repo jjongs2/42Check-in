@@ -14,7 +14,7 @@ function Menu({ href, text }: MenuProps): ReactElement {
     <Link
       href={href}
       className={cls(
-        router.asPath === href ? 'seletBtn' : 'notSeletBtn',
+        router.pathname.startsWith(href) ? 'seletBtn' : 'notSeletBtn',
         'rounded-[20px] border-2 px-1 py-3.5 text-center text-sm font-bold text-white transition dark:border-slate-800 hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:hover:bg-white',
       )}
     >
