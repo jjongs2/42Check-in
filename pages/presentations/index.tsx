@@ -19,7 +19,7 @@ interface Data {
 
 export default function Presentations(): ReactElement {
   const [date, setDate] = useState(dayjs());
-  const [presentationsInfo, setPresentationsInfo] = useState<Data[]>([]);
+  const [presentationsInfo, setPresentationsInfo] = useState<Data[]>();
 
   useEffect(() => {
     async function getMonthData(): Promise<void> {
@@ -32,6 +32,8 @@ export default function Presentations(): ReactElement {
     }
     void getMonthData();
   }, [date]);
+
+  if (presentationsInfo === undefined) return;
 
   return (
     <div className='m-8 rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-8 shadow-xl dark:border-green-800 dark:bg-gray-500'>
