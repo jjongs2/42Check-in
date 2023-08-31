@@ -53,7 +53,9 @@ export default function FormWrapper({
         className='mx-auto my-10 max-w-xl'
       >
         {children}
-        {!router.pathname.includes('/my-checkin') && <FormSubmitButton />}
+        {!(router.pathname.includes('/my-checkin') || router.pathname.includes('/vocal')) && (
+          <FormSubmitButton />
+        )}
       </form>
     </FormProvider>
   );

@@ -4,7 +4,9 @@ interface FormSubmitButtonProps {
   text?: string;
 }
 
-export default function FormSubmitButton({ text }: FormSubmitButtonProps): ReactElement {
+export default function FormSubmitButton({
+  text = 'Check - in',
+}: FormSubmitButtonProps): ReactElement {
   return (
     <button
       type='submit'
