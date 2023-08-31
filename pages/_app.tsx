@@ -37,8 +37,8 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
       setHasAccess(true);
       return;
     }
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken === null) {
+    const hasToken = localStorage.getItem('accessToken') !== null;
+    if (!hasToken) {
       void router.push('/login');
       return;
     }
