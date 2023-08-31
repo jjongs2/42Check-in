@@ -67,7 +67,7 @@ export default function StatusBoard(): ReactElement {
     );
   });
 
-  const onClick = async (formId: number): Promise<void> => {
+  const onClick = async ({ formId }: FormInfo): Promise<void> => {
     const config = {
       url: `/${category}/cancel`,
       method: 'POST',
@@ -125,7 +125,7 @@ export default function StatusBoard(): ReactElement {
               <button
                 onClick={(event) => {
                   event.preventDefault();
-                  void onClick(selectForm?.formId);
+                  void onClick(selectForm);
                   setShowModal(false);
                 }}
                 className='button-modal border dark:border-white dark:text-lg dark:text-white dark:hover:text-[#54595E]'
