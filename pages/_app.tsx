@@ -45,7 +45,7 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
     setHasAccess(true);
   }, [router]);
 
-  if (!hasAccess || isLoading) return <Loading />;
+  if (!hasAccess || (isLoading && localStorage.getItem('accessToken') === null)) return <Loading />;
 
   return (
     <ErrorBoundary>
