@@ -47,7 +47,7 @@ export default function Status({
   }
 
   return (
-    <>
+    <div className='flex justify-evenly w-full'>
       <div className='dark:text-white'>{date}</div>
       <div className='border-2 border-gray-300 dark:border-white' />
       <div className='dark:text-white'>{time}</div>
@@ -79,6 +79,6 @@ export default function Status({
       >
         취소
       </button>
-    </>
+    </div>
   );
 }
