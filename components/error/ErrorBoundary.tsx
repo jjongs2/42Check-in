@@ -1,7 +1,8 @@
 import logout from '@/utils/logout';
-import Router from 'next/router';
+import { AxiosError, isAxiosError } from 'axios';
+import Router, { useRouter } from 'next/router';
 import React, { Component } from 'react';
-import type { PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactElement, ReactNode } from 'react';
 
 import Error from './Error';
 
@@ -34,6 +35,16 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
     this.setState({ error });
   };
 
+  private readonly handleAxiosError = ({ status }: AxiosError): ReactElement => {
+    if (status === 503) {
+      const router = useRouter();
+      void router.push('/contact');
+      return;
+    }
+    logout();
+    return <Error />;
+  };
+
   private readonly handleError = (event: ErrorEvent): void => {
     this.setError(event.error);
     event.preventDefault?.();
@@ -58,11 +69,13 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
 
   render(): ReactNode {
     const { error } = this.state;
-    if (error !== null) {
-      console.warn('ErrorBoundary: ', error);
-      logout();
-      return <Error />;
+    if (error === null) {
+      return this.props.children;
     }
-    return this.props.children;
+    console.warn('ErrorBoundary: ', error);
+    if (isAxiosError(error)) {
+      return this.handleAxiosError(error);
+    }
+    return <Error />;
   }
 }

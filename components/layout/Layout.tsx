@@ -17,7 +17,7 @@ export default function Layout({ children }: LayoutProps): ReactElement {
 
   if (!hasLayout) return <>{children}</>;
 
-  const noSidebarPages = new Set(['/', '/my-checkin', '/vocal']);
+  const noSidebarPages = new Set(['/', '/contact', '/my-checkin', '/vocal']);
   const hasSidebar = !noSidebarPages.has(pathname);
 
   const [showSidebar, setShowSideBar] = useState(false);
@@ -27,7 +27,9 @@ export default function Layout({ children }: LayoutProps): ReactElement {
       <Header setShowSideBar={setShowSideBar} showSidebar={showSidebar} />
       {hasSidebar && <Sidebar showSidebar={showSidebar} />}
       {/* onClick했을 때 화면이 안밀림 click 했을 때 true -> 화면이 커지면 false로 만들어야함 */}
-      <div className={cls(hasSidebar ? 'ml-28 main-content duration-700' : ' ', 'pt-16')}>{children}</div>
+      <div className={cls(hasSidebar ? 'main-content ml-28 duration-700' : ' ', 'pt-16')}>
+        {children}
+      </div>
     </>
   );
 }
