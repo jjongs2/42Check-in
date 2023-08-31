@@ -1,3 +1,4 @@
+import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -16,7 +17,7 @@ export default function Calendar(): ReactElement {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [firstDays, setFirstDays] = useState<number[]>([]);
   const [lastDate, setLastDate] = useState(0);
-  const [disabledDate, setDisabledDate] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   function handlePrevMonthClick(): void {
     if (prevMonth.current === 0) {
@@ -37,10 +38,10 @@ export default function Calendar(): ReactElement {
   useEffect(() => {
     const today = new Date();
     if (currentMonth <= today.getMonth() && currentYear <= today.getFullYear()) {
-      setDisabledDate(true);
+      setDisabled(true);
       return;
     }
-    setDisabledDate(false);
+    setDisabled(false);
   }, [currentMonth]);
 
   useEffect(() => {
@@ -92,9 +93,12 @@ export default function Calendar(): ReactElement {
           </div>
           <div className='flex space-x-4'>
             <button
-              className='rounded bg-[#4069FD] p-2 text-white dark:bg-gray-400'
+              className={cls(
+                disabled ? 'bg-opacity-30 dark:bg-opacity-30' : '',
+                'rounded bg-[#4069FD] p-2 text-white dark:bg-gray-400',
+              )}
               onClick={handlePrevMonthClick}
-              disabled={disabledDate}
+              disabled={disabled}
             >
               <svg width={15} height={15} fill='currentColor' viewBox='0 0 24 24'>
                 <path
