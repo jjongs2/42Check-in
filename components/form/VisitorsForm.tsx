@@ -37,7 +37,6 @@ interface VisitorsFormProps {
 export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormProps): ReactElement {
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState<string>();
-  const myCheckin = router.pathname.includes('/my-checkin') || router.pathname.includes('/vocal');
   const [formDetail, setFormDetail] = useState<VisitorsFormInfo>();
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -78,7 +77,6 @@ export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormPro
             type='text'
             placeholder='어떤 분을 데려 오시나요? 이름을 알려 주세요.'
             value={formInfo?.visitorsName ?? formDetail?.visitorsName}
-            disabled={myCheckin}
           />
           <FormSelect
             name='relationWithUser'
@@ -90,7 +88,6 @@ export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormPro
               RELATIONS[formInfo?.relationWithUser - 1] ??
               RELATIONS[formDetail?.relationWithUser - 1]
             }
-            disabled={myCheckin}
           />
           <FormSelect
             name='visitPurpose'
@@ -99,7 +96,6 @@ export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormPro
             etcName='etcPurpose'
             placeholder='방문 목적을 선택해 주세요.'
             value={PURPOSES[formInfo?.visitPurpose - 1] ?? PURPOSES[formDetail?.visitPurpose - 1]}
-            disabled={myCheckin}
           />
           <FormSelect
             name='visitPlace'
@@ -108,7 +104,6 @@ export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormPro
             etcName='etcPlace'
             placeholder='방문 목적을 선택해 주세요.'
             value={PLACES[formInfo?.visitPlace - 1] ?? PLACES[formDetail?.visitPlace - 1]}
-            disabled={myCheckin}
           />
           <FormInput
             name='date'
@@ -117,7 +112,6 @@ export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormPro
             span='1'
             registerOptions={{ onChange: handleDateChange }}
             value={formInfo?.date ?? selectedDate ?? formDetail?.date}
-            disabled={myCheckin}
           />
           <FormInput
             name='visitTime'
@@ -125,7 +119,6 @@ export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormPro
             type='time'
             span='1'
             value={formInfo?.visitTime ?? formDetail?.visitTime}
-            disabled={myCheckin}
           />
           <FormAgreement>
             <p>외부인 방문 시 반드시 동행할 것을 약속하며</p>

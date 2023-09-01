@@ -37,7 +37,6 @@ export default function PresentationsForm({
   formInfo,
 }: PresentationsFormProps): ReactElement {
   const router = useRouter();
-  const myCheckin = router.pathname.includes('/my-checkin');
   const [date, setDate] = useState<string>();
   const [formDetail, setFormDetail] = useState<PresentationsFormInfo>();
 
@@ -82,7 +81,6 @@ export default function PresentationsForm({
             title='신청자 이름'
             type='text'
             value={formDetail?.userName ?? formInfo?.userName}
-            disabled={myCheckin}
             placeholder='실명을 알려 주세요. (예시: 이정재)'
           />
           <FormInput
@@ -90,7 +88,6 @@ export default function PresentationsForm({
             title='수요지식회 제목'
             type='text'
             value={formDetail?.title ?? formInfo?.title}
-            disabled={myCheckin}
             placeholder='강연 제목을 입력해 주세요.'
           />
           <FormInput
@@ -98,14 +95,12 @@ export default function PresentationsForm({
             title='수요지식회 주제'
             type='text'
             value={formDetail?.subject ?? formInfo?.subject}
-            disabled={myCheckin}
             placeholder='어떤 주제로 강연하시나요?'
           />
           <FormTextArea
             name='detail'
             title='상세 내용'
             value={formDetail?.detail ?? formInfo?.detail}
-            disabled={myCheckin}
           />
           <FormSelect
             name='time'
@@ -113,7 +108,6 @@ export default function PresentationsForm({
             options={TIMES}
             span='1'
             value={TIMES[formDetail?.time] ?? TIMES[formInfo?.time]}
-            disabled={myCheckin}
           />
           <FormSelect
             name='type'
@@ -121,7 +115,6 @@ export default function PresentationsForm({
             options={LECTURES}
             span='1'
             value={LECTURES[formDetail?.type] ?? LECTURES[formInfo?.type]}
-            disabled={myCheckin}
           />
           <FormSelect
             name='screen'
@@ -129,7 +122,6 @@ export default function PresentationsForm({
             options={IS_VIDEO}
             span='1'
             value={IS_VIDEO[formDetail?.screen] ?? IS_VIDEO[formInfo?.screen]}
-            disabled={myCheckin}
           />
           <FormInput name='date' title='강연 날짜' type='text' value={date} hidden />
         </div>

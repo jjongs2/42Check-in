@@ -1,4 +1,6 @@
+import PAGES from '@/constants/pages';
 import { cls } from '@/styles/cls';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -10,6 +12,10 @@ export default function FormSubmitButton({
   text = 'Check - in',
 }: FormSubmitButtonProps): ReactElement {
   const { watch } = useFormContext();
+  const router = useRouter();
+
+  if (PAGES.readOnly.has(router.pathname)) return;
+
   const isAgreed: boolean = watch('agreement') ?? true;
 
   return (

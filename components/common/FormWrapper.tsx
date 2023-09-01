@@ -14,7 +14,6 @@ interface FormWrapperProps {
 }
 
 export default function FormWrapper({ setShowModal, children }: FormWrapperProps): ReactElement {
-  const methods = useForm();
   const router = useRouter();
   const [rentalType, setRentalType] = useState<string>();
 
@@ -37,18 +36,14 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
     setRentalType(type as string);
   }, [router]);
 
+  const methods = useForm();
+  const { handleSubmit } = methods;
+
   return (
     <FormProvider {...methods}>
-      <form
-        action='#'
-        method='POST'
-        onSubmit={methods.handleSubmit(onSubmit)}
-        className='mx-auto my-10 max-w-xl'
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className='mx-auto my-10 max-w-xl'>
         {children}
-        {!(router.pathname.includes('/my-checkin') || router.pathname.includes('/vocal')) && (
-          <FormSubmitButton />
-        )}
+        <FormSubmitButton />
       </form>
     </FormProvider>
   );

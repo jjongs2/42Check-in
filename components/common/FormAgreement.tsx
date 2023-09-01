@@ -1,3 +1,5 @@
+import PAGES from '@/constants/pages';
+import { useRouter } from 'next/router';
 import { type ReactElement, type ReactNode, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -7,6 +9,9 @@ interface FormAgreementProps {
 
 export default function FormAgreement({ children }: FormAgreementProps): ReactElement {
   const { register } = useFormContext();
+  const router = useRouter();
+
+  if (PAGES.readOnly.has(router.pathname)) return;
 
   return (
     <div className='col-span-full flex space-x-2'>

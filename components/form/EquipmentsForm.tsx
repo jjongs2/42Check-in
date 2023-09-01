@@ -31,7 +31,6 @@ export default function EquipmentsForm({
   formInfo,
 }: EquipmentsFormProps): ReactElement {
   const router = useRouter();
-  const myCheckin = router.pathname.includes('/my-checkin');
   const [formDetail, setFormDetail] = useState<EquipmentsFormInfo>();
   const [selectedDate, setSelectedDate] = useState<string>();
 
@@ -63,7 +62,6 @@ export default function EquipmentsForm({
             title='신청자 이름'
             type='text'
             value={formDetail?.userName ?? formInfo?.userName}
-            disabled={myCheckin}
             placeholder='실명을 알려 주세요. (예시: 정우성)'
           />
           <FormInput
@@ -71,7 +69,6 @@ export default function EquipmentsForm({
             title='연락처'
             type='text'
             value={formDetail?.phoneNumber ?? formInfo?.phoneNumber}
-            disabled={myCheckin}
             placeholder='연락처를 입력해 주세요. (예시: 010-4242-4242)'
           />
           <FormSelect
@@ -80,7 +77,6 @@ export default function EquipmentsForm({
             options={EQUIPMENTS}
             span='1'
             value={EQUIPMENTS[formDetail?.equipment - 1] ?? EQUIPMENTS[formInfo?.equipment - 1]}
-            disabled={myCheckin}
             etcName='etcEquipment'
           />
           <FormSelect
@@ -89,13 +85,11 @@ export default function EquipmentsForm({
             options={PURPOSES}
             span='1'
             value={PURPOSES[formDetail?.purpose - 1] ?? PURPOSES[formInfo?.purpose - 1]}
-            disabled={myCheckin}
             etcName='etcPurpose'
           />
           <FormTextArea
             name='detail'
             value={formDetail?.detail ?? formInfo?.detail}
-            disabled={myCheckin}
             title='활용 계획 (무엇을, 어떻게, 왜, 언제까지 4가지를 꼭 기재해 주세요.)'
             placeholder='상세히 기술해 주세요.'
           />
@@ -104,13 +98,11 @@ export default function EquipmentsForm({
             title='기대 효과'
             placeholder='상세히 기술해 주세요.'
             value={formInfo?.benefit ?? formDetail?.benefit}
-            disabled={myCheckin}
           />
           <FormSelect
             name='period'
             title='대여 기간'
             value={PERIODS[formDetail?.period] ?? PERIODS[formInfo?.period]}
-            disabled={myCheckin}
             options={PERIODS}
             span='1'
           />
@@ -118,7 +110,6 @@ export default function EquipmentsForm({
             name='returnDate'
             title='반납 예정일'
             value={formDetail?.returnDate ?? formInfo?.returnDate}
-            disabled={myCheckin}
             type='date'
             span='1'
           />
@@ -129,7 +120,6 @@ export default function EquipmentsForm({
             span='1'
             registerOptions={{ onChange: handleDateChange }}
             value={formInfo?.date ?? selectedDate ?? formDetail?.date}
-            disabled={myCheckin}
           />
           <FormAgreement>
             <p>대여한 물품이 파손될 경우 비용이 청구될 수 있음을 확인했습니다.</p>
