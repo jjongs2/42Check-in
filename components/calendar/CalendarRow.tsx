@@ -36,11 +36,13 @@ function CalendarDate({ date, month, year }: CalendarDateProps): ReactElement {
   }
 
   return (
-    <td onClick={handleDateClick} className='relative cursor-pointer px-2 py-7 md:px-3'>
+    <td onClick={handleDateClick} className='group relative cursor-pointer px-2 py-7 md:px-3'>
       <p
         className={cls(
-          isToday ? 'border-2 border-[#4069FD] dark:border-white' : '',
-          'mx-auto h-7 w-7 rounded-full text-center text-gray-800 hover:text-blue-500 dark:text-gray-100',
+          isToday
+            ? 'border-2 border-[#4069FD] dark:border-white dark:group-hover:border-blue-500'
+            : '',
+          'mx-auto h-7 w-7 rounded-full text-center text-gray-800 group-hover:text-blue-500 dark:text-gray-100',
         )}
       >
         {date}
