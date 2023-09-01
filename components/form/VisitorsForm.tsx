@@ -36,7 +36,7 @@ interface VisitorsFormProps {
 
 export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormProps): ReactElement {
   const router = useRouter();
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState<string>();
   const myCheckin = router.pathname.includes('/my-checkin') || router.pathname.includes('/vocal');
   const [formDetail, setFormDetail] = useState<VisitorsFormInfo>();
 
@@ -51,6 +51,8 @@ export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormPro
     }
     setSelectedDate(getISODate(date as string));
   }, [router]);
+
+  if (selectedDate === undefined) return;
 
   return (
     <FormContainer>
