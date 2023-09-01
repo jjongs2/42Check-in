@@ -1,6 +1,9 @@
 import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
+import getISODate from '@/utils/getISODate';
 import { useRouter } from 'next/router';
-import { type Dispatch, type ReactElement, type SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { Dispatch, ReactElement, SetStateAction } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import FormContainer from '../common/FormContainer';
 import FormInput from '../common/FormInput';
@@ -35,14 +38,18 @@ export default function PresentationsForm({
 }: PresentationsFormProps): ReactElement {
   const router = useRouter();
   const myCheckin = router.pathname.includes('/my-checkin');
+  const [date, setDate] = useState<string>();
   const [formDetail, setFormDetail] = useState<PresentationsFormInfo>();
 
   useEffect(() => {
-    const { formDetail } = router.query;
+    const { date, formDetail } = router.query;
+    setDate(getISODate(date as string));
     if (formDetail !== undefined) {
       setFormDetail(JSON.parse(formDetail as string));
     }
   }, [router]);
+
+  if (date === undefined) return;
 
   return (
     <FormContainer>
@@ -124,6 +131,7 @@ export default function PresentationsForm({
             value={IS_VIDEO[formDetail?.screen] ?? IS_VIDEO[formInfo?.screen]}
             disabled={myCheckin}
           />
+          <FormInput name='date' title='강연 날짜' type='text' value={date} hidden />
         </div>
       </FormWrapper>
     </FormContainer>

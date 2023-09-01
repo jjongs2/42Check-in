@@ -21,7 +21,6 @@ export default function FormWrapper({
 }: FormWrapperProps): ReactElement {
   const methods = useForm();
   const router = useRouter();
-  const [date, setDate] = useState<string>();
   const [rentalType, setRentalType] = useState<string>();
 
   const onSubmit = async (data: any): Promise<void> => {
@@ -29,7 +28,7 @@ export default function FormWrapper({
     const config = {
       url: `/${category}/form`,
       method: 'POST',
-      data: { ...data, date: getISODate(date) },
+      data,
     };
     if (category === 'equipments') {
       config.url = `/equipments/form/${rentalType}`;
@@ -39,8 +38,7 @@ export default function FormWrapper({
   };
 
   useEffect(() => {
-    const { date, type } = router.query;
-    setDate(date as string);
+    const { type } = router.query;
     setRentalType(type as string);
   }, [router]);
 

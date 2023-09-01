@@ -1,6 +1,14 @@
 import type EquipmentsFormInfo from '@/interfaces/EquipmentsFormInfo';
+import getISODate from '@/utils/getISODate';
 import { useRouter } from 'next/router';
-import { type Dispatch, type ReactElement, type SetStateAction, useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  type Dispatch,
+  type ReactElement,
+  type SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 
 import FormAgreement from '../common/FormAgreement';
 import FormContainer from '../common/FormContainer';
@@ -25,13 +33,21 @@ export default function EquipmentsForm({
   const router = useRouter();
   const myCheckin = router.pathname.includes('/my-checkin');
   const [formDetail, setFormDetail] = useState<EquipmentsFormInfo>();
+  const [selectedDate, setSelectedDate] = useState<string>();
+
+  function handleDateChange(event: ChangeEvent<HTMLInputElement>): void {
+    setSelectedDate(event.target.value);
+  }
 
   useEffect(() => {
-    const { formDetail } = router.query;
+    const { date, formDetail } = router.query;
+    setSelectedDate(getISODate(date as string));
     if (formDetail !== undefined) {
       setFormDetail(JSON.parse(formDetail as string));
     }
   }, [router]);
+
+  if (selectedDate === undefined) return;
 
   return (
     <FormContainer>
@@ -106,8 +122,17 @@ export default function EquipmentsForm({
             type='date'
             span='1'
           />
+          <FormInput
+            name='date'
+            title='면담 희망 날짜'
+            type='date'
+            span='1'
+            registerOptions={{ onChange: handleDateChange }}
+            value={formInfo?.date ?? selectedDate ?? formDetail?.date}
+            disabled={myCheckin}
+          />
           <FormAgreement>
-            <p>대여한 물품을 파손시킬 경우 비용이 청구될 수 있음을 확인했습니다.</p>
+            <p>대여한 물품이 파손될 경우 비용이 청구될 수 있음을 확인했습니다.</p>
           </FormAgreement>
         </div>
       </FormWrapper>

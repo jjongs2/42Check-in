@@ -10,6 +10,7 @@ interface FormInputProps {
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
+  hidden?: boolean;
   registerOptions?: RegisterOptions;
   span?: string;
   value?: string;
@@ -22,6 +23,7 @@ export default function FormInput({
   disabled,
   onChange,
   placeholder,
+  hidden = false,
   registerOptions = { required: true },
   span = 'full',
   value,
@@ -32,7 +34,7 @@ export default function FormInput({
   } = useFormContext();
 
   return (
-    <div className={`col-span-${span}`}>
+    <div className={hidden ? 'hidden' : `col-span-${span}`}>
       <label
         htmlFor={title}
         className='block text-sm font-medium leading-6 text-gray-900 dark:text-gray-300'

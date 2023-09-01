@@ -38,18 +38,44 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
   };
 
   private readonly handleAxiosError = ({ data, status }: AxiosResponse): ReactElement => {
-    if (status === 503) {
-      if (data === 1008) {
-        return (
-          <WarningModal>
-            <div className='text-modal text-left'>
+    let message: ReactElement;
+    if (status === 404 && data === 1010) {
+      message = (
+        <>
+          <p>신청자가 방금 해당 요청을 취소했어요🙄</p>
+        </>
+      );
+    } else if (status === 503) {
+      switch (data) {
+        case 1007: {
+          return <Contact />;
+        }
+        case 1008: {
+          message = (
+            <>
               <p>같은 시간대에</p>
               <p>다른 회의실 예약 내역이 존재해요!</p>
-            </div>
-          </WarningModal>
-        );
+            </>
+          );
+          break;
+        }
+        case 1009: {
+          message = (
+            <>
+              <p>누군가가 방금 해당 시간대를 예약했어요🙄</p>
+              <p>다른 시간대를 선택해 주세요!</p>
+            </>
+          );
+          break;
+        }
       }
-      return <Contact />;
+    }
+    if (message !== undefined) {
+      return (
+        <WarningModal>
+          <div className='text-modal text-left'>{message}</div>
+        </WarningModal>
+      );
     }
     logout();
     return <Error />;
