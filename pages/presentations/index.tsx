@@ -1,8 +1,9 @@
 import apiController from '@/utils/apiController';
 import dayjs from 'dayjs';
+import debounce from 'lodash.debounce';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import type { ReactElement } from 'react';
+import type { ChangeEvent, ReactElement } from 'react';
 
 interface Data {
   formId: number;
@@ -18,8 +19,17 @@ interface Data {
 }
 
 export default function Presentations(): ReactElement {
-  const [date, setDate] = useState(dayjs());
+  const today = dayjs();
+  const [date, setDate] = useState(today);
   const [presentationsInfo, setPresentationsInfo] = useState<Data[]>();
+
+  const handleMonthChange = debounce(({ target }: ChangeEvent<HTMLInputElement>) => {
+    const year = dayjs(target.value).get('year');
+    if (year > 2042) {
+      target.value = today.format('YYYY-MM');
+    }
+    setDate(dayjs(target.value));
+  }, 420);
 
   useEffect(() => {
     async function getMonthData(): Promise<void> {
@@ -50,9 +60,9 @@ export default function Presentations(): ReactElement {
           type='month'
           className='bg-slate-100 dark:bg-gray-500'
           defaultValue={date.format('YYYY-MM')}
-          onChange={(event) => {
-            setDate(dayjs(`${event.target.value}-01`));
-          }}
+          min='2022-01'
+          max='2042-12'
+          onChange={handleMonthChange}
         />
       </div>
       <div className='mt-2 space-y-2'>
