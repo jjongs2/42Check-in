@@ -18,7 +18,7 @@ import FormTextArea from '../common/FormTextArea';
 import FormWrapper from '../common/FormWrapper';
 
 const EQUIPMENTS = ['맥북', '삼성 노트북', '아이패드'];
-const PERIODS = ['1개월', '3개월'];
+export const PERIODS = ['1개월', '3개월'];
 const PURPOSES = ['42 과제'];
 
 interface EquipmentsFormProps {

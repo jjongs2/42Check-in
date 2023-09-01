@@ -11,14 +11,9 @@ import FormSubmitButton from '../common/FormSubmitButton';
 interface FormWrapperProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
-  formInfo?: FormInfo;
 }
 
-export default function FormWrapper({
-  setShowModal,
-  children,
-  formInfo,
-}: FormWrapperProps): ReactElement {
+export default function FormWrapper({ setShowModal, children }: FormWrapperProps): ReactElement {
   const methods = useForm();
   const router = useRouter();
   const [rentalType, setRentalType] = useState<string>();
