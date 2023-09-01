@@ -6,46 +6,42 @@ interface FormAgreementProps {
 }
 
 export default function FormAgreement({ children }: FormAgreementProps): ReactElement {
-  const [isChecked, setIsChecked] = useState(false);
   const {
     register,
     formState: { errors },
   } = useFormContext();
-  const toggleSwitch = (): void => {
-    setIsChecked((prev) => !prev);
-  };
 
   return (
     <div className='col-span-full flex space-x-2'>
-      <div className='flex h-6 items-center'>
-        <button
-          type='button'
-          className={`flex w-8 flex-none cursor-pointer rounded-full ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out first-letter:p-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-900 ${
-            isChecked ? 'bg-indigo-600 dark:bg-indigo-800' : 'bg-gray-200 dark:bg-slate-300'
-          }`}
-          role='switch'
-          aria-checked={isChecked}
-          aria-labelledby='switch-1-label'
-          onClick={toggleSwitch}
-        >
-          <span
-            aria-hidden='true'
-            className={`h-4 w-4 translate-x-0 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out ${
-              isChecked ? 'translate-x-3.5' : ''
-            }`}
-          ></span>
-        </button>
+      <label
+        className='relative flex cursor-pointer items-start rounded-full pl-2 pr-1'
+        htmlFor='checkbox'
+        data-ripple-dark
+      >
         <input
           type='checkbox'
-          checked={isChecked}
-          defaultChecked={false}
-          className='sr-only'
+          className="before:content[''] border-blue-gray-200 before:bg-blue-gray-500 peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border transition-all before:absolute before:left-2/4 before:top-2/4 before:block before:h-12 before:w-12 before:-translate-x-2/4 before:-translate-y-2/4 before:rounded-full before:opacity-0 before:transition-opacity checked:border-indigo-500 checked:bg-indigo-500 checked:before:bg-indigo-500 hover:before:opacity-10"
+          id='checkbox'
           {...register('agreement', { required: true })}
         />
-      </div>
-      <label className='text-sm leading-6 text-gray-600 dark:text-white' id='switch-1-label'>
-        {children}
+        <div className='pointer-events-none absolute left-[11px] top-[3px] text-white opacity-0 transition-opacity peer-checked:opacity-100'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            className='h-3.5 w-3.5'
+            viewBox='0 0 20 20'
+            fill='currentColor'
+            stroke='currentColor'
+            strokeWidth='1'
+          >
+            <path
+              fillRule='evenodd'
+              d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+              clipRule='evenodd'
+            />
+          </svg>
+        </div>
       </label>
+      <div>{children}</div>
     </div>
   );
 }

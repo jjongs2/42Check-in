@@ -107,7 +107,7 @@ export default function EquipmentsForm({
             span='1'
           />
           <FormAgreement>
-            대여한 물품을 파손시킬 경우 비용이 청구될 수 있음을 확인했습니다.
+            <p>대여한 물품을 파손시킬 경우 비용이 청구될 수 있음을 확인했습니다.</p>
           </FormAgreement>
         </div>
       </FormWrapper>
