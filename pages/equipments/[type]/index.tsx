@@ -1,7 +1,5 @@
 import IMAGES from '@/assets/images';
 import Calendar from '@/components/calendar/Calendar';
-import FormInput from '@/components/common/FormInput';
-import FormSelect from '@/components/common/FormSelect';
 import { PERIODS } from '@/components/form/EquipmentsForm';
 import OkModal from '@/components/modal/OkModal';
 import type EquipmentsFormInfo from '@/interfaces/EquipmentsFormInfo';
@@ -26,7 +24,6 @@ export default function RentalList(): ReactElement {
   const [showModal, setShowModal] = useState(false);
   const [selectForm, setSelectForm] = useState(undefined);
 
-  console.log(selectForm);
   useEffect(() => {
     setType(router.query.type);
   }, [router]);
@@ -52,10 +49,11 @@ export default function RentalList(): ReactElement {
     await apiController(config);
     setShowModal(true);
   };
+
   return (
-    <div className='flex h-[50vh] flex-wrap items-center justify-center'>
+    <>
       {type === 'extension' ? (
-        <div className='relative ml-20 flex w-full flex-col lg:flex-row'>
+        <div className='relative ml-20 flex w-[80vw] flex-col items-center justify-center lg:flex-row'>
           {formInfos.map((item, i) => (
             <div
               key={i}
@@ -191,6 +189,6 @@ export default function RentalList(): ReactElement {
               color: #fff;
             }
           `}</style>
-    </div>
+    </>
   );
 }
