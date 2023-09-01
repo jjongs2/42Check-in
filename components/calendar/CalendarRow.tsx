@@ -1,5 +1,5 @@
 import { cls } from '@/styles/cls';
-import Link from 'next/link';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import type { ReactElement } from 'react';
@@ -8,7 +8,6 @@ interface CalendarDateProps {
   date: number;
   month: number;
   year: number;
-  isToday?: boolean;
 }
 
 interface CalendarRowProps {
@@ -19,8 +18,12 @@ interface CalendarRowProps {
   year: number;
 }
 
-function CalendarDate({ date, month, year, isToday = false }: CalendarDateProps): ReactElement {
+function CalendarDate({ date, month, year }: CalendarDateProps): ReactElement {
   const router = useRouter();
+
+  const today = dayjs();
+  const currentDate = today.year(year).month(month).date(date);
+  const isToday = currentDate.isSame(today, 'date');
 
   function handleDateClick(): void {
     const href = {
@@ -29,7 +32,7 @@ function CalendarDate({ date, month, year, isToday = false }: CalendarDateProps)
         date: `${year}-${month + 1}-${date}`,
       },
     };
-    router.push(href);
+    void router.push(href);
   }
 
   return (
@@ -53,8 +56,6 @@ export default function CalendarRow({
   month,
   year,
 }: CalendarRowProps): ReactElement {
-  const today = useState(new Date().getDate())[0];
-
   const contents = [];
   if (row === 0) {
     for (let i = 0; i < firstDay; ++i) {
@@ -63,17 +64,7 @@ export default function CalendarRow({
     contents.push(<CalendarDate key={0} date={1} month={month} year={year} />);
     const len = 7 - contents.length;
     for (let i = 1; i <= len; ++i) {
-      contents.push(
-        <CalendarDate
-          key={i}
-          date={i + 1}
-          month={month}
-          year={year}
-          isToday={
-            today === i + 1 && new Date().getMonth() === month && new Date().getFullYear() === year
-          }
-        />,
-      );
+      contents.push(<CalendarDate key={i} date={i + 1} month={month} year={year} />);
     }
     return <>{contents}</>;
   }
@@ -85,11 +76,6 @@ export default function CalendarRow({
           date={i + (7 * row - firstDay)}
           month={month}
           year={year}
-          isToday={
-            today === i + (7 * row - firstDay) &&
-            new Date().getMonth() === month &&
-            new Date().getFullYear() === year
-          }
         />,
       );
     }
