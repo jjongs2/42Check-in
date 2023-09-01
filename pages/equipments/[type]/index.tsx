@@ -1,19 +1,23 @@
-import IMAGES from '@/assets/images';
 import Calendar from '@/components/calendar/Calendar';
 import { PERIODS } from '@/components/form/EquipmentsForm';
 import OkModal from '@/components/modal/OkModal';
 import type EquipmentsFormInfo from '@/interfaces/EquipmentsFormInfo';
 import apiController from '@/utils/apiController';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
+import MacBook from '../../../assets/MacBook.png';
+import Samsung from '../../../assets/Samsung.png';
+import iPad from '../../../assets/iPad.png';
+
 const DEVICE = {
-  0: { svg: '', device: '기타' },
-  1: { svg: '', device: 'MacBook' },
-  2: { svg: '', device: 'SAMSUNG' },
-  3: { svg: '', device: 'iPad' },
+  0: { img: '', device: '기타' },
+  1: { img: MacBook, device: 'MacBook' },
+  2: { img: Samsung, device: 'SAMSUNG' },
+  3: { img: iPad, device: 'iPad' },
 };
 
 export default function RentalList(): ReactElement {
@@ -65,7 +69,11 @@ export default function RentalList(): ReactElement {
               <div className='card mx-2'>
                 <div className='face face1'>
                   <div className='content'>
-                    <div className='w-44'>{DEVICE[item.equipment].svg}</div>
+                    <Image
+                      className='aspect-auto object-contain'
+                      src={DEVICE[item.equipment].img}
+                      alt={DEVICE[item.equipment].device}
+                    />
                     <p className='p-2 text-center text-white'>{DEVICE[item.equipment].device}</p>
                   </div>
                 </div>
@@ -146,7 +154,7 @@ export default function RentalList(): ReactElement {
               transition: 0.5s;
             }
             .container .card .face.face1 .content img {
-              max-width: 100px;
+              max-width: 300px;
             }
             .container .card .face.face2 {
               position: relative;
