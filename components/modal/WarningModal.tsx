@@ -1,5 +1,6 @@
 import ModalWrapper from '@/components/common/ModalWrapper';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { ReactElement, ReactNode } from 'react';
 
 interface WarningModalProps {
@@ -7,6 +8,8 @@ interface WarningModalProps {
 }
 
 export default function WarningModal({ children }: WarningModalProps): ReactElement {
+  const router = useRouter();
+
   return (
     <ModalWrapper>
       <div className='flex items-center space-x-2.5 px-6'>
@@ -29,7 +32,7 @@ export default function WarningModal({ children }: WarningModalProps): ReactElem
         {children}
       </div>
       <div className='flex justify-center'>
-        <Link href='/' className='button-modal'>
+        <Link href={router.asPath} className='button-modal'>
           <p>돌아가기</p>
         </Link>
       </div>
