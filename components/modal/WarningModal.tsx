@@ -12,7 +12,7 @@ export default function WarningModal({ children }: WarningModalProps): ReactElem
 
   return (
     <ModalWrapper>
-      <div className='flex items-center space-x-2.5 px-6'>
+      <div className='flex items-center space-x-3 px-6'>
         <div className='flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-red-100'>
           <svg
             className='h-6 w-6 text-red-600'

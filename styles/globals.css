@@ -70,7 +70,7 @@ body {
 }
 
 .text-modal {
-  @apply text-[20px] font-bold text-[#54595E] dark:text-white;
+  @apply text-[20px] font-semibold text-[#44494E] dark:text-white;
 }
 
 @media (max-width: 640px) {
