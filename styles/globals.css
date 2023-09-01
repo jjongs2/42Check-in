@@ -34,7 +34,7 @@ body {
 }
 
 .button-modal {
-  @apply rounded-[8px] px-14 py-2.5 text-[14px] text-[#4F4F4F] ring-1 ring-inset ring-[#4F4F4F] hover:bg-gray-50;
+  @apply rounded-[8px] px-14 py-2.5 text-[14px] text-[#4F4F4F] ring-1 ring-inset ring-[#4F4F4F] hover:bg-gray-50 dark:border dark:border-white dark:text-white dark:hover:text-black;
 }
 
 .category {

@@ -18,8 +18,8 @@ export default function OkModal({
     <ModalWrapper>
       <div className='text-modal'>{children}</div>
       <div className='flex justify-center'>
-        <Link href='/' className='button-modal group dark:border dark:border-white'>
-          <p className='dark:text-white dark:group-hover:text-black'>오예~~!!</p>
+        <Link href='/' className='button-modal'>
+          <p>오예~~!!</p>
         </Link>
       </div>
     </ModalWrapper>
