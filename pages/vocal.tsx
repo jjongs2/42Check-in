@@ -2,6 +2,7 @@ import ModalWrapper from '@/components/common/ModalWrapper';
 import EquipmentsForm from '@/components/form/EquipmentsForm';
 import PresentationsForm from '@/components/form/PresentationsForm';
 import VisitorsForm from '@/components/form/VisitorsForm';
+import WarningModal from '@/components/modal/WarningModal';
 import VocalStatusBoard from '@/components/status/VocalStatusBoard';
 import type FormInfo from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
@@ -18,16 +19,9 @@ export default function Vocal(): ReactElement {
 
   if (staff === 'false') {
     return (
-      <ModalWrapper>
-        <div className='text-modal'>
-          <p>접근 권한이 없습니다.</p>
-        </div>
-        <div className='flex justify-center'>
-          <Link href='/' className='button-modal'>
-            <p>오예~~!!</p>
-          </Link>
-        </div>
-      </ModalWrapper>
+      <WarningModal href='/'>
+        <p className='text-modal text-left'>접근 권한이 없습니다.</p>
+      </WarningModal>
     );
   }
 

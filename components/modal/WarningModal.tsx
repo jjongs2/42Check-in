@@ -5,9 +5,10 @@ import type { ReactElement, ReactNode } from 'react';
 
 interface WarningModalProps {
   children?: ReactNode;
+  href?: string;
 }
 
-export default function WarningModal({ children }: WarningModalProps): ReactElement {
+export default function WarningModal({ children, href }: WarningModalProps): ReactElement {
   const router = useRouter();
 
   return (
@@ -32,7 +33,7 @@ export default function WarningModal({ children }: WarningModalProps): ReactElem
         {children}
       </div>
       <div className='flex justify-center'>
-        <Link href={router.asPath} className='button-modal'>
+        <Link href={href ?? router.asPath} className='button-modal'>
           <p>돌아가기</p>
         </Link>
       </div>
