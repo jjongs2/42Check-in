@@ -11,7 +11,7 @@ export default function FormAgreement({ children }: FormAgreementProps): ReactEl
   return (
     <div className='col-span-full flex space-x-2'>
       <label
-        className='relative flex cursor-pointer items-start rounded-full pl-2 pr-1'
+        className='relative flex cursor-pointer items-start rounded-full pl-2 pr-1 pt-0.5'
         htmlFor='checkbox'
         data-ripple-dark
       >
@@ -21,7 +21,7 @@ export default function FormAgreement({ children }: FormAgreementProps): ReactEl
           id='checkbox'
           {...register('agreement', { required: true })}
         />
-        <div className='pointer-events-none absolute left-[11px] top-[3px] text-white opacity-0 transition-opacity peer-checked:opacity-100'>
+        <div className='pointer-events-none absolute left-[11px] top-[5px] text-white opacity-0 transition-opacity peer-checked:opacity-100'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='h-3.5 w-3.5'
