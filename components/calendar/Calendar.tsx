@@ -94,7 +94,7 @@ export default function Calendar(): ReactElement {
           <div className='flex space-x-4'>
             <button
               className={cls(
-                disabled ? 'bg-opacity-30 dark:bg-opacity-30' : '',
+                disabled ? 'opacity-30' : '',
                 'rounded bg-[#4069FD] p-2 text-white dark:bg-gray-400',
               )}
               onClick={handlePrevMonthClick}

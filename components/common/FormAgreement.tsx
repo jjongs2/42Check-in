@@ -6,10 +6,7 @@ interface FormAgreementProps {
 }
 
 export default function FormAgreement({ children }: FormAgreementProps): ReactElement {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
+  const { register } = useFormContext();
 
   return (
     <div className='col-span-full flex space-x-2'>
