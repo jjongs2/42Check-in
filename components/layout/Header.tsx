@@ -4,13 +4,23 @@ import logout from '@/utils/logout';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import type { ReactElement } from 'react';
+import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
-interface Data {
+interface NoticeDTOList {
   category: number;
   formId: number;
   date: string;
   notice: boolean;
+}
+
+interface Data {
+  noticeCount: number;
+  noticeDTOList: NoticeDTOList[];
+}
+
+interface HeaderProps {
+  setShowSideBar: Dispatch<SetStateAction<boolean>>;
+  showSidebar: boolean;
 }
 
 const CATEGORY = {
@@ -19,12 +29,12 @@ const CATEGORY = {
   2: { category: '수요지식회', url: 'presentations' },
 };
 
-export default function Header({ setShowSideBar, showSidebar }): ReactElement {
+export default function Header({ setShowSideBar, showSidebar }: HeaderProps): ReactElement {
   const router = useRouter();
   const noticeIconRef = useRef<HTMLDivElement>(null);
   const userIconRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
-  const [noticeInfo, setNoticeInfo] = useState<Data[]>([]);
+  const [noticeInfo, setNoticeInfo] = useState<Data>(0);
   const theme = localStorage.getItem('theme');
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
 
@@ -73,6 +83,7 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
     };
     async function fetchData(): Promise<void> {
       const { data } = await apiController(config);
+      console.log(data);
       setNoticeInfo(data);
     }
     void fetchData();
@@ -92,7 +103,7 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
     };
   }, [showNotice]);
 
-  const routeSelectForm = async (item: Data): Promise<void> => {
+  const routeSelectForm = async (item: NoticeDTOList): Promise<void> => {
     const config = {
       url: `my-checkin/${CATEGORY[item.category].url}/${item.formId}`,
     };
@@ -151,12 +162,12 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
                     NOTIFICATIONS
                   </p>
                   <div className='mb-4 space-y-2'>
-                    {noticeInfo.map((item: Data) => (
+                    {noticeInfo.noticeDTOList.map((item: NoticeDTOList) => (
                       <div
                         key={item.formId}
                         className='group flex h-16 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
                         onClick={() => {
-                          routeSelectForm(item);
+                          void routeSelectForm(item);
                         }}
                       >
                         <span className=' text-base font-semibold text-gray-700 group-hover:text-white'>
@@ -171,7 +182,7 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
                 </div>
               )}
               <div className='absolute right-[80px] top-2 flex aspect-square h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-sm text-white transition dark:bg-violet-300'>
-                {noticeInfo.length}
+                {noticeInfo.noticeCount}
               </div>
             </div>
             <div ref={userIconRef} className='cursor-pointer' onClick={handleUserIconClick}>
