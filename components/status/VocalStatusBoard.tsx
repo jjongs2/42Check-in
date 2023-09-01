@@ -87,7 +87,6 @@ export default function StatusBoard({
             <input
               value='white'
               type='checkbox'
-              defaultChecked={false}
               checked={checked}
               onChange={() => {
                 setChecked(!checked);
@@ -113,14 +112,16 @@ export default function StatusBoard({
               <input
                 value='white'
                 type='checkbox'
-                defaultChecked={false}
-                checked={checkedList.includes(item.formId)}
+                checked={item.status > 0 ? false : checkedList.includes(item.formId)}
                 onChange={() => {
                   checkedList.includes(item.formId)
                     ? setCheckedList(checkedList.filter((id) => id !== item.formId))
                     : setCheckedList([...checkedList, item.formId]);
                 }}
-                className='h-6 w-6 rounded border-gray-300 transition'
+                className={cls(
+                  item.status > 0 ? 'invisible' : '',
+                  'h-6 w-6 rounded border-gray-300 transition',
+                )}
               />
             )}
             {category !== 'presentations' ? (

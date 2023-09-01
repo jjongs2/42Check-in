@@ -54,9 +54,7 @@ export default function PresentationsStatus({
           onChange={onChange}
           defaultValue={status.status}
         >
-          <option value='' selected>
-            상태를 선택해주세요.
-          </option>
+          <option value='0'>상태를 선택해주세요.</option>
           <option value='1'>{STATUS[1]}</option>
           <option value='2'>{STATUS[2]}</option>
           <option value='3'>{STATUS[3]}</option>
