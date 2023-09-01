@@ -61,25 +61,20 @@ export default function CalendarRow({
   const contents = [];
   if (row === 0) {
     for (let i = 0; i < firstDay; ++i) {
-      contents.push(<td></td>);
+      contents.push(<td key={-i}></td>);
     }
-    contents.push(<CalendarDate key={0} date={1} month={month} year={year} />);
+    contents.push(<CalendarDate key={1} date={1} month={month} year={year} />);
     const len = 7 - contents.length;
     for (let i = 1; i <= len; ++i) {
-      contents.push(<CalendarDate key={i} date={i + 1} month={month} year={year} />);
+      const date = i + 1;
+      contents.push(<CalendarDate key={date} date={date} month={month} year={year} />);
     }
     return <>{contents}</>;
   }
   for (let i = 1; i <= 7; ++i) {
-    if (i + (7 * row - firstDay) <= lastDate) {
-      contents.push(
-        <CalendarDate
-          key={i + (7 * row - firstDay) - 1}
-          date={i + (7 * row - firstDay)}
-          month={month}
-          year={year}
-        />,
-      );
+    const date = i + (7 * row - firstDay);
+    if (date <= lastDate) {
+      contents.push(<CalendarDate key={date} date={date} month={month} year={year} />);
     }
   }
   return <>{contents}</>;
