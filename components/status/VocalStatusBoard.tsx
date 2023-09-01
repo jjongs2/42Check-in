@@ -23,16 +23,18 @@ const btnContent = [
 ];
 
 interface VocalStatusBoardProps {
+  selectFormInfo: FormInfo;
   setSelectFormInfo: Dispatch<React.SetStateAction<FormInfo>>;
   setCategory: Dispatch<React.SetStateAction<string>>;
   category: string;
-  setCheckedList: Dispatch<React.SetStateAction<number[]>>;
-  checkedList: number[];
+  setCheckedList: Dispatch<React.SetStateAction<FormInfo[]>>;
+  checkedList: FormInfo[];
   setChangePresentations: Dispatch<React.SetStateAction<{}>>;
   changePresentations: {};
 }
 
 export default function StatusBoard({
+  selectFormInfo,
   setSelectFormInfo,
   setCategory,
   category,
@@ -91,7 +93,7 @@ export default function StatusBoard({
               onChange={() => {
                 setChecked(!checked);
                 if (checked) setCheckedList([]);
-                else setCheckedList(responseDataList.map((item) => item.formId));
+                else setCheckedList(responseDataList.map((item) => item));
               }}
               className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
             />
@@ -105,6 +107,10 @@ export default function StatusBoard({
             key={item.formId}
             className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
             onClick={() => {
+              if (item === selectFormInfo) {
+                setSelectFormInfo(undefined);
+                return;
+              }
               setSelectFormInfo(item);
             }}
           >
@@ -112,11 +118,11 @@ export default function StatusBoard({
               <input
                 value='white'
                 type='checkbox'
-                checked={item.status > 0 ? false : checkedList.includes(item.formId)}
+                checked={item.status > 0 ? false : checkedList.includes(item)}
                 onChange={() => {
-                  checkedList.includes(item.formId)
-                    ? setCheckedList(checkedList.filter((id) => id !== item.formId))
-                    : setCheckedList([...checkedList, item.formId]);
+                  checkedList.includes(item)
+                    ? setCheckedList(checkedList.filter((id) => id !== item))
+                    : setCheckedList([...checkedList, item]);
                 }}
                 className={cls(
                   item.status > 0 ? 'invisible' : '',

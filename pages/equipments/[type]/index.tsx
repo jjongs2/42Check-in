@@ -11,9 +11,9 @@ import { useForm } from 'react-hook-form';
 
 const DEVICE = {
   0: { svg: '', device: '기타' },
-  1: { svg: IMAGES.macbook, device: 'MacBook' },
+  1: { svg: '', device: 'MacBook' },
   2: { svg: '', device: 'SAMSUNG' },
-  3: { svg: IMAGES.ipad, device: 'iPad' },
+  3: { svg: '', device: 'iPad' },
 };
 
 export default function RentalList(): ReactElement {
@@ -99,19 +99,10 @@ export default function RentalList(): ReactElement {
                           })}
                         </select>
                       </div>
-                      <div className='flex flex-col justify-end'>
-                        <label htmlFor='returnDate'>반납 일자: </label>
-                        <input
-                          type='date'
-                          title='returnDate'
-                          name='returnDate'
-                          {...register('returnDate', { required: '입력하셔야죠.' })}
-                        />
-                        <input
-                          type='submit'
-                          className='mt-4 cursor-pointer rounded-xl p-2 hover:bg-[#6AA6FF] hover:text-white'
-                        />
-                      </div>
+                      <input
+                        type='submit'
+                        className='mt-4 cursor-pointer rounded-xl p-2 hover:bg-[#6AA6FF] hover:text-white'
+                      />
                     </form>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 import { cls } from '@/styles/cls';
 import { useRouter } from 'next/router';
-import { ReactElement, useState } from 'react';
+import { type ReactElement, useState } from 'react';
 
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -11,6 +11,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps): ReactElement {
   const { pathname } = useRouter();
+  const [showSidebar, setShowSideBar] = useState(false);
 
   const noLayoutPages = new Set(['/login', '/oauth/login']);
   const hasLayout = !noLayoutPages.has(pathname);
@@ -19,8 +20,6 @@ export default function Layout({ children }: LayoutProps): ReactElement {
 
   const noSidebarPages = new Set(['/', '/my-checkin', '/vocal']);
   const hasSidebar = !noSidebarPages.has(pathname);
-
-  const [showSidebar, setShowSideBar] = useState(false);
 
   return (
     <>
