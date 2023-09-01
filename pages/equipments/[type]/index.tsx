@@ -57,7 +57,7 @@ export default function RentalList(): ReactElement {
   return (
     <>
       {type === 'extension' ? (
-        <div className='relative ml-20 flex w-[80vw] flex-col items-center justify-center lg:flex-row'>
+        <div className='relative ml-20 mt-28 flex w-[80vw] flex-col items-center justify-center lg:flex-row'>
           {formInfos.map((item, i) => (
             <div
               key={i}
