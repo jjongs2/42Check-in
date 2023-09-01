@@ -91,7 +91,6 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
     };
     async function fetchData(): Promise<void> {
       const { data } = await apiController(config);
-      console.log(data);
       setNoticeInfo(data);
     }
     void fetchData();
