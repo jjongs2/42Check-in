@@ -1,10 +1,16 @@
 import ICONS from '@/assets/icons';
 import apiController from '@/utils/apiController';
 import logout from '@/utils/logout';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import type { Dispatch, ReactElement, SetStateAction } from 'react';
+
+dayjs.extend(relativeTime);
+dayjs.locale('ko');
 
 interface NoticeDTOList {
   category: number;
@@ -37,6 +43,8 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
   const [noticeInfo, setNoticeInfo] = useState<Data>(0);
   const theme = localStorage.getItem('theme');
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
+
+  const today = dayjs();
 
   function handleNoticeIconClick(): void {
     if (showNotice === 1) {
@@ -161,23 +169,27 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
                   <p className='mb-2 border-b-2 border-gray-400 pt-2 text-left font-semibold text-gray-500'>
                     NOTIFICATIONS
                   </p>
-                  <div className='mb-4 space-y-2'>
-                    {noticeInfo.noticeDTOList.map((item: NoticeDTOList) => (
-                      <div
-                        key={item.formId}
-                        className='group flex h-16 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
-                        onClick={() => {
-                          void routeSelectForm(item);
-                        }}
-                      >
-                        <span className=' text-base font-semibold text-gray-700 group-hover:text-white'>
-                          {CATEGORY[item.category].category} 신청이 수락되었습니다.
-                        </span>
-                        <span className=' align-top text-sm text-gray-500  group-hover:text-white'>
-                          {item.date}
-                        </span>
-                      </div>
-                    ))}
+                  <div className='mb-4 max-h-[10vh] space-y-2 overflow-y-scroll'>
+                    {noticeInfo.noticeDTOList.map((item: NoticeDTOList) => {
+                      const date = dayjs(item.date);
+                      const relativeDate = date.isSame(date, 'date') ? '오늘' : today.to(date);
+                      return (
+                        <div
+                          key={item.formId}
+                          className='group flex h-14 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
+                          onClick={() => {
+                            void routeSelectForm(item);
+                          }}
+                        >
+                          <span className='text-sm font-semibold text-gray-700 group-hover:text-white'>
+                            {CATEGORY[item.category].category} 신청이 수락되었습니다.
+                          </span>
+                          <span className='align-top text-sm text-gray-500 group-hover:text-white'>
+                            {relativeDate}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}
