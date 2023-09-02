@@ -26,7 +26,7 @@ export default function Layout({ children }: LayoutProps): ReactElement {
       <Header setShowSideBar={setShowSideBar} showSidebar={showSidebar} />
       {hasSidebar && <Sidebar showSidebar={showSidebar} />}
       {/* onClick했을 때 화면이 안밀림 click 했을 때 true -> 화면이 커지면 false로 만들어야함 */}
-      <div className={cls(hasSidebar ? 'main-content ml-28 duration-700' : ' ', 'pt-16')}>
+      <div className={cls(hasSidebar ? 'main-content ml-20 duration-700' : ' ', 'pt-16')}>
         {children}
       </div>
     </>

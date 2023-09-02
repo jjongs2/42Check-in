@@ -13,7 +13,7 @@ const btnContent = [
     url: 'visitors',
   },
   {
-    text: '수요지식회',
+    text: `수요 지식회`,
     url: 'presentations',
   },
   {
@@ -71,7 +71,7 @@ export default function StatusBoard({
         <button
           className={cls(
             category === items.url ? 'seletBtn' : 'notSeletBtn',
-            'rounded-[20px] px-5 py-2 font-bold text-white hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:hover:border-slate-700 dark:hover:bg-white',
+            'rounded-[20px] p-2 text-sm text-white hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:hover:border-slate-700 dark:hover:bg-white',
           )}
         >
           {items.text}
@@ -79,33 +79,33 @@ export default function StatusBoard({
       </div>
     );
   });
-
+  console.log(responseDataList);
   return (
-    <div className='z-10 m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border bg-white dark:bg-slate-800'>
-      {/* 위에 버튼 4개있는 부분 */}
-      <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-10 pb-4 dark:bg-slate-700'>
-        <div className='flex items-center space-x-2'>
-          {category !== 'presentations' && (
-            <input
-              value='white'
-              type='checkbox'
-              checked={checked}
-              onChange={() => {
-                setChecked(!checked);
-                if (checked) setCheckedList([]);
-                else setCheckedList(responseDataList.map((item) => item));
-              }}
-              className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
-            />
-          )}
-          {btnBox}
+    <div className='z-10 m-4 flex h-full max-h-[79vh] min-w-[405px] flex-col overflow-auto rounded-xl border bg-white dark:bg-slate-800 lg:w-[800px]'>
+      <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-4 dark:bg-slate-700'>
+        <div className='flex w-full items-center justify-between space-x-2'>
+          <input
+            value='white'
+            type='checkbox'
+            checked={checked}
+            onChange={() => {
+              setChecked(!checked);
+              if (checked) setCheckedList([]);
+              else setCheckedList(responseDataList.map((item) => item));
+            }}
+            className={cls(
+              category !== 'presentations' ? '' : 'invisible',
+              'mr-3 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500',
+            )}
+          />
+          <div className='flex space-x-3'>{btnBox}</div>
         </div>
       </div>
-      <div className=' mt-6 space-y-5'>
+      <div className='mt-6 w-full'>
         {responseDataList.map((item, i) => (
           <div
             key={item.formId}
-            className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
+            className='group mx-2 mb-4 flex h-14 max-w-full items-center justify-around rounded-2xl border-2 shadow-xl transition duration-300 hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
             onClick={() => {
               if (item === selectFormInfo) {
                 setSelectFormInfo(undefined);
@@ -118,6 +118,9 @@ export default function StatusBoard({
               <input
                 value='white'
                 type='checkbox'
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
                 checked={item.status > 0 ? false : checkedList.includes(item)}
                 onChange={() => {
                   checkedList.includes(item)
@@ -126,18 +129,21 @@ export default function StatusBoard({
                 }}
                 className={cls(
                   item.status > 0 ? 'invisible' : '',
-                  'h-6 w-6 rounded border-gray-300 transition',
+                  'mx-2 h-4 w-4 rounded border-gray-300 transition',
                 )}
               />
             )}
             {category !== 'presentations' ? (
               <Status status={item} vocal />
             ) : (
-              <PresentationsStatus
-                status={item}
-                changePresentations={changePresentations}
-                setChangePresentations={setChangePresentations}
-              />
+              <>
+                <div className='h-6 w-6'></div>
+                <PresentationsStatus
+                  status={item}
+                  changePresentations={changePresentations}
+                  setChangePresentations={setChangePresentations}
+                />
+              </>
             )}
           </div>
         ))}

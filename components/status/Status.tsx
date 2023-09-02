@@ -4,7 +4,6 @@ import { cls } from '@/styles/cls';
 import getDurations from '@/utils/getDurations';
 import dayjs from 'dayjs';
 import { type ReactElement } from 'react';
-import { PERIODS } from '../form/EquipmentsForm';
 
 interface StatusProps {
   status: FormInfo;
@@ -49,12 +48,12 @@ export default function Status({
   }
 
   return (
-    <div className='flex justify-evenly w-full'>
-      <div className='dark:text-white'>{date}</div>
-      <div className='border-2 border-gray-300 dark:border-white' />
-      <div className='dark:text-white'>{time}</div>
-      <div className='border-2 border-gray-300 dark:border-white' />
-      <div className='w-56 overflow-hidden text-ellipsis whitespace-nowrap dark:text-gray-300'>
+    <div className='flex w-full items-center justify-evenly text-sm'>
+      <div className='w-22 text-center dark:text-white sm:w-max'>{date}</div>
+      <div className='ml-2 h-3 border-[1px] border-gray-300 dark:border-white' />
+      <div className='w-20 text-center dark:text-white sm:w-max'>{time}</div>
+      <div className='h-3  border-[1px] border-gray-300 dark:border-white' />
+      <div className='w-20 whitespace-nowrap text-center dark:text-gray-300 md:w-max'>
         {details}
       </div>
       {status.reservationInfo === undefined && (
@@ -63,7 +62,7 @@ export default function Status({
             status.status !== 0
               ? 'bg-green-400 dark:bg-green-800'
               : 'bg-yellow-300 dark:bg-yellow-700',
-            'relative -right-[14%] -top-10 rounded-xl px-4 text-gray-700 dark:text-gray-300',
+            'relative -right-6 -top-7 w-max whitespace-nowrap rounded-xl px-4 text-gray-700 dark:text-gray-300',
           )}
         >
           {STATUS[status.status]}

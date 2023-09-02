@@ -38,7 +38,7 @@ export default function Home(): ReactElement {
         />
       </div>
       {/* 안에 4가지 카테고리 (vh ) */}
-      <div className='mx-4 grid grid-cols-2 gap-x-10 gap-y-10 lg:h-2/5 lg:grid-cols-4'>
+      <div className='mx-4 grid h-full w-full grid-cols-2 gap-6 lg:grid-cols-4'>
         {/* 회의실 */}
         <div className='category group top-[5%] bg-[#3983f2] bg-opacity-20 dark:bg-slate-500 dark:bg-opacity-30'>
           <Link href={'/conference-rooms'} className='categoryIner'>
@@ -58,9 +58,9 @@ export default function Home(): ReactElement {
             <Image
               src={VisitorsIMG}
               alt='visitors'
-              width={400}
-              height={400}
-              className='relative -bottom-[120px] group-hover:animate-bounce'
+              width={200}
+              height={200}
+              className='relative -bottom-[70px] group-hover:animate-bounce'
             />
           </Link>
         </div>
@@ -70,9 +70,9 @@ export default function Home(): ReactElement {
             <Image
               src={PresentationsIMG}
               alt='presentations'
-              width={200}
+              width={100}
               height={100}
-              className='relative -bottom-[120px] group-hover:animate-bounce'
+              className='relative -bottom-[60px] group-hover:animate-bounce'
             />
           </Link>
         </div>

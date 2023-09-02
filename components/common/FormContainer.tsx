@@ -9,7 +9,7 @@ interface FormContainerProps {
 export default function FormContainer({ children }: FormContainerProps): ReactElement {
   const router = useRouter();
   return (
-    <div className='bg-white px-8 py-20 dark:bg-slate-800'>
+    <div className='isolate h-full bg-white px-8 py-20 dark:bg-slate-800'>
       <div
         className='absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]'
         aria-hidden='true'
@@ -28,7 +28,7 @@ export default function FormContainer({ children }: FormContainerProps): ReactEl
           onClick={() => {
             router.back();
           }}
-          className='absolute left-36 top-24 rounded-full text-gray-700 transition hover:text-[#6A70FF] hover:ring-2 hover:ring-[#6A70FF] hover:ring-offset-0 dark:text-white dark:ring-white'
+          className='absolute left-[13%] top-24 rounded-full text-gray-700 transition hover:text-[#6A70FF] hover:ring-2 hover:ring-[#6A70FF] hover:ring-offset-0 dark:text-white dark:ring-white'
         >
           {ICONS.goBack}
         </button>
