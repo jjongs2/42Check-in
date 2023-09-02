@@ -52,6 +52,7 @@ export default function FormInput({
           placeholder={placeholder}
           value={value}
           min={getISODate()}
+          max='2024-12-31'
           disabled={disabled}
           {...register(name, registerOptions)}
         />
