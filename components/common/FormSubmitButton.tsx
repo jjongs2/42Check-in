@@ -16,13 +16,15 @@ export default function FormSubmitButton({
 
   if (PAGES.readOnly.has(router.pathname)) return;
 
-  const isAgreed: boolean = watch('agreement') ?? true;
+  const category = router.pathname.split('/')[1];
+  const noAgreementCategories = new Set(['presentations']);
+  const isAgreed: boolean = noAgreementCategories.has(category) ? true : watch('agreement', false);
 
   return (
     <button
       type='submit'
       className={cls(
-        isAgreed ? 'hover:bg-indigo-500 dark:hover:bg-slate-400 ' : 'opacity-30',
+        isAgreed ? 'hover:bg-indigo-500 dark:hover:bg-slate-400' : 'opacity-30',
         'block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition-[opacity] duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-slate-500',
       )}
       disabled={!isAgreed}
