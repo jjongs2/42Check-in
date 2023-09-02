@@ -95,7 +95,7 @@ export default function Timeline(): ReactElement {
       datesSet: function ({ start }) {
         const calendarDate = dayjs(start);
         if (calendarDate.isSame(date, 'date')) return;
-        router.push({
+        void router.push({
           query: { ...router.query, date: calendarDate.format('YYYY-M-D') },
         });
       },

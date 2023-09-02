@@ -40,7 +40,7 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
   const noticeIconRef = useRef<HTMLDivElement>(null);
   const userIconRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
-  const [noticeInfo, setNoticeInfo] = useState<Data>(0);
+  const [noticeInfo, setNoticeInfo] = useState<Data>({ noticeCount: 0, noticeDTOList: [] });
   const theme = localStorage.getItem('theme');
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
 
