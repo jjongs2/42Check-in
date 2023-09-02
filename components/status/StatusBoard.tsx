@@ -88,8 +88,8 @@ export default function StatusBoard(): ReactElement {
         }}
         className=' mt-6 space-y-3'
       >
-        {responseDataList.map((item, i) => (
-          <>
+        {responseDataList.map((item, index) => (
+          <div key={index}>
             {category !== 'conference-rooms' ? (
               <Link
                 key={item.formId}
@@ -125,7 +125,7 @@ export default function StatusBoard(): ReactElement {
                 />
               </div>
             )}
-          </>
+          </div>
         ))}
         {showModal && (
           <ModalWrapper>
