@@ -9,6 +9,7 @@ interface FormInputProps {
   name: string;
   title: string;
   type: string;
+  disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   hidden?: boolean;
@@ -21,6 +22,7 @@ export default function FormInput({
   name,
   title,
   type,
+  disabled,
   onChange,
   placeholder,
   hidden = false,
@@ -34,7 +36,7 @@ export default function FormInput({
   } = useFormContext();
   const router = useRouter();
 
-  const disabled = PAGES.readOnly.has(router.pathname);
+  const isReadOnly = PAGES.readOnly.has(router.pathname);
 
   return (
     <div className={hidden ? 'hidden' : `col-span-${span}`}>
@@ -53,7 +55,7 @@ export default function FormInput({
           value={value}
           min={getISODate()}
           max='2024-12-31'
-          disabled={disabled}
+          disabled={disabled ?? isReadOnly}
           {...register(name, registerOptions)}
         />
       </div>

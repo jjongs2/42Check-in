@@ -1,14 +1,10 @@
 import type EquipmentsFormInfo from '@/interfaces/EquipmentsFormInfo';
 import getISODate from '@/utils/getISODate';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
-import {
-  ChangeEvent,
-  type Dispatch,
-  type ReactElement,
-  type SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from 'react';
+import type { ChangeEvent, Dispatch, ReactElement, SetStateAction } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import FormAgreement from '../common/FormAgreement';
 import FormContainer from '../common/FormContainer';
@@ -24,6 +20,27 @@ const PURPOSES = ['42 과제'];
 interface EquipmentsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
   formInfo?: EquipmentsFormInfo;
+}
+
+function ReturnDate(): ReactElement {
+  const { watch } = useFormContext();
+
+  const period = watch('period', 0);
+  const today = dayjs();
+  const returnMonth = today.get('month') + Number(PERIODS[period].at(0));
+  const returnDate = today.month(returnMonth).format('YYYY-MM-DD');
+
+  return (
+    <FormInput
+      name='returnDate'
+      title='반납 예정일'
+      value={returnDate}
+      type='date'
+      registerOptions={{ required: false }}
+      span='1'
+      disabled
+    />
+  );
 }
 
 export default function EquipmentsForm({
@@ -106,16 +123,10 @@ export default function EquipmentsForm({
             options={PERIODS}
             span='1'
           />
-          <FormInput
-            name='returnDate'
-            title='반납 예정일'
-            value={formDetail?.returnDate ?? formInfo?.returnDate}
-            type='date'
-            span='1'
-          />
+          <ReturnDate />
           <FormInput
             name='date'
-            title='면담 희망 날짜'
+            title='면담 희망일'
             type='date'
             span='1'
             registerOptions={{ onChange: handleDateChange }}
