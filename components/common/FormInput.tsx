@@ -47,7 +47,7 @@ export default function FormInput({
       <div className='mt-2'>
         <input
           type={type}
-          id={title}
+          id={name}
           className='block w-full rounded-md border-0 px-3.5 py-2.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600'
           placeholder={placeholder}
           value={value}
