@@ -37,56 +37,39 @@ const CATEGORY = {
 
 export default function Header({ setShowSideBar, showSidebar }: HeaderProps): ReactElement {
   const router = useRouter();
-  const noticeIconRef = useRef<HTMLDivElement>(null);
-  const userIconRef = useRef<HTMLDivElement>(null);
-  const [showNotice, setShowNotice] = useState(0);
+  const [showNotice, setShowNotice] = useState(false);
   const [noticeInfo, setNoticeInfo] = useState<Data>(0);
-  const theme = localStorage.getItem('theme');
-  const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
+  const [apiOnce, setApiOnce] = useState(false);
+  const toggleRef = useRef(null);
 
   const today = dayjs();
 
   function handleNoticeIconClick(): void {
-    if (showNotice === 1) {
-      setShowNotice(0);
-      return;
+    setShowNotice(!showNotice);
+    if (!apiOnce) {
+      const config = {
+        url: '/notice',
+        method: 'POST',
+      };
+      void apiController(config);
+      setApiOnce(true);
     }
-    setShowNotice(1);
-    setNoticeInfo({ ...noticeInfo, noticeCount: 0 });
-    const config = {
-      url: '/notice',
-      method: 'POST',
-    };
-    void apiController(config);
-  }
-
-  function handleThemeToggleClick(): void {
-    setIsDarkMode((prev) => {
-      const curr = !prev;
-      document.documentElement.classList.toggle('dark', curr);
-      localStorage.setItem('theme', curr ? 'dark' : 'light');
-      return curr;
-    });
-  }
-
-  function handleUserIconClick(): void {
-    if (showNotice === 2) {
-      setShowNotice(0);
-      return;
-    }
-    setShowNotice(2);
   }
 
   useEffect(() => {
-    if (theme === null) {
-      localStorage.setItem('theme', 'light');
-    } else if (theme === 'dark') {
-      document.documentElement.classList.toggle('dark', true);
-    }
+    const handleClickOutside = (e) => {
+      if (toggleRef.current && !toggleRef.current.contains(event.target)) {
+        setShowNotice(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
 
   useEffect(() => {
-    setShowNotice(0);
     const config = {
       url: '/notice',
     };
@@ -96,20 +79,6 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
     }
     void fetchData();
   }, [router]);
-
-  useEffect(() => {
-    function handleOutsideClick(event: any): void {
-      if (showNotice === 0) return;
-      const currentRef = showNotice === 1 ? noticeIconRef : userIconRef;
-      if (!currentRef.current.contains(event.target as Node)) {
-        setShowNotice(0);
-      }
-    }
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [showNotice]);
 
   const routeSelectForm = async (item: NoticeDTOList): Promise<void> => {
     const config = {
@@ -141,30 +110,9 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
             </button>
           </div>
           <div className='flex items-center justify-center space-x-4'>
-            <div className='col-span-full flex space-x-2'>
-              <div className='flex h-6 items-center'>
-                <button
-                  type='button'
-                  className={`flex w-8 flex-none cursor-pointer rounded-full p-px transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
-                    isDarkMode ? 'bg-gray-200' : 'bg-gray-700'
-                  }`}
-                  role='switch'
-                  aria-checked={isDarkMode}
-                  aria-labelledby='switch-1-label'
-                  onClick={handleThemeToggleClick}
-                >
-                  <span
-                    aria-hidden='true'
-                    className={`h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out ${
-                      isDarkMode ? 'translate-x-3.5' : 'translate-x-0'
-                    }`}
-                  />
-                </button>
-              </div>
-            </div>
-            <div ref={noticeIconRef} className='cursor-pointer' onClick={handleNoticeIconClick}>
+            <div ref={toggleRef} className='cursor-pointer' onClick={handleNoticeIconClick}>
               {ICONS.notice}
-              {showNotice === 1 && (
+              {showNotice && (
                 <div className='absolute right-10 top-12 m-2 rounded-xl bg-[#e8e8e8] px-4 shadow-xl'>
                   <p className='mb-2 border-b-2 border-gray-400 pt-2 text-left font-semibold text-gray-500'>
                     NOTIFICATIONS
@@ -197,36 +145,7 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
                 {noticeInfo.noticeCount}
               </div>
             </div>
-            <div ref={userIconRef} className='cursor-pointer' onClick={handleUserIconClick}>
-              {ICONS.user}
-              {showNotice === 2 && (
-                <div className='absolute right-6 top-12 m-1 flex flex-col rounded-xl bg-[#e8e8e8] px-2 shadow-xl'>
-                  <Link
-                    href={'/my-checkin'}
-                    className='mt-2 rounded-lg p-4 text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white dark:hover:bg-slate-700'
-                  >
-                    My Check - in
-                  </Link>
-                  <button
-                    onClick={() => {
-                      const config = {
-                        url: '/logout',
-                        method: 'POST',
-                      };
-                      async function fetch(): Promise<void> {
-                        await apiController(config);
-                        logout();
-                        await router.push('/login');
-                      }
-                      void fetch();
-                    }}
-                    className='mb-2 rounded-lg p-4 text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white dark:hover:bg-slate-700'
-                  >
-                    Sign Out
-                  </button>
-                </div>
-              )}
-            </div>
+            <Link href={'/my-checkin'}>{ICONS.user}</Link>
           </div>
         </nav>
       </header>

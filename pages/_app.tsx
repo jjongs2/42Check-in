@@ -54,6 +54,7 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
         <meta charSet='utf-8' />
         <meta name='description' content='모든 예약을 한 곳에' />
       </Head>
+      <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></link>
       <Layout>
         <Component pageProps={pageProps} />
       </Layout>
