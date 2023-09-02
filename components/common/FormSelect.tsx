@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import type { ChangeEvent, ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
+import type { RegisterOptions } from 'react-hook-form';
 
 interface FormSelectProps {
   name: string;
@@ -50,6 +51,12 @@ export default function FormSelect({
     }
   }
 
+  const registerOptions: RegisterOptions = hasEtc
+    ? {
+        onChange: handleSelectChange,
+      }
+    : undefined;
+
   return (
     <div className={`col-span-${span}`}>
       <label
@@ -68,10 +75,7 @@ export default function FormSelect({
           value={value}
           placeholder={placeholder}
           disabled={disabled}
-          {...register(name, {
-            required: true,
-            onChange: handleSelectChange,
-          })}
+          {...register(name, registerOptions)}
         >
           {options.map((option, index) => {
             const key = option === '기타' ? 0 : index + Number(hasEtc);
