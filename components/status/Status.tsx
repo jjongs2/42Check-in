@@ -4,6 +4,7 @@ import { cls } from '@/styles/cls';
 import getDurations from '@/utils/getDurations';
 import dayjs from 'dayjs';
 import { type ReactElement } from 'react';
+import { PERIODS } from '../form/EquipmentsForm';
 
 interface StatusProps {
   status: FormInfo;
@@ -15,7 +16,8 @@ interface StatusProps {
 
 const STATUS = ['신청 중', '승인', '스케줄 등록 완료', '아젠다 등록', '강의 완료', '차례 대기 중'];
 const SPEECHTIME = ['15분', '30분', '45분', '1시간', '1시간 이상'];
-
+const PERIOD = ['', '1 개월', '', '3 개월'];
+const DEVICES = ['', '맥북', '삼성 노트북', '아이패드'];
 export default function Status({
   status,
   setShowModal,
@@ -26,8 +28,8 @@ export default function Status({
   const date = dayjs(status.date).format('YYYY년 MM월 DD일');
   let time, details;
   if (status.equipment !== undefined) {
-    time = status.period;
-    details = status.equipment;
+    time = PERIOD[status.period];
+    details = DEVICES[status.equipment];
   } else if (status.subject !== undefined) {
     time = SPEECHTIME[status.time];
     details = status.subject;
