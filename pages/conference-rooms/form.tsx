@@ -92,6 +92,13 @@ export default function Timeline(): ReactElement {
     if (calendarRef.current === null) return;
     const calendarEl = calendarRef.current;
     const calendar = new Calendar(calendarEl, {
+      datesSet: function ({ start }) {
+        const calendarDate = dayjs(start);
+        if (calendarDate.isSame(date, 'date')) return;
+        router.push({
+          query: { ...router.query, date: calendarDate.format('YYYY-M-D') },
+        });
+      },
       events,
       eventDisplay: 'background',
       headerToolbar: {
@@ -108,17 +115,17 @@ export default function Timeline(): ReactElement {
       resourceAreaWidth: '150px',
       resourceAreaColumns: [{ field: 'title' }],
       resourceGroupField: 'location',
+      schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
       select: function ({ resource, start, end }) {
         setRoomId(Number(resource._resource.id));
         setStartIndex(getHoursIndex(start));
         setEndIndex(getHoursIndex(end));
       },
-      selectable: true,
       selectAllow: function ({ start }) {
         return !dayjs(start).isBefore();
       },
+      selectable: true,
       selectOverlap: false,
-      schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
       slotLabelFormat: {
         hour: 'numeric',
         hour12: false,
