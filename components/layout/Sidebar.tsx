@@ -142,7 +142,6 @@ export default function Sidebar({ showSidebar }): ReactElement {
       }
 
       body.dark {
-        --body-color: #18191a;
         --sidebar-color: #242526;
         --primary-color: #3a3b3c;
         --primary-color-light: #3a3b3c;
