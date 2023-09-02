@@ -40,6 +40,7 @@ function CalendarDate({ date, month, year, isAvailable }: CalendarDateProps): Re
   }
 
   function handleDateClick(): void {
+    if (!isAvailable) return;
     const href = {
       pathname: `${router.asPath}/form`,
       query: {

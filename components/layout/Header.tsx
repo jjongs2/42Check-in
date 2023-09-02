@@ -52,6 +52,7 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
       return;
     }
     setShowNotice(1);
+    setNoticeInfo({ ...noticeInfo, noticeCount: 0 });
     const config = {
       url: '/notice',
       method: 'POST',
