@@ -47,6 +47,7 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
   function handleNoticeIconClick(): void {
     setShowNotice(!showNotice);
     if (!apiOnce) {
+      setNoticeInfo({ ...noticeInfo, noticeCount: 0 });
       const config = {
         url: '/notice',
         method: 'POST',
