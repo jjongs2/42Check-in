@@ -3,7 +3,6 @@ import getISODate from '@/utils/getISODate';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement, SetStateAction } from 'react';
-import { useFormContext } from 'react-hook-form';
 
 import FormContainer from '../common/FormContainer';
 import FormInput from '../common/FormInput';
@@ -74,7 +73,7 @@ export default function PresentationsForm({
           5. 만약 스케줄이 꽉 찼거나 관련 요청, 질문이 있다면 @42_holly에게 DM 요청해 주세요!
         </p>
       </div>
-      <FormWrapper setShowModal={setShowModal} formInfo={formInfo}>
+      <FormWrapper setShowModal={setShowModal}>
         <div className='grid grid-cols-3 gap-x-8 gap-y-6 pb-10'>
           <FormInput
             name='userName'

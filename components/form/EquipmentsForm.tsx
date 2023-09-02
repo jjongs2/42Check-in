@@ -55,7 +55,7 @@ export default function EquipmentsForm({
           기자재 대여 신청
         </h2>
       </div>
-      <FormWrapper setShowModal={setShowModal} formInfo={formInfo}>
+      <FormWrapper setShowModal={setShowModal}>
         <div className='grid grid-cols-2 gap-x-8 gap-y-6 pb-6'>
           <FormInput
             name='userName'

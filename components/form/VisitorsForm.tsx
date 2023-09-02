@@ -69,7 +69,7 @@ export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormPro
           조금은 불편하더라도 확실한 보안을 위한 절차이오니 이 점 참고해 주시기 바랍니다.
         </p>
       </div>
-      <FormWrapper setShowModal={setShowModal} formInfo={formInfo}>
+      <FormWrapper setShowModal={setShowModal}>
         <div className='grid grid-cols-2 gap-x-8 gap-y-6 pb-6'>
           <FormInput
             name='visitorsName'
