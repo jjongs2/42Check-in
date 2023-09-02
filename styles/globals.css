@@ -57,6 +57,10 @@ body {
   @apply dark:bg-slate-900;
 }
 
+.fc-timeline-slot-lane.fc-slot-past {
+  @apply bg-[#F1F1F1] opacity-60 dark:bg-[#494F5C];
+}
+
 .fc-timeline-slot-frame {
   @apply dark:bg-slate-900;
 }

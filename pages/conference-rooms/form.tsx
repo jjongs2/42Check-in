@@ -7,6 +7,7 @@ import { Calendar } from '@fullcalendar/core';
 import type { EventInput } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
@@ -113,6 +114,9 @@ export default function Timeline(): ReactElement {
         setEndIndex(getHoursIndex(end));
       },
       selectable: true,
+      selectAllow: function ({ start }) {
+        return !dayjs(start).isBefore();
+      },
       selectOverlap: false,
       schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
       slotLabelFormat: {
@@ -126,6 +130,9 @@ export default function Timeline(): ReactElement {
         month: 'numeric',
         day: 'numeric',
         weekday: 'short',
+      },
+      validRange: {
+        start: getISODate(),
       },
     });
     calendar.render();
