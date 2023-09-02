@@ -1,9 +1,7 @@
 import { cls } from '@/styles/cls';
-import apiController from '@/utils/apiController';
-import logout from '@/utils/logout';
 import Link from 'next/link';
-import router, { useRouter } from 'next/router';
-import { type ReactElement, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { type ReactElement, useState } from 'react';
 
 interface MenuProps {
   href: string;
@@ -31,35 +29,13 @@ function Menu({ href, text, icon }: MenuProps): ReactElement {
 export default function Sidebar({ showSidebar }): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const body = document.querySelector('body');
-    const toggle = body.querySelector('.toggle');
-    const modeSwitch = body.querySelector('.toggle-switch');
-    const modeText = body.querySelector('.mode-text') as HTMLElement;
-
-    modeSwitch.addEventListener('click', () => {
-      body.classList.toggle('dark');
-
-      if (body.classList.contains('dark')) {
-        modeText.innerText = '밝은 모드';
-      } else {
-        modeText.innerText = '어둠 모드';
-      }
-    });
-
-    return () => {
-      toggle.removeEventListener('click', () => {});
-      modeSwitch.removeEventListener('click', () => {});
-    };
-  }, []);
-
-  const toggleSidebar = () => {
+  const toggleSidebar = (): void => {
     // sidebar의 상태를 변경하는 로직
     setIsOpen(!isOpen);
   };
 
   return (
-    <nav className={cls(isOpen ? '' : 'close', 'sidebar border-r-2 ')}>
+    <nav className={cls(isOpen ? '' : 'close', 'sidebar border-r-2 dark:bg-slate-900 ')}>
       <header>
         <div className='image-text'>
           <span className='image'></span>
@@ -75,38 +51,6 @@ export default function Sidebar({ showSidebar }): ReactElement {
             <Menu href='/presentations' text='수요지식회' icon='bxs-megaphone' />
             <Menu href='/equipments' text='기자재 대여' icon='bx-donate-heart' />
           </ul>
-        </div>
-        <div className='bottom-content'>
-          <li
-            onClick={() => {
-              const config = {
-                url: '/logout',
-                method: 'POST',
-              };
-              async function fetch(): Promise<void> {
-                await apiController(config);
-                logout();
-                await router.push('/login');
-              }
-              void fetch();
-            }}
-            className=''
-          >
-            <a href='#'>
-              <i className='bx bx-log-out icon'></i>
-              <span className='text nav-text'>Logout</span>
-            </a>
-          </li>
-          <li className='mode'>
-            <div className='sun-moon mb-1'>
-              <i className='bx bx-moon icon moon'></i>
-              <i className='bx bx-sun icon sun'></i>
-            </div>
-            <span className='mode-text text'>어둠 모드</span>
-            <div className='toggle-switch'>
-              <span className='switch'></span>
-            </div>
-          </li>
         </div>
       </div>
       <style>
@@ -125,9 +69,9 @@ export default function Sidebar({ showSidebar }): ReactElement {
         --text-color: #000;
 
         --tran-03: all 0.2s ease;
-        --tran-03: all 0.3s ease;
-        --tran-04: all 0.3s ease;
-        --tran-05: all 0.3s ease;
+        --tran-03: all 0.2s ease;
+        --tran-04: all 0.2s ease;
+        --tran-05: all 0.2s ease;
       }
 
       body {
@@ -139,14 +83,6 @@ export default function Sidebar({ showSidebar }): ReactElement {
       ::selection {
         background-color: var(--primary-color);
         color: #fff;
-      }
-
-      body.dark {
-        --sidebar-color: #242526;
-        --primary-color: #3a3b3c;
-        --primary-color-light: #3a3b3c;
-        --toggle-color: #fff;
-        --text-color: #ccc;
       }
       .sidebar {
         position: fixed;
@@ -185,7 +121,6 @@ export default function Sidebar({ showSidebar }): ReactElement {
       }
       .sidebar .text,
       .sidebar .icon {
-        color: var(--text-color);
         transition: var(--tran-03);
       }
       .sidebar .text {
@@ -248,24 +183,6 @@ export default function Sidebar({ showSidebar }): ReactElement {
       .sidebar .menu {
         margin-top: 40px;
       }
-      .sidebar li.search-box {
-        border-radius: 6px;
-        background-color: var(--primary-color-light);
-        cursor: pointer;
-        transition: var(--tran-05);
-      }
-      .sidebar li.search-box input {
-        height: 100%;
-        width: 100%;
-        outline: none;
-        border: none;
-        background-color: var(--primary-color-light);
-        color: var(--text-color);
-        border-radius: 6px;
-        font-size: 17px;
-        font-weight: 500;
-        transition: var(--tran-05);
-      }
       .sidebar li a {
         list-style: none;
         height: 100%;
@@ -298,62 +215,6 @@ export default function Sidebar({ showSidebar }): ReactElement {
       }
       .menu-bar::-webkit-scrollbar {
         display: none;
-      }
-      .sidebar .menu-bar .mode {
-        border-radius: 6px;
-        background-color: var(--primary-color-light);
-        position: relative;
-        transition: var(--tran-05);
-      }
-      .menu-bar .mode .sun-moon {
-        height: 50px;
-        width: 60px;
-      }
-      .mode .sun-moon i {
-        position: absolute;
-      }
-      .mode .sun-moon i.sun {
-        opacity: 0;
-      }
-      body.dark .mode .sun-moon i.sun {
-        opacity: 1;
-      }
-      body.dark .mode .sun-moon i.moon {
-        opacity: 0;
-      }
-      .menu-bar .bottom-content .toggle-switch {
-        position: absolute;
-        right: 0;
-        height: 100%;
-        min-width: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        cursor: pointer;
-      }
-      .toggle-switch .switch {
-        position: relative;
-        height: 22px;
-        width: 40px;
-        border-radius: 25px;
-        background-color: var(--toggle-color);
-        transition: var(--tran-05);
-      }
-      .switch::before {
-        content: "";
-        position: absolute;
-        height: 15px;
-        width: 15px;
-        border-radius: 50%;
-        top: 50%;
-        left: 5px;
-        transform: translateY(-50%);
-        background-color: var(--sidebar-color);
-        transition: var(--tran-04);
-      }
-      body.dark .switch::before {
-        left: 20px;
       }
       .home {
         position: absolute;
