@@ -171,7 +171,7 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
                   <div className='mb-4 max-h-[10vh] space-y-2 overflow-y-scroll'>
                     {noticeInfo.noticeDTOList.map((item: NoticeDTOList) => {
                       const date = dayjs(item.date);
-                      const relativeDate = date.isSame(today, 'date') ? '오늘' : date.fromNow();
+                      const relativeDate = date.fromNow();
                       return (
                         <div
                           key={item.formId}
