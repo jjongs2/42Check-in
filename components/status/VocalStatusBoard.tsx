@@ -1,31 +1,15 @@
 import type FormInfo from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement } from 'react';
 
 import PresentationsStatus from './PresentationsStatus';
 import Status from './Status';
-
-const btnContent = [
-  {
-    text: '외부인 초대',
-    url: 'visitors',
-  },
-  {
-    text: `수요 지식회`,
-    url: 'presentations',
-  },
-  {
-    text: '기자재 대여',
-    url: 'equipments',
-  },
-];
+import { btnContent } from './StatusBoard';
 
 interface VocalStatusBoardProps {
-  selectFormInfo: FormInfo;
-  setSelectFormInfo: Dispatch<React.SetStateAction<FormInfo>>;
-  setCategory: Dispatch<React.SetStateAction<string>>;
   category: string;
   setCheckedList: Dispatch<React.SetStateAction<FormInfo[]>>;
   checkedList: FormInfo[];
@@ -34,52 +18,62 @@ interface VocalStatusBoardProps {
 }
 
 export default function StatusBoard({
-  selectFormInfo,
-  setSelectFormInfo,
-  setCategory,
   category,
   setCheckedList,
   checkedList,
   setChangePresentations,
   changePresentations,
 }: VocalStatusBoardProps): ReactElement {
-  const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
+  const router = useRouter();
   const [checked, setChecked] = useState(false);
+  const [formInfos, setFormInfos] = useState<FormInfo[]>();
+  const [selectedFormInfo, setSelectedFormInfo] = useState<FormInfo>();
 
   useEffect(() => {
+    if (category === undefined) return;
     const config = {
       url: `/vocal/subscriptions/${category}`,
     };
     async function fecthForms(): Promise<void> {
       const { data } = await apiController(config);
-      setResponseDataList(data);
+      setFormInfos(data);
     }
     void fecthForms();
   }, [category]);
 
-  const btnBox = btnContent.map((items) => {
-    return (
-      <div
-        key={items.text}
-        onClick={() => {
-          setCategory(items.url);
-          setSelectFormInfo(undefined);
-          setChecked(false);
-          setCheckedList([]);
-        }}
-      >
-        <button
-          className={cls(
-            category === items.url ? 'seletBtn' : 'notSeletBtn',
-            'rounded-[20px] p-2 text-sm text-white hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:hover:border-slate-700 dark:hover:bg-white',
-          )}
-        >
-          {items.text}
-        </button>
-      </div>
-    );
-  });
-  console.log(responseDataList);
+  useEffect(() => {
+    if (selectedFormInfo === undefined) return;
+    const query = { category };
+    if (selectedFormInfo !== null) {
+      query.formInfo = JSON.stringify(selectedFormInfo);
+    }
+    void router.push({ query });
+  }, [selectedFormInfo]);
+
+  if (formInfos === undefined) return;
+
+  const btnBox = btnContent
+    .filter((value) => value.category !== 'conference-rooms')
+    .map((item) => {
+      const handleCategoryClick = (): void => {
+        void router.push({
+          query: { category: item.category },
+        });
+      };
+      return (
+        <div key={item.text} onClick={handleCategoryClick}>
+          <button
+            className={cls(
+              category === item.category ? 'seletBtn' : 'notSeletBtn',
+              'rounded-[20px] p-2 text-sm text-white hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:hover:border-slate-700 dark:hover:bg-white',
+            )}
+          >
+            {item.text}
+          </button>
+        </div>
+      );
+    });
+
   return (
     <div className='z-10 m-4 flex h-full max-h-[79vh] min-w-[405px] flex-col overflow-auto rounded-xl border bg-white dark:bg-slate-800 lg:w-[800px]'>
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-4 dark:bg-slate-700'>
@@ -91,7 +85,7 @@ export default function StatusBoard({
             onChange={() => {
               setChecked(!checked);
               if (checked) setCheckedList([]);
-              else setCheckedList(responseDataList.map((item) => item));
+              else setCheckedList(formInfos.map((item) => item));
             }}
             className={cls(
               category !== 'presentations' ? '' : 'invisible',
@@ -102,16 +96,16 @@ export default function StatusBoard({
         </div>
       </div>
       <div className='mt-6 w-full'>
-        {responseDataList.map((item, i) => (
+        {formInfos.map((item, i) => (
           <div
             key={item.formId}
             className='group mx-2 mb-4 flex h-14 max-w-full items-center justify-around rounded-2xl border-2 shadow-xl transition duration-300 hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
             onClick={() => {
-              if (item === selectFormInfo) {
-                setSelectFormInfo(undefined);
+              if (item === selectedFormInfo) {
+                setSelectedFormInfo(null);
                 return;
               }
-              setSelectFormInfo(item);
+              setSelectedFormInfo(item);
             }}
           >
             {category !== 'presentations' && (

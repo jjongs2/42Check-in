@@ -10,7 +10,7 @@ import type { ReactElement } from 'react';
 import ModalWrapper from '../common/ModalWrapper';
 import Status from './Status';
 
-const btnContent = [
+export const btnContent = [
   {
     category: 'conference-rooms',
     text: '회의실 예약',

@@ -18,7 +18,7 @@ export const PERIODS = ['1개월', '3개월'];
 const PURPOSES = ['42 과제'];
 
 interface EquipmentsFormProps {
-  setShowModal: Dispatch<SetStateAction<boolean>>;
+  setShowModal?: Dispatch<SetStateAction<boolean>>;
 }
 
 function ReturnDate(): ReactElement {

@@ -30,7 +30,7 @@ const RELATIONS = [
 ];
 
 interface VisitorsFormProps {
-  setShowModal: Dispatch<SetStateAction<boolean>>;
+  setShowModal?: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function VisitorsForm({ setShowModal }: VisitorsFormProps): ReactElement {

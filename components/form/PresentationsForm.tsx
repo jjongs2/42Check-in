@@ -27,7 +27,7 @@ const LECTURES = [
 const TIMES = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 
 interface PresentationsFormProps {
-  setShowModal: Dispatch<SetStateAction<boolean>>;
+  setShowModal?: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function PresentationsForm({

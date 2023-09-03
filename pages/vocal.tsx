@@ -6,17 +6,25 @@ import WarningModal from '@/components/modal/WarningModal';
 import VocalStatusBoard from '@/components/status/VocalStatusBoard';
 import type FormInfo from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
-import Link from 'next/link';
-import { type ReactElement, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import type { ReactElement } from 'react';
 
 export default function Vocal(): ReactElement {
-  const [selectFormInfo, setSelectFormInfo] = useState<FormInfo>(undefined);
-  const [category, setCategory] = useState('visitors');
-  const [showModal, setShowModal] = useState(false);
-  const [checkedList, setCheckedList] = useState<FormInfo[]>([]);
+  const router = useRouter();
+  const [category, setCategory] = useState<string>();
   const [changePresentations, setChangePresentations] = useState({});
-  const staff = localStorage.getItem('staff');
+  const [checkedList, setCheckedList] = useState<FormInfo[]>([]);
+  const [isFormSelected, setIsFormSelected] = useState<boolean>();
+  const [showModal, setShowModal] = useState(false);
 
+  useEffect(() => {
+    const { query } = router;
+    setCategory((query.category as string) ?? 'visitors');
+    setIsFormSelected(Boolean(query.formInfo));
+  }, [router]);
+
+  const staff = localStorage.getItem('staff');
   if (staff === 'false') {
     return (
       <WarningModal href='/'>
@@ -26,27 +34,25 @@ export default function Vocal(): ReactElement {
   }
 
   const selectedForm = (): ReactElement => {
-    if (selectFormInfo !== undefined) {
-      switch (category) {
-        case 'visitors':
-          return <VisitorsForm formInfo={selectFormInfo} />;
-        case 'presentations':
-          return <PresentationsForm formInfo={selectFormInfo} />;
-        case 'equipments':
-          return <EquipmentsForm formInfo={selectFormInfo} />;
-      }
+    if (!isFormSelected) return;
+
+    switch (category) {
+      case 'visitors':
+        return <VisitorsForm />;
+      case 'presentations':
+        return <PresentationsForm />;
+      case 'equipments':
+        return <EquipmentsForm />;
     }
   };
 
   const onClick = async (formIds: FormInfo[]): Promise<void> => {
     const formId = formIds.map((info) => info.formId);
-
     const config = {
       url: `/vocal/subscriptions/${category}`,
       method: 'POST',
       data: { formIds: formId },
     };
-
     await apiController(config);
   };
 
@@ -62,10 +68,7 @@ export default function Vocal(): ReactElement {
   return (
     <div className='flex h-full flex-col justify-evenly lg:flex-row'>
       <VocalStatusBoard
-        selectFormInfo={selectFormInfo}
-        setSelectFormInfo={setSelectFormInfo}
         category={category}
-        setCategory={setCategory}
         setCheckedList={setCheckedList}
         checkedList={checkedList}
         setChangePresentations={setChangePresentations}
