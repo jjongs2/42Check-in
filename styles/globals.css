@@ -85,6 +85,6 @@ body {
 
 @media (min-width: 640px) {
   .main-content {
-    @apply ml-20 w-[91%];
+    @apply ml-20 w-[87%];
   }
 }

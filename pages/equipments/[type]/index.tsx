@@ -33,19 +33,19 @@ function Rental({ formInfo }: RentalProps): ReactElement {
     const config = {
       url: '/equipments/form/extension',
       method: 'POST',
-      data,
+      data: { ...formInfo, data },
     };
     await apiController(config);
     setShowModal(true);
   };
 
   return (
-    <div key={formInfo.formId} className='container'>
+    <div className='container'>
       <div className='card mx-2'>
         <div className='face face1'>
-          <div className='content'>
+          <div className='content flex flex-col'>
             <Image
-              className='aspect-auto object-contain'
+              className='mb-10 aspect-auto object-contain px-10'
               src={DEVICE[formInfo.equipment].img}
               alt={DEVICE[formInfo.equipment].device}
             />
@@ -59,23 +59,22 @@ function Rental({ formInfo }: RentalProps): ReactElement {
             </p>
             <form onSubmit={handleSubmit(onSubmit)} className=' mt-2 flex flex-col space-y-2'>
               <div>
-                <label htmlFor='meetingDate'>면담 신청 일자: </label>
-                <input
-                  type='date'
-                  title='면담 일자'
-                  name='date'
-                  {...register('date', { required: '입력하셔야죠.' })}
-                />
+                <label htmlFor='meetingDate'>면담 희망 일자: </label>
+                <input type='date' title='면담 일자' {...register('date', { required: true })} />
+              </div>
+              <div>
+                <label htmlFor='meetingTime'>면담 희망 시간: </label>
+                <input type='time' title='면담 시간' {...register('time', { required: true })} />
               </div>
               <div>
                 <label htmlFor='extensionPeriod'>연장 기간: </label>
-                <select
-                  name='extensionPeriod'
-                  id='extensionPeriod'
-                  {...register('period', { required: '입력하셔야죠.' })}
-                >
+                <select id='extensionPeriod' {...register('period', { required: true })}>
                   {PERIODS.map((item, i) => {
-                    return <option key={i}>{item}</option>;
+                    return (
+                      <option key={i} value={i}>
+                        {item}
+                      </option>
+                    );
                   })}
                 </select>
               </div>
@@ -116,8 +115,8 @@ export default function RentalList(): ReactElement {
   return (
     <>
       {type === 'extension' ? (
-        <div className='relative ml-20 mt-28 flex w-[80vw] flex-col items-center justify-center lg:flex-row'>
-          {formInfos.map((item, i) => (
+        <div className='ml-20 grid h-full grid-cols-1 place-content-center place-items-center gap-20 lg:grid-cols-2 2xl:grid-cols-4 '>
+          {formInfos.map((item) => (
             <Rental formInfo={item} />
           ))}
         </div>
@@ -126,7 +125,6 @@ export default function RentalList(): ReactElement {
       )}
       <style>{`
             .container {
-              width: 1000px;
               position: relative;
               display: flex;
               justify-content: space-between;
