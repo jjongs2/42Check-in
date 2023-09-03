@@ -45,6 +45,7 @@ export default function Header(): ReactElement {
       return;
     }
     setShowNotice(1);
+    setNoticeInfo({ ...noticeInfo, noticeCount: 0 });
     const config = {
       url: '/notice',
       method: 'POST',
