@@ -191,7 +191,7 @@ export default function Header(): ReactElement {
                       pathname: '/my-checkin',
                       query: { category: 'conference-rooms' },
                     }}
-                    className='mt-2 rounded-lg p-4 text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white dark:hover:bg-slate-700'
+                    className='mt-1 rounded-lg p-2 text-sm text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white dark:hover:bg-slate-700'
                   >
                     My Check - in
                   </Link>
@@ -208,7 +208,7 @@ export default function Header(): ReactElement {
                       }
                       void fetch();
                     }}
-                    className='mb-2 rounded-lg p-4 text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white dark:hover:bg-slate-700'
+                    className='mb-1 rounded-lg p-2 text-sm text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white dark:hover:bg-slate-700'
                   >
                     Sign Out
                   </button>
