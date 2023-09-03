@@ -37,14 +37,10 @@ export default function Presentations(): ReactElement {
   return (
     <div className='m-8 rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-8 shadow-xl dark:border-green-800 dark:bg-gray-500'>
       <div className='flex items-center justify-between border-b-2 dark:text-gray-300'>
-        <h1 className='text-xl font-semibold text-gray-600 dark:text-gray-300'>
-          {date.get('year')}
-        </h1>
-        <div>
-          <h3 className='text-xl font-semibold text-gray-600 dark:text-gray-300'>
-            {date.get('month') + 1} 월
-          </h3>
-        </div>
+        <p className='text-xl font-semibold text-gray-600 dark:text-gray-300'>{date.get('year')}</p>
+        <p className='text-xl font-semibold text-gray-600 dark:text-gray-300'>
+          {date.get('month') + 1} 월
+        </p>
         <input
           type='month'
           className='bg-slate-100 dark:bg-gray-500'
@@ -71,12 +67,12 @@ export default function Presentations(): ReactElement {
                   {formDate.get('date')}
                 </button>
                 <div className='overflow-hidden'>
-                  <h1 className='animate-slide whitespace-nowrap font-semibold text-gray-800 transition dark:text-white dark:group-hover:text-gray-800'>
+                  <p className='animate-slide whitespace-nowrap font-semibold text-gray-800 transition dark:text-white dark:group-hover:text-gray-800'>
                     {subject ?? '신청을 기다리고 있습니다. 🤔'}
-                  </h1>
-                  <h5 className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>
+                  </p>
+                  <p className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>
                     {intraId && `${intraId} 😎`}
-                  </h5>
+                  </p>
                 </div>
               </div>
               <button className='mr-4 rounded-xl px-3 text-black group-hover:bg-white dark:text-white dark:group-hover:bg-gray-500'>
