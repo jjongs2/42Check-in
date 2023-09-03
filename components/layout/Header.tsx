@@ -168,7 +168,7 @@ export default function Header(): ReactElement {
                           <span className='text-sm font-semibold text-gray-700 group-hover:text-white'>
                             {CATEGORY[item.category].category} 신청이 수락되었습니다.
                           </span>
-                          <span className='align-top text-xs text-gray-500 group-hover:text-white'>
+                          <span className='align-top text-[5px] text-gray-500 group-hover:text-white'>
                             {relativeDate}
                           </span>
                         </div>
