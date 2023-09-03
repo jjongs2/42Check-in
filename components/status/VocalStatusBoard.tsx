@@ -99,7 +99,7 @@ export default function StatusBoard({
         {formInfos.map((item, i) => (
           <div
             key={item.formId}
-            className='group mx-2 mb-4 flex h-14 max-w-full items-center justify-around rounded-2xl border-2 shadow-xl transition duration-300 hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
+            className='group mx-2 mb-4 flex h-14 items-center justify-center rounded-2xl border-2 shadow-xl transition duration-300 hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
             onClick={() => {
               if (item === selectedFormInfo) {
                 setSelectedFormInfo(null);
@@ -131,7 +131,6 @@ export default function StatusBoard({
               <Status status={item} vocal />
             ) : (
               <>
-                <div className='h-6 w-6'></div>
                 <PresentationsStatus
                   status={item}
                   changePresentations={changePresentations}
