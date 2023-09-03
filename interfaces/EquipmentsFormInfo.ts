@@ -2,6 +2,7 @@ export default interface EquipmentsFormInfo {
   userName: string;
   phoneNumber: string;
   date: string;
+  time: string;
   equipment: number;
   purpose: number;
   detail: string;

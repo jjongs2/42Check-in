@@ -35,7 +35,7 @@ function ReturnDate(): ReactElement {
   return (
     <FormInput
       name='returnDate'
-      title='반납 예정일'
+      title='반납 예정 날짜'
       value={returnDate}
       type='date'
       registerOptions={{ value: returnDate }}
@@ -125,11 +125,18 @@ export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): R
           <ReturnDate />
           <FormInput
             name='date'
-            title='면담 희망일'
+            title='면담 희망 날짜'
             type='date'
             span='1'
             registerOptions={{ onChange: handleDateChange }}
             value={formInfo?.date ?? selectedDate}
+          />
+          <FormInput
+            name='time'
+            title='면담 희망 시각'
+            type='time'
+            span='1'
+            value={formInfo?.time}
           />
           <FormAgreement>
             <p>대여한 물품이 파손될 경우 비용이 청구될 수 있음을 확인했습니다.</p>
