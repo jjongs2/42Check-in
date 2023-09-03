@@ -24,10 +24,13 @@ interface EquipmentsFormProps {
 function ReturnDate(): ReactElement {
   const { watch } = useFormContext();
 
+  const date = watch('date');
+  if (date === undefined) return;
+
   const period = watch('period', 0);
-  const today = dayjs();
-  const returnMonth = today.get('month') + Number(PERIODS[period].at(0));
-  const returnDate = today.month(returnMonth).format('YYYY-MM-DD');
+  const meetingDate = dayjs(date);
+  const returnMonth = meetingDate.get('month') + Number(PERIODS[period].at(0));
+  const returnDate = meetingDate.month(returnMonth).format('YYYY-MM-DD');
 
   return (
     <FormInput
@@ -35,7 +38,7 @@ function ReturnDate(): ReactElement {
       title='반납 예정일'
       value={returnDate}
       type='date'
-      registerOptions={{ required: false }}
+      registerOptions={{ value: returnDate }}
       span='1'
       disabled
     />

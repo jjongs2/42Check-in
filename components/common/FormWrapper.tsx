@@ -20,13 +20,10 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
   const onSubmit = async (data: any): Promise<void> => {
     const category = router.pathname.split('/')[1];
     const config = {
-      url: `/${category}/form`,
+      url: category === 'equipments' ? `/equipments/form/${rentalType}` : `/${category}/form`,
       method: 'POST',
       data,
     };
-    if (category === 'equipments') {
-      config.url = `/equipments/form/${rentalType}`;
-    }
     await apiController(config);
     setShowModal(true);
   };
