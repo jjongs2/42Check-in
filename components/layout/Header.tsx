@@ -149,18 +149,18 @@ export default function Header(): ReactElement {
             <div ref={noticeIconRef} className='cursor-pointer' onClick={handleNoticeIconClick}>
               {ICONS.notice}
               {showNotice === 1 && (
-                <div className='absolute right-10 top-12 m-2 rounded-xl bg-[#e8e8e8] px-4 shadow-xl'>
-                  <p className='mb-2 border-b-2 border-gray-400 pt-2 text-left font-semibold text-gray-500'>
+                <div className='absolute right-10 top-12 m-1 rounded-xl bg-[#e8e8e8] px-2 shadow-xl'>
+                  <p className='mb-2 border-b-2 border-gray-400 pt-1 text-left text-sm font-semibold text-gray-500'>
                     NOTIFICATIONS
                   </p>
-                  <div className='mb-4 max-h-[10vh] space-y-2 overflow-y-scroll'>
+                  <div className='mb-4 max-h-[10vh] space-y-2 overflow-auto'>
                     {noticeInfo.noticeDTOList.map((item: NoticeDTOList) => {
                       const date = dayjs(item.date);
                       const relativeDate = date.fromNow();
                       return (
                         <div
                           key={item.formId}
-                          className='group flex h-14 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
+                          className='group flex h-12 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
                           onClick={() => {
                             void routeSelectForm(item);
                           }}
@@ -168,7 +168,7 @@ export default function Header(): ReactElement {
                           <span className='text-sm font-semibold text-gray-700 group-hover:text-white'>
                             {CATEGORY[item.category].category} 신청이 수락되었습니다.
                           </span>
-                          <span className='align-top text-sm text-gray-500 group-hover:text-white'>
+                          <span className='align-top text-xs text-gray-500 group-hover:text-white'>
                             {relativeDate}
                           </span>
                         </div>
