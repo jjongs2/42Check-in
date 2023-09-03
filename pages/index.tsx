@@ -12,35 +12,35 @@ import VisitorsIMG from '../assets/visitors.png';
 
 export default function Home(): ReactElement {
   return (
-    <div className='flex items-center justify-center'>
+    <div className='flex h-full w-full items-center justify-center'>
       {/* 뒷배경 이미지들 */}
-      <div className='relative -z-20 opacity-30'>
+      <div className='-z-20 opacity-30'>
         <Image
           src={CalendarIMG}
           alt='calendarImg'
           width={900}
           height={900}
-          className=' fixed -bottom-[13%] -left-[200px]'
+          className='fixed -bottom-[13%] -left-[200px]'
         />
         <Image
           src={CheckListImg}
           alt='checkLintImg'
           width={300}
           height={300}
-          className=' fixed left-1/2 top-[90px]'
+          className='fixed left-1/2 top-[90px]'
         />
         <Image
           src={SittingManImg}
           alt='sttingManImg'
           width={900}
           height={900}
-          className=' fixed -right-40 bottom-0'
+          className='fixed -right-40 bottom-0'
         />
       </div>
       {/* 안에 4가지 카테고리 (vh ) */}
-      <div className='mx-4 grid h-full w-full grid-cols-2 gap-6 lg:grid-cols-4'>
+      <div className='grid w-[90vw] grid-cols-2 gap-6 xl:grid-cols-4 xl:gap-x-20'>
         {/* 회의실 */}
-        <div className='category group top-[5%] bg-[#3983f2] bg-opacity-20 dark:bg-slate-500 dark:bg-opacity-30'>
+        <div className='category group bg-[#3983f2] bg-opacity-20 dark:bg-slate-500 dark:bg-opacity-30'>
           <Link href={'/conference-rooms'} className='categoryIner'>
             <h2 className='categoryText'>회의실 예약</h2>
             <Image
@@ -52,7 +52,7 @@ export default function Home(): ReactElement {
             />
           </Link>
         </div>
-        <div className='category group top-[5%] bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30'>
+        <div className='category group bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30'>
           <Link href={'/visitors'} className='categoryIner'>
             <h2 className='categoryText'>외부인 초대</h2>
             <Image
@@ -64,7 +64,7 @@ export default function Home(): ReactElement {
             />
           </Link>
         </div>
-        <div className='category group top-[5%] bg-[#3983f2] bg-opacity-20 shadow-xl dark:bg-slate-500 dark:bg-opacity-30'>
+        <div className='category group bg-[#3983f2] bg-opacity-20 shadow-xl dark:bg-slate-500 dark:bg-opacity-30'>
           <Link href={'/presentations'} className='categoryIner'>
             <h2 className='categoryText'>수요지식회</h2>
             <Image
@@ -76,7 +76,7 @@ export default function Home(): ReactElement {
             />
           </Link>
         </div>
-        <div className='category group top-[5%] bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30'>
+        <div className='category group bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30'>
           <Link href={'/equipments'} className='categoryIner'>
             <h2 className='categoryText'>기자재 대여</h2>
             <Image

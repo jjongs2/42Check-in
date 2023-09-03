@@ -38,7 +38,7 @@ body {
 }
 
 .category {
-  @apply mt-5 flex h-full max-h-[500px] min-h-[40%] min-w-[20%] max-w-[400px] flex-1 flex-col items-center justify-between rounded-3xl hover:scale-105;
+  @apply mt-5 flex flex-1 flex-col items-center justify-between rounded-3xl hover:scale-105;
 }
 
 .categoryIner {
@@ -46,7 +46,7 @@ body {
 }
 
 .categoryText {
-  @apply text-3xl font-extrabold text-white lg:text-4xl;
+  @apply text-2xl font-extrabold text-white xl:text-4xl;
 }
 
 .darkModeIcon {
@@ -87,6 +87,7 @@ body {
     margin-left: 0px;
   }
 }
+
 @media (min-width: 641px) {
   .full-sidebar {
     display: none;
