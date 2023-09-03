@@ -24,18 +24,13 @@ interface Data {
   noticeDTOList: NoticeDTOList[];
 }
 
-interface HeaderProps {
-  setShowSideBar: Dispatch<SetStateAction<boolean>>;
-  showSidebar: boolean;
-}
-
 const CATEGORY = {
   0: { category: '외부인 초대', url: 'visitors' },
   1: { category: '기자재 대여', url: 'equipments' },
   2: { category: '수요지식회', url: 'presentations' },
 };
 
-export default function Header({ setShowSideBar, showSidebar }: HeaderProps): ReactElement {
+export default function Header(): ReactElement {
   const router = useRouter();
   const noticeIconRef = useRef<HTMLDivElement>(null);
   const userIconRef = useRef<HTMLDivElement>(null);
@@ -43,8 +38,6 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
   const [noticeInfo, setNoticeInfo] = useState<Data>({ noticeCount: 0, noticeDTOList: [] });
   const theme = localStorage.getItem('theme');
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
-
-  const today = dayjs();
 
   function handleNoticeIconClick(): void {
     if (showNotice === 1) {
@@ -130,14 +123,6 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
             <Link href='/' className='flex w-12 py-2'>
               {ICONS.logo}
             </Link>
-            <button
-              onClick={() => {
-                setShowSideBar(!showSidebar);
-              }}
-              className='full-sidebar ml-2 mt-2 h-[50px] w-[50px] dark:text-white'
-            >
-              {ICONS.threeBars}
-            </button>
           </div>
           <div className='flex items-center justify-center space-x-4'>
             <div className='col-span-full flex space-x-2'>

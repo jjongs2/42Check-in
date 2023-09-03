@@ -77,19 +77,14 @@ body {
   @apply text-[20px] font-semibold text-[#44494E] dark:text-white;
 }
 
-@media (max-width: 640px) {
-  .sidebar {
-    display: none;
-  }
-
+@media (min-width: 500px) {
   .main-content {
-    width: 100%;
-    margin-left: 0px;
+    @apply ml-2 w-[98%];
   }
 }
 
-@media (min-width: 641px) {
-  .full-sidebar {
-    display: none;
+@media (min-width: 640px) {
+  .main-content {
+    @apply ml-20 w-[91%];
   }
 }
