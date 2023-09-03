@@ -19,9 +19,15 @@ export default function Vocal(): ReactElement {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const { query } = router;
-    setCategory((query.category as string) ?? 'visitors');
-    setIsFormSelected(Boolean(query.formInfo));
+    const { category: categoryQuery, formInfo } = router.query;
+    if (categoryQuery === undefined) {
+      void router.push({
+        query: { category: 'visitors' },
+      });
+      return;
+    }
+    setCategory(categoryQuery as string);
+    setIsFormSelected(Boolean(formInfo));
   }, [router]);
 
   const staff = localStorage.getItem('staff');

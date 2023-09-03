@@ -50,7 +50,14 @@ export default function StatusBoard(): ReactElement {
   }, [category]);
 
   useEffect(() => {
-    setCategory(router.query.category as string);
+    const { category: categoryQuery } = router.query;
+    if (categoryQuery === undefined) {
+      void router.push({
+        query: { category: 'conference-rooms' },
+      });
+      return;
+    }
+    setCategory(categoryQuery as string);
   }, [router]);
 
   if (formInfos === undefined) return;
