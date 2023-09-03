@@ -11,10 +11,11 @@ import { useForm } from 'react-hook-form';
 
 import MacBook from '../../../assets/MacBook.png';
 import Samsung from '../../../assets/Samsung.png';
+import etc from '../../../assets/etc.png';
 import iPad from '../../../assets/iPad.png';
 
 const DEVICE = {
-  0: { img: '', device: '기타' },
+  0: { img: etc, device: '기타' },
   1: { img: MacBook, device: 'MacBook' },
   2: { img: Samsung, device: 'SAMSUNG' },
   3: { img: iPad, device: 'iPad' },
