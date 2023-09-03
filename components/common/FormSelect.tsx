@@ -33,7 +33,7 @@ export default function FormSelect({
   const [inputValue, setInputValue] = useState('');
   const [showInput, setShowInput] = useState(false);
 
-  const disabled = PAGES.readOnly.has(router.pathname);
+  const disabled = PAGES.readOnly.has(router.pathname) || router.query.formInfo !== undefined;
   const hasEtc = etcName !== undefined;
   if (hasEtc) {
     options = [...options, '기타'];

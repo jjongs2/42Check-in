@@ -1,5 +1,5 @@
 const PAGES = Object.freeze({
-  readOnly: new Set(['/my-checkin', '/vocal']),
+  readOnly: new Set(['/vocal']),
 });
 
 export default PAGES;

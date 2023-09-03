@@ -10,16 +10,16 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps): ReactElement {
-  const { pathname } = useRouter();
+  const router = useRouter();
   const [showSidebar, setShowSideBar] = useState(false);
 
   const noLayoutPages = new Set(['/login', '/oauth/login']);
-  const hasLayout = !noLayoutPages.has(pathname);
+  const hasLayout = !noLayoutPages.has(router.pathname);
 
   if (!hasLayout) return <>{children}</>;
 
   const noSidebarPages = new Set(['/', '/my-checkin', '/vocal']);
-  const hasSidebar = !noSidebarPages.has(pathname);
+  const hasSidebar = !noSidebarPages.has(router.pathname) && router.query.formInfo === undefined;
 
   return (
     <>

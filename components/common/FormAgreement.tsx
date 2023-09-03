@@ -11,7 +11,7 @@ export default function FormAgreement({ children }: FormAgreementProps): ReactEl
   const { register } = useFormContext();
   const router = useRouter();
 
-  if (PAGES.readOnly.has(router.pathname)) return;
+  if (PAGES.readOnly.has(router.pathname) || router.query.formInfo !== undefined) return;
 
   return (
     <div className='col-span-full flex space-x-2'>

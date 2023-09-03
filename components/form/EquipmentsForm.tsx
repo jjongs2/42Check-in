@@ -19,7 +19,6 @@ const PURPOSES = ['42 과제'];
 
 interface EquipmentsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
-  formInfo?: EquipmentsFormInfo;
 }
 
 function ReturnDate(): ReactElement {
@@ -43,12 +42,9 @@ function ReturnDate(): ReactElement {
   );
 }
 
-export default function EquipmentsForm({
-  setShowModal,
-  formInfo,
-}: EquipmentsFormProps): ReactElement {
+export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): ReactElement {
   const router = useRouter();
-  const [formDetail, setFormDetail] = useState<EquipmentsFormInfo>();
+  const [formInfo, setFormInfo] = useState<EquipmentsFormInfo>();
   const [selectedDate, setSelectedDate] = useState<string>();
 
   function handleDateChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -56,10 +52,10 @@ export default function EquipmentsForm({
   }
 
   useEffect(() => {
-    const { date, formDetail } = router.query;
+    const { date, formInfo } = router.query;
     setSelectedDate(getISODate(date as string));
-    if (formDetail !== undefined) {
-      setFormDetail(JSON.parse(formDetail as string));
+    if (formInfo !== undefined) {
+      setFormInfo(JSON.parse(formInfo as string));
     }
   }, [router]);
 
@@ -78,14 +74,14 @@ export default function EquipmentsForm({
             name='userName'
             title='신청자 이름'
             type='text'
-            value={formDetail?.userName ?? formInfo?.userName}
+            value={formInfo?.userName}
             placeholder='실명을 알려 주세요. (예시: 정우성)'
           />
           <FormInput
             name='phoneNumber'
             title='연락처'
             type='text'
-            value={formDetail?.phoneNumber ?? formInfo?.phoneNumber}
+            value={formInfo?.phoneNumber}
             placeholder='연락처를 입력해 주세요. (예시: 010-4242-4242)'
           />
           <FormSelect
@@ -93,7 +89,7 @@ export default function EquipmentsForm({
             title='대여 물품'
             options={EQUIPMENTS}
             span='1'
-            value={EQUIPMENTS[formDetail?.equipment - 1] ?? EQUIPMENTS[formInfo?.equipment - 1]}
+            value={EQUIPMENTS[formInfo?.equipment - 1]}
             etcName='etcEquipment'
           />
           <FormSelect
@@ -101,12 +97,12 @@ export default function EquipmentsForm({
             title='대여 목적'
             options={PURPOSES}
             span='1'
-            value={PURPOSES[formDetail?.purpose - 1] ?? PURPOSES[formInfo?.purpose - 1]}
+            value={PURPOSES[formInfo?.purpose - 1]}
             etcName='etcPurpose'
           />
           <FormTextArea
             name='detail'
-            value={formDetail?.detail ?? formInfo?.detail}
+            value={formInfo?.detail}
             title='활용 계획 (무엇을, 어떻게, 왜, 언제까지 4가지를 꼭 기재해 주세요.)'
             placeholder='상세히 기술해 주세요.'
           />
@@ -114,12 +110,12 @@ export default function EquipmentsForm({
             name='benefit'
             title='기대 효과'
             placeholder='상세히 기술해 주세요.'
-            value={formInfo?.benefit ?? formDetail?.benefit}
+            value={formInfo?.benefit}
           />
           <FormSelect
             name='period'
             title='대여 기간'
-            value={PERIODS[formDetail?.period] ?? PERIODS[formInfo?.period]}
+            value={PERIODS[formInfo?.period]}
             options={PERIODS}
             span='1'
           />
@@ -130,7 +126,7 @@ export default function EquipmentsForm({
             type='date'
             span='1'
             registerOptions={{ onChange: handleDateChange }}
-            value={formInfo?.date ?? selectedDate ?? formDetail?.date}
+            value={formInfo?.date ?? selectedDate}
           />
           <FormAgreement>
             <p>대여한 물품이 파손될 경우 비용이 청구될 수 있음을 확인했습니다.</p>

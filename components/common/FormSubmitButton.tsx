@@ -14,7 +14,7 @@ export default function FormSubmitButton({
   const { watch } = useFormContext();
   const router = useRouter();
 
-  if (PAGES.readOnly.has(router.pathname)) return;
+  if (PAGES.readOnly.has(router.pathname) || router.query.formInfo !== undefined) return;
 
   const category = router.pathname.split('/')[1];
   const noAgreementCategories = new Set(['presentations']);

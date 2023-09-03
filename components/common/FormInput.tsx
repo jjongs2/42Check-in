@@ -36,7 +36,7 @@ export default function FormInput({
   } = useFormContext();
   const router = useRouter();
 
-  const isReadOnly = PAGES.readOnly.has(router.pathname);
+  const isReadOnly = PAGES.readOnly.has(router.pathname) || router.query.formInfo !== undefined;
 
   return (
     <div className={hidden ? 'hidden' : `col-span-${span}`}>

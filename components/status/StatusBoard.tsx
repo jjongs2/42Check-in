@@ -3,6 +3,7 @@ import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import useHandleMouseIndex from '@/utils/handleMouse';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 
@@ -29,35 +30,43 @@ const btnContent = [
 ];
 
 export default function StatusBoard(): ReactElement {
-  const [category, setCategory] = useState('conference-rooms');
-  const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
+  const router = useRouter();
+  const [category, setCategory] = useState<string>();
+  const [formInfos, setFormInfos] = useState<FormInfo[]>();
   const [showModal, setShowModal] = useState(false);
   const [selectForm, setSelectForm] = useState<FormInfo>();
   const { mouseOnIndex, handleMouseOut, handleMouseOver } = useHandleMouseIndex();
 
   useEffect(() => {
+    if (category === undefined) return;
     const config = {
       url: `/my-checkin/${category}`,
     };
-    async function fecthForms(): Promise<void> {
+    async function fetchData(): Promise<void> {
       const { data } = await apiController(config);
-      setResponseDataList(data);
+      setFormInfos(data);
     }
-    void fecthForms();
+    void fetchData();
   }, [category]);
 
+  useEffect(() => {
+    setCategory(router.query.category as string);
+  }, [router]);
+
+  if (formInfos === undefined) return;
+
   const btnBox = btnContent.map((item) => {
+    const handleCategoryClick = (): void => {
+      void router.push({
+        query: { category: item.category },
+      });
+    };
     return (
-      <div
-        key={item.text}
-        onClick={() => {
-          setCategory(item.category);
-        }}
-      >
+      <div key={item.text} onClick={handleCategoryClick}>
         <button
           className={cls(
             category === item.category ? 'seletBtn' : 'notSeletBtn',
-            'rounded-[20px] p-2 text-sm text-white hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:hover:border-slate-700 dark:hover:bg-white',
+            'rounded-[20px] p-2 text-sm text-white transition duration-300 ease-in-out hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:hover:border-slate-700 dark:hover:bg-white',
           )}
         >
           {item.text}
@@ -66,14 +75,14 @@ export default function StatusBoard(): ReactElement {
     );
   });
 
-  const onClick = async ({ formId }: FormInfo): Promise<void> => {
+  const handleCancelClick = async ({ formId }: FormInfo): Promise<void> => {
     const config = {
       url: `/${category}/cancel`,
       method: 'POST',
       data: { formId },
     };
     await apiController(config);
-    setResponseDataList(responseDataList.filter((data) => data.formId !== formId));
+    setFormInfos(formInfos.filter((formInfo) => formInfo.formId !== formId));
   };
 
   return (
@@ -88,14 +97,15 @@ export default function StatusBoard(): ReactElement {
         }}
         className=' mt-6 space-y-3'
       >
-        {responseDataList.map((item, index) => (
+        {formInfos.map((item, index) => (
           <div key={index}>
             {category !== 'conference-rooms' ? (
               <Link
                 key={item.formId}
                 href={{
-                  pathname: `/my-checkin/${category}`,
-                  query: { formDetail: JSON.stringify(item) },
+                  pathname:
+                    category === 'equipments' ? '/equipments/type/form' : `/${category}/form`,
+                  query: { formInfo: JSON.stringify(item) },
                 }}
                 onMouseOver={() => {
                   handleMouseOver(item.formId);
@@ -129,7 +139,7 @@ export default function StatusBoard(): ReactElement {
         ))}
         {showModal && (
           <ModalWrapper>
-            <div className='text-modal'>취소하시나요??</div>
+            <p className='text-modal'>취소하시나요??</p>
             <div className='flex justify-center space-x-2'>
               <button
                 onClick={(event) => {
@@ -143,7 +153,7 @@ export default function StatusBoard(): ReactElement {
               <button
                 onClick={(event) => {
                   event.preventDefault();
-                  void onClick(selectForm);
+                  void handleCancelClick(selectForm);
                   setShowModal(false);
                 }}
                 className='button-modal border dark:border-white dark:text-lg dark:text-white dark:hover:text-[#54595E]'

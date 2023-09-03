@@ -28,22 +28,20 @@ const TIMES = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 
 interface PresentationsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
-  formInfo?: PresentationsFormInfo;
 }
 
 export default function PresentationsForm({
   setShowModal,
-  formInfo,
 }: PresentationsFormProps): ReactElement {
   const router = useRouter();
   const [date, setDate] = useState<string>();
-  const [formDetail, setFormDetail] = useState<PresentationsFormInfo>();
+  const [formInfo, setFormInfo] = useState<PresentationsFormInfo>();
 
   useEffect(() => {
-    const { date, formDetail } = router.query;
+    const { date, formInfo } = router.query;
     setDate(getISODate(date as string));
-    if (formDetail !== undefined) {
-      setFormDetail(JSON.parse(formDetail as string));
+    if (formInfo !== undefined) {
+      setFormInfo(JSON.parse(formInfo as string));
     }
   }, [router]);
 
@@ -79,48 +77,48 @@ export default function PresentationsForm({
             name='userName'
             title='신청자 이름'
             type='text'
-            value={formDetail?.userName ?? formInfo?.userName}
+            value={formInfo?.userName}
             placeholder='실명을 알려 주세요. (예시: 이정재)'
           />
           <FormInput
             name='title'
             title='수요지식회 제목'
             type='text'
-            value={formDetail?.title ?? formInfo?.title}
+            value={formInfo?.title}
             placeholder='강연 제목을 입력해 주세요.'
           />
           <FormInput
             name='subject'
             title='수요지식회 주제'
             type='text'
-            value={formDetail?.subject ?? formInfo?.subject}
+            value={formInfo?.subject}
             placeholder='어떤 주제로 강연하시나요?'
           />
           <FormTextArea
             name='detail'
             title='상세 내용'
-            value={formDetail?.detail ?? formInfo?.detail}
+            value={formInfo?.detail}
           />
           <FormSelect
             name='time'
             title='소요 시간'
             options={TIMES}
             span='1'
-            value={TIMES[formDetail?.time] ?? TIMES[formInfo?.time]}
+            value={TIMES[formInfo?.time]}
           />
           <FormSelect
             name='type'
             title='강연 종류'
             options={LECTURES}
             span='1'
-            value={LECTURES[formDetail?.type] ?? LECTURES[formInfo?.type]}
+            value={LECTURES[formInfo?.type]}
           />
           <FormSelect
             name='screen'
             title='영상 촬영'
             options={IS_VIDEO}
             span='1'
-            value={IS_VIDEO[formDetail?.screen] ?? IS_VIDEO[formInfo?.screen]}
+            value={IS_VIDEO[formInfo?.screen]}
           />
           <FormInput name='date' title='강연 날짜' type='text' value={date} hidden />
         </div>

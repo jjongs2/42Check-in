@@ -24,7 +24,7 @@ export default function FormTextArea({
   const { register } = useFormContext();
   const router = useRouter();
 
-  const disabled = PAGES.readOnly.has(router.pathname);
+  const disabled = PAGES.readOnly.has(router.pathname) || router.query.formInfo !== undefined;
 
   return (
     <div className='col-span-full'>
