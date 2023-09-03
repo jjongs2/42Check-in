@@ -21,16 +21,84 @@ const DEVICE = {
   3: { img: iPad, device: 'iPad' },
 };
 
+interface RentalProps {
+  formInfo: EquipmentsFormInfo;
+}
+
+function Rental({ formInfo }: RentalProps): ReactElement {
+  const { register, handleSubmit } = useForm();
+  const [showModal, setShowModal] = useState(false);
+
+  const onSubmit = async (data): Promise<void> => {
+    const config = {
+      url: '/equipments/form/extension',
+      method: 'POST',
+      data,
+    };
+    await apiController(config);
+    setShowModal(true);
+  };
+
+  return (
+    <div key={formInfo.formId} className='container'>
+      <div className='card mx-2'>
+        <div className='face face1'>
+          <div className='content'>
+            <Image
+              className='aspect-auto object-contain'
+              src={DEVICE[formInfo.equipment].img}
+              alt={DEVICE[formInfo.equipment].device}
+            />
+            <p className='p-2 text-center text-white'>{DEVICE[formInfo.equipment].device}</p>
+          </div>
+        </div>
+        <div className='face face2'>
+          <div className='content'>
+            <p className='h-10 border-b-2 border-dashed border-slate-700'>
+              기존 반납 일자: {formInfo.returnDate}
+            </p>
+            <form onSubmit={handleSubmit(onSubmit)} className=' mt-2 flex flex-col space-y-2'>
+              <div>
+                <label htmlFor='meetingDate'>면담 신청 일자: </label>
+                <input
+                  type='date'
+                  title='면담 일자'
+                  name='date'
+                  {...register('date', { required: '입력하셔야죠.' })}
+                />
+              </div>
+              <div>
+                <label htmlFor='extensionPeriod'>연장 기간: </label>
+                <select
+                  name='extensionPeriod'
+                  id='extensionPeriod'
+                  {...register('period', { required: '입력하셔야죠.' })}
+                >
+                  {PERIODS.map((item, i) => {
+                    return <option key={i}>{item}</option>;
+                  })}
+                </select>
+              </div>
+              <input
+                type='submit'
+                className='mt-4 cursor-pointer rounded-xl p-2 hover:bg-[#6AA6FF] hover:text-white'
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+      {showModal && <OkModal />}
+    </div>
+  );
+}
+
 export default function RentalList(): ReactElement {
   const router = useRouter();
   const [formInfos, setFormInfos] = useState<EquipmentsFormInfo[]>([]);
-  const [type, setType] = useState<string | string[]>();
-  const { register, handleSubmit } = useForm();
-  const [showModal, setShowModal] = useState(false);
-  const [selectForm, setSelectForm] = useState(undefined);
+  const [type, setType] = useState<string>();
 
   useEffect(() => {
-    setType(router.query.type);
+    setType(router.query.type as string);
   }, [router]);
 
   useEffect(() => {
@@ -45,80 +113,13 @@ export default function RentalList(): ReactElement {
     void fetchData();
   }, [type]);
 
-  const onSubmit = async (data): Promise<void> => {
-    const config = {
-      url: '/equipments/form/extension',
-      method: 'POST',
-      data: { ...selectForm, data },
-    };
-    await apiController(config);
-    setShowModal(true);
-  };
-
   return (
     <>
       {type === 'extension' ? (
         <div className='relative ml-20 mt-28 flex w-[80vw] flex-col items-center justify-center lg:flex-row'>
           {formInfos.map((item, i) => (
-            <div
-              key={i}
-              className='container'
-              onMouseOver={() => {
-                setSelectForm(item);
-              }}
-            >
-              <div className='card mx-2'>
-                <div className='face face1'>
-                  <div className='content'>
-                    <Image
-                      className='aspect-auto object-contain'
-                      src={DEVICE[item.equipment].img}
-                      alt={DEVICE[item.equipment].device}
-                    />
-                    <p className='p-2 text-center text-white'>{DEVICE[item.equipment].device}</p>
-                  </div>
-                </div>
-                <div className='face face2'>
-                  <div className='content'>
-                    <p className='h-10 border-b-2 border-dashed border-slate-700'>
-                      기존 반납 일자: {item.returnDate}
-                    </p>
-                    <form
-                      onSubmit={handleSubmit(onSubmit)}
-                      className=' mt-2 flex flex-col space-y-2'
-                    >
-                      <div>
-                        <label htmlFor='meetingDate'>면담 신청 일자: </label>
-                        <input
-                          type='date'
-                          title='면담 일자'
-                          name='date'
-                          {...register('date', { required: '입력하셔야죠.' })}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor='extensionPeriod'>연장 기간: </label>
-                        <select
-                          name='extensionPeriod'
-                          id='extensionPeriod'
-                          {...register('period', { required: '입력하셔야죠.' })}
-                        >
-                          {PERIODS.map((item, i) => {
-                            return <option key={i}>{item}</option>;
-                          })}
-                        </select>
-                      </div>
-                      <input
-                        type='submit'
-                        className='mt-4 cursor-pointer rounded-xl p-2 hover:bg-[#6AA6FF] hover:text-white'
-                      />
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Rental formInfo={item} />
           ))}
-          {showModal && <OkModal />}
         </div>
       ) : (
         <Calendar />
