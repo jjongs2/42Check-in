@@ -55,33 +55,36 @@ export default function Presentations(): ReactElement {
         />
       </div>
       <div className='mt-2 space-y-2'>
-        {formInfos.map(({ date: formDate, formId, intraId, subject }) => (
-          <Link
-            key={formId}
-            href={{
-              pathname: '/presentations/form',
-              query: { date: dayjs(formDate).format('YYYY-M-D') },
-            }}
-            className='group flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF] dark:bg-gray-700 dark:hover:bg-gray-300'
-          >
-            <div className='justify-left flex items-center space-x-2'>
-              <button className='h-16 w-16 rounded-md text-2xl font-semibold text-gray-600 transition group-hover:text-white dark:text-white dark:group-hover:text-gray-700'>
-                {dayjs(formDate).get('date')}
-              </button>
-              <div className='overflow-hidden'>
-                <h1 className='animate-slide whitespace-nowrap font-semibold text-gray-800 transition dark:text-white dark:group-hover:text-gray-800'>
-                  {subject ?? '신청을 기다리고 있습니다. 🤔'}
-                </h1>
-                <h5 className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>
-                  {intraId && `${intraId} 😎`}
-                </h5>
+        {formInfos.map(({ date: formDateString, formId, intraId, subject }) => {
+          const formDate = dayjs(formDateString);
+          return (
+            <Link
+              key={formId}
+              href={{
+                pathname: '/presentations/form',
+                query: { date: formDate.format('YYYY-M-D') },
+              }}
+              className='group flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF] dark:bg-gray-700 dark:hover:bg-gray-300'
+            >
+              <div className='justify-left flex items-center space-x-2'>
+                <button className='h-16 w-16 rounded-md text-2xl font-semibold text-gray-600 transition group-hover:text-white dark:text-white dark:group-hover:text-gray-700'>
+                  {formDate.get('date')}
+                </button>
+                <div className='overflow-hidden'>
+                  <h1 className='animate-slide whitespace-nowrap font-semibold text-gray-800 transition dark:text-white dark:group-hover:text-gray-800'>
+                    {subject ?? '신청을 기다리고 있습니다. 🤔'}
+                  </h1>
+                  <h5 className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>
+                    {intraId && `${intraId} 😎`}
+                  </h5>
+                </div>
               </div>
-            </div>
-            <button className='mr-4 rounded-xl px-3 text-black group-hover:bg-white dark:text-white dark:group-hover:bg-gray-500'>
-              {formId ? '대기 ' : '신청'}
-            </button>
-          </Link>
-        ))}
+              <button className='mr-4 rounded-xl px-3 text-black group-hover:bg-white dark:text-white dark:group-hover:bg-gray-500'>
+                {formId ? '대기 ' : '신청'}
+              </button>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
