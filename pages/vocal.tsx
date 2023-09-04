@@ -19,13 +19,20 @@ export default function Vocal(): ReactElement {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const { category: categoryQuery, formInfo } = router.query;
-    if (categoryQuery === undefined) {
+    const requiredQueries = ['category', 'filter', 'page', 'size', 'sort'];
+    if (!requiredQueries.every((query) => query in router.query)) {
       void router.push({
-        query: { category: 'visitors' },
+        query: {
+          category: 'visitors',
+          filter: 'not-approval',
+          page: 1,
+          size: 10,
+          sort: 'id,asc',
+        },
       });
       return;
     }
+    const { category: categoryQuery, formInfo } = router.query;
     setCategory(categoryQuery as string);
     setIsFormSelected(Boolean(formInfo));
   }, [router]);
@@ -38,6 +45,8 @@ export default function Vocal(): ReactElement {
       </WarningModal>
     );
   }
+
+  if (category === undefined) return;
 
   const selectedForm = (): ReactElement => {
     if (!isFormSelected) return;
@@ -74,7 +83,6 @@ export default function Vocal(): ReactElement {
   return (
     <div className='flex h-full flex-col justify-evenly lg:flex-row'>
       <VocalStatusBoard
-        category={category}
         setCheckedList={setCheckedList}
         checkedList={checkedList}
         setChangePresentations={setChangePresentations}
