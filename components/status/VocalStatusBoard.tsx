@@ -59,7 +59,7 @@ export default function VocalStatusBoard({
     async function getFormInfosPage(): Promise<void> {
       const config = {
         url: `/vocal/subscriptions/${category as string}/form/${filter as string}`,
-        query: { page, size, sort },
+        params: { page, size, sort },
       };
       const { data } = await apiController<FormInfosPage>(config);
       const { list, pageCount } = data;
