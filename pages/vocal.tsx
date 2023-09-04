@@ -7,6 +7,7 @@ import VocalStatusBoard from '@/components/status/VocalStatusBoard';
 import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
 import { useRouter } from 'next/router';
+import type { ParsedUrlQueryInput } from 'querystring';
 import { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 
@@ -19,17 +20,18 @@ export default function Vocal(): ReactElement {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const requiredQueries = ['category', 'filter', 'page', 'size', 'sort'];
+    const requiredQueries = ['category', 'filter', 'page', 'size'];
     if (!requiredQueries.every((query) => query in router.query)) {
-      void router.push({
-        query: {
-          category: 'visitors',
-          filter: 'not-approval',
-          page: 1,
-          size: 8,
-          sort: 'id,desc',
-        },
-      });
+      const query: ParsedUrlQueryInput = {
+        category: 'visitors',
+        filter: 'not-approval',
+        page: 1,
+        size: 8,
+      };
+      if (category !== 'presentations') {
+        query.sort = 'id,desc';
+      }
+      void router.push({ query });
       return;
     }
     const { category: categoryQuery, formInfo } = router.query;

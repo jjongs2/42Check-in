@@ -18,7 +18,6 @@ export default function Login(): ReactElement {
       };
       const { data } = await apiController(config);
       const { accessToken, grade, refreshToken, staff } = data;
-      console.log(data)
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('grade', grade);
       localStorage.setItem('refreshToken', refreshToken);

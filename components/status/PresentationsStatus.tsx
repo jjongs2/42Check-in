@@ -17,7 +17,7 @@ export default function PresentationsStatus({
   setChangePresentations,
   changePresentations,
 }: PresentationsStatus): ReactElement {
-  const date = dayjs(status.date).format('YY.MM.DD');
+  const date = dayjs(status.date).format('YY.MM.DD (ddd)');
 
   const onChange = (e) => {
     const { id, value } = e.target;

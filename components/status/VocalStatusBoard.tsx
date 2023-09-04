@@ -1,6 +1,7 @@
 import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
+import type { AxiosRequestConfig } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -62,10 +63,13 @@ export default function VocalStatusBoard({
 
   useEffect(() => {
     async function getFormInfosPage(): Promise<void> {
-      const config = {
+      const config: AxiosRequestConfig = {
         url: `/vocal/subscriptions/${category as string}/form/${filter as string}`,
-        params: { page, size, sort },
+        params: { page, size },
       };
+      if (category !== 'presentations') {
+        config.params.sort = 'id,desc';
+      }
       const { data } = await apiController<FormInfosPage>(config);
       const { list, pageCount } = data;
       setFormInfos(list);
@@ -90,6 +94,21 @@ export default function VocalStatusBoard({
   if (pageNumbers === undefined) return;
 
   const lastPageOffset = getPageOffset(pageCount);
+  const sliceIndex = category === 'presentations' ? 0 : 1;
+  const filters = [
+    {
+      name: 'all',
+      title: '전체',
+    },
+    {
+      name: 'not-approval',
+      title: category === 'presentations' ? '진행 중' : '미승인',
+    },
+    {
+      name: 'approval',
+      title: category === 'presentations' ? '강의 완료' : '승인',
+    },
+  ];
 
   const paginate = (pageNumber: number): void => {
     void router.push({
@@ -108,6 +127,14 @@ export default function VocalStatusBoard({
         const query = { ...router.query };
         query.category = item.category;
         delete query.formInfo;
+        if (item.category === 'presentations') {
+          delete query.sort;
+        } else {
+          query.sort = 'id,desc';
+          if (filter === 'all') {
+            query.filter = 'not-approval';
+          }
+        }
         void router.push({ query });
       };
       return (
@@ -156,7 +183,7 @@ export default function VocalStatusBoard({
                 setShowDropDown(!showDropDown);
               }}
             >
-              {filter === 'approval' ? '승인' : '미승인'}
+              {filters.find(({ name }) => name === filter).title}
               <svg
                 className='-mr-1 h-5 w-5 text-gray-400'
                 viewBox='0 0 20 20'
@@ -179,34 +206,22 @@ export default function VocalStatusBoard({
               aria-labelledby='menu-button'
             >
               <div className='w-max py-1 text-center' role='none'>
-                <Link
-                  href={{
-                    query: {
-                      ...router.query,
-                      filter: 'not-approval',
-                      page: 1,
-                    },
-                  }}
-                  className='block px-4 py-2 text-sm text-gray-700'
-                  role='menuitem'
-                  id='menu-item-0'
-                >
-                  미승인
-                </Link>
-                <Link
-                  href={{
-                    query: {
-                      ...router.query,
-                      filter: 'approval',
-                      page: 1,
-                    },
-                  }}
-                  className='block px-4 py-2 text-sm text-gray-700'
-                  role='menuitem'
-                  id='menu-item-1'
-                >
-                  승인
-                </Link>
+                {filters.slice(sliceIndex).map(({ name, title }) => (
+                  <Link
+                    key={name}
+                    href={{
+                      query: {
+                        ...router.query,
+                        filter: name,
+                        page: 1,
+                      },
+                    }}
+                    className='block px-4 py-2 text-sm text-gray-700'
+                    role='menuitem'
+                  >
+                    {title}
+                  </Link>
+                ))}
               </div>
             </div>
           )}
