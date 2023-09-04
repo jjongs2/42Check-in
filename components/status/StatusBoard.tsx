@@ -64,6 +64,7 @@ export default function StatusBoard(): ReactElement {
 
   const btnBox = btnContent.map((item) => {
     const handleCategoryClick = (): void => {
+      setFormInfos([]);
       void router.push({
         query: { category: item.category },
       });

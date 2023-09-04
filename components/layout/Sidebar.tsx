@@ -54,7 +54,7 @@ export default function Sidebar(): ReactElement {
             <Menu href='/conference-rooms' text='회의실 예약' icon='bx-conversation' />
             <Menu href='/visitors' text='외부인 초대' icon='bx-street-view' />
             <Menu href='/presentations' text='수요지식회' icon='bxs-megaphone' />
-            <Menu href='/equipments' text='기자재 대여' icon='bx-donate-heart' memberOnly />
+            <Menu href='/equipments' text='기자재 대여' icon='bx-chalkboard' memberOnly />
           </ul>
         </div>
       </div>

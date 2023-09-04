@@ -1,8 +1,7 @@
 import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import { cls } from '@/styles/cls';
-import { preventDefault } from '@fullcalendar/core/internal';
 import dayjs from 'dayjs';
-import { Dispatch, ReactElement } from 'react';
+import type { Dispatch, ReactElement } from 'react';
 
 interface PresentationsStatus {
   status: PresentationsFormInfo;
@@ -10,7 +9,7 @@ interface PresentationsStatus {
   changePresentations: {};
 }
 
-const STATUS = ['신청 중', '스케줄 등록 완료', '아젠다 등록', '강의 완료', '차례 대기 중'];
+const STATUS = ['신청 중', '스케줄 등록', '아젠다 등록', '강의 완료', '차례 대기 중'];
 const SPEECHTIME = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 
 export default function PresentationsStatus({
@@ -38,12 +37,13 @@ export default function PresentationsStatus({
         <div className='ml-1 flex w-[18%] justify-center whitespace-nowrap text-center dark:text-white '>
           {date}
         </div>
-        <div className='h-3 border-[1px] border-gray-300 dark:border-white' />
+        <div className='column-separator' />
         <div className='w-[10%] text-center dark:text-white'>{SPEECHTIME[status.time]}</div>
-        <div className='h-3 border-[1px] border-gray-300 dark:border-white' />
+        <div className='column-separator' />
         <div className='w-[51%] whitespace-nowrap text-center dark:text-gray-300'>
           {status.subject}
         </div>
+        <div className='column-separator' />
         <select
           name='statusBox'
           id={status.formId.toString()}
@@ -54,7 +54,7 @@ export default function PresentationsStatus({
           defaultValue={status.status}
           className={cls(
             status.status !== 4 ? 'visible' : 'invisible',
-            'w-[21%] text-xs transition group-hover:bg-[#6AA6FF] group-hover:transition group-hover:duration-300 group-hover:ease-in-out dark:bg-slate-800 dark:group-hover:bg-gray-700 sm:text-sm',
+            'w-[21%] text-center text-xs transition group-hover:bg-[#6AA6FF] group-hover:transition group-hover:duration-300 group-hover:ease-in-out dark:bg-slate-800 dark:group-hover:bg-gray-700 sm:text-sm',
           )}
         >
           <option value='0'>선택해주세요.</option>

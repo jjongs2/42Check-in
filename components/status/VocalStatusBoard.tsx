@@ -104,6 +104,7 @@ export default function VocalStatusBoard({
     .filter((value) => value.category !== 'conference-rooms')
     .map((item) => {
       const handleCategoryClick = (): void => {
+        setFormInfos([]);
         const query = { ...router.query };
         query.category = item.category;
         delete query.formInfo;

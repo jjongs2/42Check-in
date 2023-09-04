@@ -100,13 +100,13 @@ export default function Status({
         <div className='ml-1 flex w-[20%] justify-center whitespace-nowrap text-center dark:text-white'>
           {date}
         </div>
-        <div className='h-3 border-[1px] border-gray-300 dark:border-white' />
+        <div className='column-separator' />
         <div
           className={cls(isConferenceRoom ? 'w-[30%]' : 'w-[20%]', 'text-center dark:text-white')}
         >
           {time}
         </div>
-        <div className='h-3 border-[1px] border-gray-300 dark:border-white' />
+        <div className='column-separator' />
         <div
           className={cls(
             isConferenceRoom ? 'w-[25%]' : 'w-[39%]',
