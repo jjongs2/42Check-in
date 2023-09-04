@@ -82,6 +82,9 @@ export default function VocalStatusBoard({
   }, [selectedFormInfo]);
 
   if (formInfos === undefined) return;
+  if (pageNumbers === undefined) return;
+
+  const lastPageOffset = getPageOffset(pageCount);
 
   const paginate = (pageNumber: number): void => {
     void router.push({
@@ -114,8 +117,6 @@ export default function VocalStatusBoard({
         </div>
       );
     });
-
-  if (pageNumbers === undefined) return;
 
   return (
     <div className='z-10 m-4 flex h-full max-h-[79vh] min-w-[405px] flex-col overflow-auto rounded-xl border bg-white dark:bg-slate-800 lg:w-[800px]'>
@@ -250,18 +251,16 @@ export default function VocalStatusBoard({
         ))}
         <div className='flex justify-center'>
           <button
-            onClick={() => {
-              setPageOffset(0);
-            }}
+            onClick={() => setPageOffset(0)}
             className={`m-1 h-8 w-8 ${pageOffset === 0 ? 'bg-gray-300 text-white' : 'bg-white'}`}
             disabled={pageOffset === 0}
           >
             {'<<'}
           </button>
           <button
-            onClick={() => paginate(currentPage - 1)}
-            className={`m-1 h-8 w-8 ${currentPage === 1 ? 'bg-gray-300 text-white' : 'bg-white'}`}
-            disabled={currentPage === 1}
+            onClick={() => setPageOffset(pageOffset - 1)}
+            className={`m-1 h-8 w-8 ${pageOffset === 0 ? 'bg-gray-300 text-white' : 'bg-white'}`}
+            disabled={pageOffset === 0}
           >
             {'<'}
           </button>
@@ -278,22 +277,20 @@ export default function VocalStatusBoard({
             </button>
           ))}
           <button
-            onClick={() => paginate(currentPage + 1)}
+            onClick={() => setPageOffset(pageOffset + 1)}
             className={`m-1 h-8 w-8 ${
-              currentPage === pageCount ? 'bg-gray-300 text-white' : 'bg-white'
+              pageOffset === lastPageOffset ? 'bg-gray-300 text-white' : 'bg-white'
             }`}
-            disabled={currentPage === pageCount}
+            disabled={pageOffset === lastPageOffset}
           >
             {'>'}
           </button>
           <button
-            onClick={() => {
-              setPageOffset(getPageOffset(pageCount));
-            }}
+            onClick={() => setPageOffset(getPageOffset(pageCount))}
             className={`m-1 h-8 w-8 ${
-              currentPage === pageCount ? 'bg-gray-300 text-white' : 'bg-white'
+              pageOffset === lastPageOffset ? 'bg-gray-300 text-white' : 'bg-white'
             }`}
-            disabled={currentPage === pageCount}
+            disabled={pageOffset === lastPageOffset}
           >
             {'>>'}
           </button>
