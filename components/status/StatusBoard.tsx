@@ -93,7 +93,7 @@ export default function StatusBoard(): ReactElement {
   };
 
   return (
-    <div className='m-4 flex max-h-[90vh] min-h-[90vh] flex-col overflow-auto rounded-xl border'>
+    <div className='m-4 flex max-h-[90vh] min-h-[90vh] min-w-[360px] flex-col overflow-auto rounded-xl border'>
       {/* 위에 버튼 4개있는 부분 */}
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-4 dark:bg-slate-700'>
         <div className='ml-2 flex w-full items-center justify-end space-x-2'>{btnBox}</div>
@@ -117,7 +117,7 @@ export default function StatusBoard(): ReactElement {
                 onMouseOver={() => {
                   handleMouseOver(item.formId);
                 }}
-                className=' mx-2 flex h-16 justify-between space-x-2 rounded-2xl border-2 px-3 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
+                className='mx-2 flex h-14 justify-between space-x-2 rounded-2xl border-2 px-3 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
               >
                 <Status
                   status={item}
@@ -132,7 +132,7 @@ export default function StatusBoard(): ReactElement {
                 onMouseOver={() => {
                   handleMouseOver(item.formId);
                 }}
-                className='mx-4 flex h-14 justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl'
+                className='mx-2 flex h-14 justify-between space-x-2 rounded-2xl border-2 px-3 text-xl shadow-xl'
               >
                 <Status
                   status={item}

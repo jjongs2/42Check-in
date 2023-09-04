@@ -3,7 +3,7 @@ import React, { type ReactElement } from 'react';
 
 export default function MyCheckin(): ReactElement {
   return (
-    <div>
+    <div className='flex h-full w-full items-center justify-center'>
       <StatusBoard />
     </div>
   );

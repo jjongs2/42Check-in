@@ -25,7 +25,7 @@ export default function PresentationsStatus({
 
     const newStatus = { ...changePresentations };
 
-    if (value === '') {
+    if (value === '0') {
       delete newStatus[id];
     } else {
       newStatus[id] = value;
@@ -68,7 +68,7 @@ export default function PresentationsStatus({
           status.status !== 0
             ? 'bg-green-400 dark:bg-green-800'
             : 'bg-yellow-300 dark:bg-yellow-700',
-          'relative -top-12 right-3 h-[24px] w-max whitespace-nowrap rounded-xl px-2 text-gray-700 dark:text-gray-300',
+          'relative -top-12 right-3 h-[24px] w-max whitespace-nowrap rounded-xl px-2 text-sm text-gray-700 dark:text-gray-300',
         )}
       >
         {STATUS[status.status]}

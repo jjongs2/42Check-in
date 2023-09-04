@@ -2,11 +2,13 @@ import Calendar from '@/components/calendar/Calendar';
 import { PERIODS } from '@/components/form/EquipmentsForm';
 import OkModal from '@/components/modal/OkModal';
 import type EquipmentsFormInfo from '@/interfaces/EquipmentsFormInfo';
+import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
+import { isMobile } from 'react-device-detect';
 import { useForm } from 'react-hook-form';
 
 import MacBook from '../../../assets/MacBook.png';
@@ -115,9 +117,14 @@ export default function RentalList(): ReactElement {
   return (
     <>
       {type === 'extension' ? (
-        <div className='ml-20 grid h-full grid-cols-1 place-content-center place-items-center gap-20 lg:grid-cols-2 2xl:grid-cols-4 '>
+        <div
+          className={cls(
+            isMobile ? 'ml-10' : 'ml-20 mt-44',
+            'grid grid-cols-1 place-content-center place-items-center gap-20 lg:grid-cols-2 2xl:grid-cols-4',
+          )}
+        >
           {formInfos.map((item) => (
-            <Rental formInfo={item} />
+            <Rental key={item.formId} formInfo={item} />
           ))}
         </div>
       ) : (
