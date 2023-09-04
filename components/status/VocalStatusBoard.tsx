@@ -275,15 +275,19 @@ export default function VocalStatusBoard({
       </div>
       <div className='flex justify-center'>
         <button
-          onClick={() => setPageOffset(0)}
-          className={`m-1 h-8 w-8 ${pageOffset === 0 ? 'bg-gray-300 text-white' : 'bg-white'}`}
+          onClick={() => {
+            setPageOffset(0);
+          }}
+          className={`m-1 h-8 w-8 hover:text-blue-500 ${pageOffset === 0 && 'opacity-30'}`}
           disabled={pageOffset === 0}
         >
           {'<<'}
         </button>
         <button
-          onClick={() => setPageOffset(pageOffset - 1)}
-          className={`m-1 h-8 w-8 ${pageOffset === 0 ? 'bg-gray-300 text-white' : 'bg-white'}`}
+          onClick={() => {
+            setPageOffset(pageOffset - 1);
+          }}
+          className={`m-1 h-8 w-8 hover:text-blue-500 ${pageOffset === 0 && 'opacity-30'}`}
           disabled={pageOffset === 0}
         >
           {'<'}
@@ -291,9 +295,11 @@ export default function VocalStatusBoard({
         {pageNumbers.map((number) => (
           <button
             key={number}
-            onClick={() => paginate(number)}
+            onClick={() => {
+              paginate(number);
+            }}
             className={`m-1 h-8 w-8 ${
-              number === currentPage ? 'bg-blue-500 text-white' : 'bg-white'
+              number === currentPage ? 'rounded-full bg-blue-500 text-white' : 'hover:text-blue-500'
             }`}
             disabled={number === currentPage}
           >
@@ -301,18 +307,22 @@ export default function VocalStatusBoard({
           </button>
         ))}
         <button
-          onClick={() => setPageOffset(pageOffset + 1)}
-          className={`m-1 h-8 w-8 ${
-            pageOffset === lastPageOffset ? 'bg-gray-300 text-white' : 'bg-white'
+          onClick={() => {
+            setPageOffset(pageOffset + 1);
+          }}
+          className={`m-1 h-8 w-8 hover:text-blue-500 ${
+            pageOffset === lastPageOffset && 'opacity-30'
           }`}
           disabled={pageOffset === lastPageOffset}
         >
           {'>'}
         </button>
         <button
-          onClick={() => setPageOffset(getPageOffset(pageCount))}
-          className={`m-1 h-8 w-8 ${
-            pageOffset === lastPageOffset ? 'bg-gray-300 text-white' : 'bg-white'
+          onClick={() => {
+            setPageOffset(getPageOffset(pageCount));
+          }}
+          className={`m-1 h-8 w-8 hover:text-blue-500 ${
+            pageOffset === lastPageOffset && 'opacity-30'
           }`}
           disabled={pageOffset === lastPageOffset}
         >
