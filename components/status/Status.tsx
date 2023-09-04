@@ -32,27 +32,38 @@ export default function Status({
   const isConferenceRoom = router.query.category === 'conference-rooms';
 
   let time, details;
-  if (status.equipment !== undefined) {
-    time = PERIOD[status.period];
-    details = DEVICES[status.equipment];
-  } else if (status.subject !== undefined) {
-    time = SPEECHTIME[status.time];
-    details = status.subject;
-  } else if (status.visitorsName !== undefined) {
-    time = status.visitTime;
-    details = status.visitorsName;
-  } else if (status.reservationInfo !== undefined) {
-    const [start, end] = getDurations(status.reservationInfo)[0].map((time) =>
-      dayjs(time).format('HH:mm'),
-    );
-    time = `${start} - ${end}`;
-    const mask = 0xffffff;
-    const { location, title } = ROOM_INFOS.find(
-      (room) => Number(room.id) === (status.reservationInfo | mask) >>> 0,
-    );
-    details = `${location} ${title}`;
-    if (isMobile) {
-      details = details.replace('Cluster', 'C ');
+  if (vocal) {
+    if (status.equipment !== undefined) {
+      time = DEVICES[status.equipment];
+    } else if (status.subject !== undefined) {
+      time = SPEECHTIME[status.time];
+    } else if (status.visitorsName !== undefined) {
+      time = status.visitTime;
+    }
+    details = status.intraId;
+  } else {
+    if (status.equipment !== undefined) {
+      time = PERIOD[status.period];
+      details = DEVICES[status.equipment];
+    } else if (status.subject !== undefined) {
+      time = SPEECHTIME[status.time];
+      details = status.subject;
+    } else if (status.visitorsName !== undefined) {
+      time = status.visitTime;
+      details = status.visitorsName;
+    } else if (status.reservationInfo !== undefined) {
+      const [start, end] = getDurations(status.reservationInfo)[0].map((time) =>
+        dayjs(time).format('HH:mm'),
+      );
+      time = `${start} - ${end}`;
+      const mask = 0xffffff;
+      const { location, title } = ROOM_INFOS.find(
+        (room) => Number(room.id) === (status.reservationInfo | mask) >>> 0,
+      );
+      details = `${location} ${title}`;
+      if (isMobile) {
+        details = details.replace('Cluster', 'C ');
+      }
     }
   }
 

@@ -41,7 +41,7 @@ export default function PresentationsStatus({
         <div className='w-[10%] text-center dark:text-white'>{SPEECHTIME[status.time]}</div>
         <div className='column-separator' />
         <div className='w-[51%] whitespace-nowrap text-center dark:text-gray-300'>
-          {status.subject}
+          {status.intraId}
         </div>
         <div className='column-separator' />
         <select
