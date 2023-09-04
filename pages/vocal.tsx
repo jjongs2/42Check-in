@@ -82,13 +82,15 @@ export default function Vocal(): ReactElement {
 
   return (
     <div className='flex h-full flex-col justify-evenly lg:flex-row'>
-      <VocalStatusBoard
-        setCheckedList={setCheckedList}
-        checkedList={checkedList}
-        setChangePresentations={setChangePresentations}
-        changePresentations={changePresentations}
-      />
-      <div className='m-4 flex flex-col overflow-auto rounded-xl'>
+      <div className='z-10 flex-1'>
+        <VocalStatusBoard
+          setCheckedList={setCheckedList}
+          checkedList={checkedList}
+          setChangePresentations={setChangePresentations}
+          changePresentations={changePresentations}
+        />
+      </div>
+      <div className='m-4 flex flex-1 flex-col overflow-auto rounded-xl'>
         {selectedForm()} {/* 선택된 폼 상세 내용  */}
       </div>
       <button

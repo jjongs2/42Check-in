@@ -93,7 +93,7 @@ export default function StatusBoard(): ReactElement {
   };
 
   return (
-    <div className='m-4 flex max-h-[90vh] min-h-[90vh] min-w-[360px] flex-col overflow-auto rounded-xl border'>
+    <div className='m-4 flex max-h-[90vh] min-h-[90vh] min-w-[360px] flex-col overflow-auto rounded-xl border md:w-[800px] '>
       {/* 위에 버튼 4개있는 부분 */}
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-4 dark:bg-slate-700'>
         <div className='ml-2 flex w-full items-center justify-end space-x-2'>{btnBox}</div>
