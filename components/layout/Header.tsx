@@ -1,13 +1,16 @@
 import ICONS from '@/assets/icons';
+import { VOCAL_CATEGORIES } from '@/constants/categories';
+import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
 import logout from '@/utils/logout';
+import type { AxiosRequestConfig } from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import type { Dispatch, ReactElement, SetStateAction } from 'react';
+import type { ReactElement } from 'react';
 
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
@@ -23,12 +26,6 @@ interface Data {
   noticeCount: number;
   noticeDTOList: NoticeDTOList[];
 }
-
-const CATEGORY = {
-  0: { category: '외부인 초대', url: 'visitors' },
-  1: { category: '기자재 대여', url: 'equipments' },
-  2: { category: '수요지식회', url: 'presentations' },
-};
 
 export default function Header(): ReactElement {
   const router = useRouter();
@@ -104,16 +101,16 @@ export default function Header(): ReactElement {
     };
   }, [showNotice]);
 
-  const routeSelectForm = async (item: NoticeDTOList): Promise<void> => {
-    const config = {
-      url: `my-checkin/${CATEGORY[item.category].url}/${item.formId}`,
+  const routeSelectForm = async ({ category, formId }: NoticeDTOList): Promise<void> => {
+    const config: AxiosRequestConfig = {
+      url: `/my-checkin/${VOCAL_CATEGORIES[category].name}/${formId}`,
     };
-    const { data } = await apiController(config);
-    const pathUrl = {
-      pathname: `/my-checkin/${CATEGORY[item.category].url}`,
-      query: { formDetail: JSON.stringify(data) },
-    };
-    await router.push(pathUrl);
+    const { data } = await apiController<ApplicationFormInfo>(config);
+    const formInfo = JSON.stringify(data);
+    await router.push({
+      pathname: `/${VOCAL_CATEGORIES[category].name}/form`,
+      query: { formInfo },
+    });
   };
 
   return (
@@ -155,26 +152,22 @@ export default function Header(): ReactElement {
                     NOTIFICATIONS
                   </p>
                   <div className='mb-4 max-h-[10vh] space-y-2 overflow-auto'>
-                    {noticeInfo.noticeDTOList.map((item: NoticeDTOList) => {
-                      const date = dayjs(item.date);
-                      const relativeDate = date.fromNow();
-                      return (
-                        <div
-                          key={item.formId}
-                          className='group flex h-12 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
-                          onClick={() => {
-                            void routeSelectForm(item);
-                          }}
-                        >
-                          <span className='text-sm font-semibold text-gray-700 group-hover:text-white'>
-                            {CATEGORY[item.category].category} 신청이 수락되었습니다.
-                          </span>
-                          <span className='align-top text-[5px] text-gray-500 group-hover:text-white'>
-                            {relativeDate}
-                          </span>
-                        </div>
-                      );
-                    })}
+                    {noticeInfo.noticeDTOList.map((noticeDTO: NoticeDTOList) => (
+                      <div
+                        key={noticeDTO.formId}
+                        className='group flex h-12 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
+                        onClick={() => {
+                          void routeSelectForm(noticeDTO);
+                        }}
+                      >
+                        <span className='text-sm font-semibold text-gray-700 group-hover:text-white'>
+                          {VOCAL_CATEGORIES[noticeDTO.category].title} 신청이 수락되었습니다.
+                        </span>
+                        <span className='align-top text-[5px] text-gray-500 group-hover:text-white'>
+                          {dayjs(noticeDTO.date).fromNow()}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}

@@ -5,7 +5,7 @@ const CATEGORIES = Object.freeze({
   equipment: 'equipments',
 });
 
-export const MY_CATEGORIES = [
+export const MY_CATEGORIES = Object.freeze([
   {
     name: CATEGORIES.conference,
     title: '회의실 예약',
@@ -22,8 +22,8 @@ export const MY_CATEGORIES = [
     name: CATEGORIES.equipment,
     title: '기자재 대여',
   },
-];
+]);
 
-export const VOCAL_CATEGORIES = MY_CATEGORIES.slice(1);
+export const VOCAL_CATEGORIES = Object.freeze(MY_CATEGORIES.slice(1));
 
 export default CATEGORIES;
