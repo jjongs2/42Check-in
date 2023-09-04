@@ -38,11 +38,11 @@ body {
 }
 
 .category {
-  @apply mt-5 flex flex-1 flex-col items-center justify-between rounded-3xl hover:scale-105;
+  @apply flex max-h-max items-center justify-center rounded-3xl hover:scale-105 xl:mt-20 xl:max-h-[60vh];
 }
 
 .categoryIner {
-  @apply flex h-full w-full flex-col items-center justify-between rounded-3xl py-24 backdrop-blur-sm dark:backdrop-blur-0;
+  @apply flex h-max w-full flex-col items-center justify-between rounded-3xl backdrop-blur-sm dark:backdrop-blur-0 xl:h-full xl:py-24;
 }
 
 .categoryText {

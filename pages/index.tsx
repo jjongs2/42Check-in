@@ -41,7 +41,7 @@ export default function Home(): ReactElement {
         />
       </div>
       {/* 안에 4가지 카테고리 (vh ) */}
-      <div className='grid w-[90vw] grid-cols-2 gap-6 xl:grid-cols-4 xl:gap-x-20'>
+      <div className='mt-4 grid h-[94%] w-[90vw] grid-cols-2 gap-6 xl:grid-cols-4 xl:gap-x-20'>
         {/* 회의실 */}
         <div className='category group bg-[#3983f2] bg-opacity-20 dark:bg-slate-500 dark:bg-opacity-30'>
           <Link href='/conference-rooms' className='categoryIner'>
@@ -49,8 +49,8 @@ export default function Home(): ReactElement {
             <Image
               src={ConferenceRoomsIMG}
               alt='conference-rooms'
-              width={250}
-              height={250}
+              width={200}
+              height={200}
               className='group-hover:animate-bounce'
             />
           </Link>
@@ -63,7 +63,7 @@ export default function Home(): ReactElement {
               alt='visitors'
               width={200}
               height={200}
-              className='relative -bottom-[70px] group-hover:animate-bounce'
+              className='relative -bottom-[40px] group-hover:animate-bounce'
             />
           </Link>
         </div>
@@ -75,7 +75,7 @@ export default function Home(): ReactElement {
               alt='presentations'
               width={100}
               height={100}
-              className='relative -bottom-[60px] group-hover:animate-bounce'
+              className='relative -bottom-[50px] group-hover:animate-bounce'
             />
           </Link>
         </div>
@@ -92,8 +92,8 @@ export default function Home(): ReactElement {
             <Image
               src={EquipmentsIMG}
               alt='equipments'
-              width={250}
-              height={250}
+              width={200}
+              height={200}
               className={isMember && 'group-hover:animate-bounce'}
             />
           </Link>
