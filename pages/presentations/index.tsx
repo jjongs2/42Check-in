@@ -1,6 +1,6 @@
-import PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
+import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import apiController from '@/utils/apiController';
-import { AxiosRequestConfig } from 'axios';
+import type { AxiosRequestConfig } from 'axios';
 import dayjs from 'dayjs';
 import debounce from 'lodash.debounce';
 import Link from 'next/link';
@@ -51,11 +51,12 @@ export default function Presentations(): ReactElement {
         />
       </div>
       <div className='mt-2 space-y-2'>
-        {formInfos.map(({ date: formDateString, formId, intraId, subject }) => {
+        {formInfos.map((formInfo, index) => {
+          const { date: formDateString, formId, intraId, subject } = formInfo;
           const formDate = dayjs(formDateString);
           return (
             <Link
-              key={formId}
+              key={index}
               href={{
                 pathname: '/presentations/form',
                 query: { date: formDate.format('YYYY-M-D') },
@@ -71,12 +72,12 @@ export default function Presentations(): ReactElement {
                     {subject ?? '신청을 기다리고 있습니다. 🤔'}
                   </p>
                   <p className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>
-                    {intraId && `${intraId} 😎`}
+                    {intraId !== null && `${intraId} 😎`}
                   </p>
                 </div>
               </div>
               <button className='mr-4 rounded-xl px-3 text-black group-hover:bg-white dark:text-white dark:group-hover:bg-gray-500'>
-                {formId ? '대기 ' : '신청'}
+                {formId === null ? '신청' : '대기'}
               </button>
             </Link>
           );

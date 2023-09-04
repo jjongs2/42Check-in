@@ -4,7 +4,7 @@ import PresentationsForm from '@/components/form/PresentationsForm';
 import VisitorsForm from '@/components/form/VisitorsForm';
 import WarningModal from '@/components/modal/WarningModal';
 import VocalStatusBoard from '@/components/status/VocalStatusBoard';
-import type FormInfo from '@/interfaces/FormInfo';
+import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ export default function Vocal(): ReactElement {
   const router = useRouter();
   const [category, setCategory] = useState<string>();
   const [changePresentations, setChangePresentations] = useState({});
-  const [checkedList, setCheckedList] = useState<FormInfo[]>([]);
+  const [checkedList, setCheckedList] = useState<ApplicationFormInfo[]>([]);
   const [isFormSelected, setIsFormSelected] = useState<boolean>();
   const [showModal, setShowModal] = useState(false);
 
@@ -52,7 +52,7 @@ export default function Vocal(): ReactElement {
     }
   };
 
-  const onClick = async (formIds: FormInfo[]): Promise<void> => {
+  const onClick = async (formIds: ApplicationFormInfo[]): Promise<void> => {
     const formId = formIds.map((info) => info.formId);
     const config = {
       url: `/vocal/subscriptions/${category}`,
