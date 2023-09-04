@@ -73,10 +73,9 @@ export default function Sidebar(): ReactElement {
           --toggle-color: #6AA6FF;
           --text-color: #000;
 
-          --tran-03: all 0.2s ease;
-          --tran-03: all 0.2s ease;
-          --tran-04: all 0.2s ease;
-          --tran-05: all 0.2s ease;
+          --tran-03: all 0.06s ease;
+          --tran-04: all 0.08s ease;
+          --tran-05: all 0.1s ease;
         }
 
         body {
