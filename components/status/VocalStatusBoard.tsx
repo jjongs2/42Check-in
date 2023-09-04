@@ -23,6 +23,7 @@ interface FormInfosPage {
 }
 
 const getPageOffset = (pageNumber): number => {
+  if (pageNumber === 0) return 0;
   return Math.floor((pageNumber - 1) / 5);
 };
 
@@ -47,6 +48,10 @@ export default function VocalStatusBoard({
 
   useEffect(() => {
     if (pageCount === undefined) return;
+    if (pageCount === 0) {
+      setPageNumbers([1]);
+      return;
+    }
     if (currentPage > pageCount) return;
     setPageNumbers(
       [...Array(5)]
@@ -172,12 +177,13 @@ export default function VocalStatusBoard({
               aria-orientation='vertical'
               aria-labelledby='menu-button'
             >
-              <div className='py-1 text-center' role='none'>
+              <div className='w-max py-1 text-center' role='none'>
                 <Link
                   href={{
                     query: {
                       ...router.query,
                       filter: 'not-approval',
+                      page: 1,
                     },
                   }}
                   className='block px-4 py-2 text-sm text-gray-700'
@@ -191,6 +197,7 @@ export default function VocalStatusBoard({
                     query: {
                       ...router.query,
                       filter: 'approval',
+                      page: 1,
                     },
                   }}
                   className='block px-4 py-2 text-sm text-gray-700'
