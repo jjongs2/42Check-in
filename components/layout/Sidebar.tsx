@@ -16,7 +16,7 @@ function Menu({ href, text, icon, memberOnly = false }: MenuProps): ReactElement
   const isMember = localStorage.getItem('grade') === 'Member';
 
   return (
-    <li className='nav-link' title={!isMember && '멤버만 이용할 수 있는 기능이에요!'}>
+    <li className='nav-link'>
       <Link
         href={href}
         className={`aria-disabled:pointer-events-none aria-disabled:opacity-20 ${

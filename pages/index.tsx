@@ -1,3 +1,4 @@
+import { cls } from '@/styles/cls';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
@@ -80,11 +81,13 @@ export default function Home(): ReactElement {
         </div>
         <div
           className={`category group bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30 ${
-            !isMember && 'bg-neutral-500 opacity-10 hover:scale-100'
+            !isMember && 'hover:scale-100 hover:bg-neutral-500 hover:opacity-20'
           }`}
-          title={!isMember && '멤버만 이용할 수 있는 기능이에요!'}
         >
-          <div className='categoryIner'>
+          <Link
+            href='/equipments'
+            className={cls(!isMember && 'pointer-events-none', 'categoryIner')}
+          >
             <h2 className='categoryText'>기자재 대여</h2>
             <Image
               src={EquipmentsIMG}
@@ -93,7 +96,7 @@ export default function Home(): ReactElement {
               height={250}
               className={isMember && 'group-hover:animate-bounce'}
             />
-          </div>
+          </Link>
         </div>
       </div>
     </div>
