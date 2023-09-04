@@ -126,7 +126,7 @@ export default function VocalStatusBoard({
 
   return (
     <div className='m-4 flex h-full max-h-[79vh] min-w-[360px] flex-col justify-between overflow-auto rounded-xl border bg-white dark:bg-slate-800'>
-      <div className='sticky top-0 flex items-center justify-between space-x-4 border-b-2 bg-white p-4 dark:bg-slate-700'>
+      <div className='top-0 flex items-center justify-between space-x-4 border-b-2 bg-white p-4 dark:bg-slate-700'>
         <div className='flex w-full items-center space-x-2'>
           <input
             value='white'
