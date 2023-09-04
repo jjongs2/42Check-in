@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { type ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 import CalendarIMG from '../assets/calendar.png';
 import CheckListImg from '../assets/checkList.png';
@@ -11,6 +11,8 @@ import SittingManImg from '../assets/sittingMan.png';
 import VisitorsIMG from '../assets/visitors.png';
 
 export default function Home(): ReactElement {
+  const isMember = localStorage.getItem('grade') === 'Member';
+
   return (
     <div className='flex h-full w-full items-center justify-center'>
       {/* 뒷배경 이미지들 */}
@@ -41,7 +43,7 @@ export default function Home(): ReactElement {
       <div className='grid w-[90vw] grid-cols-2 gap-6 xl:grid-cols-4 xl:gap-x-20'>
         {/* 회의실 */}
         <div className='category group bg-[#3983f2] bg-opacity-20 dark:bg-slate-500 dark:bg-opacity-30'>
-          <Link href={'/conference-rooms'} className='categoryIner'>
+          <Link href='/conference-rooms' className='categoryIner'>
             <h2 className='categoryText'>회의실 예약</h2>
             <Image
               src={ConferenceRoomsIMG}
@@ -53,7 +55,7 @@ export default function Home(): ReactElement {
           </Link>
         </div>
         <div className='category group bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30'>
-          <Link href={'/visitors'} className='categoryIner'>
+          <Link href='/visitors' className='categoryIner'>
             <h2 className='categoryText'>외부인 초대</h2>
             <Image
               src={VisitorsIMG}
@@ -65,7 +67,7 @@ export default function Home(): ReactElement {
           </Link>
         </div>
         <div className='category group bg-[#3983f2] bg-opacity-20 shadow-xl dark:bg-slate-500 dark:bg-opacity-30'>
-          <Link href={'/presentations'} className='categoryIner'>
+          <Link href='/presentations' className='categoryIner'>
             <h2 className='categoryText'>수요지식회</h2>
             <Image
               src={PresentationsIMG}
@@ -76,17 +78,22 @@ export default function Home(): ReactElement {
             />
           </Link>
         </div>
-        <div className='category group bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30'>
-          <Link href={'/equipments'} className='categoryIner'>
+        <div
+          className={`category group bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30 ${
+            !isMember && 'bg-neutral-500 opacity-10 hover:scale-100'
+          }`}
+          title={!isMember && '멤버만 이용할 수 있는 기능이에요!'}
+        >
+          <div className='categoryIner'>
             <h2 className='categoryText'>기자재 대여</h2>
             <Image
               src={EquipmentsIMG}
               alt='equipments'
               width={250}
               height={250}
-              className='group-hover:animate-bounce'
+              className={isMember && 'group-hover:animate-bounce'}
             />
-          </Link>
+          </div>
         </div>
       </div>
     </div>

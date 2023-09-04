@@ -77,6 +77,27 @@ body {
   @apply text-[20px] font-semibold text-[#44494E] dark:text-white;
 }
 
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 @media (min-width: 500px) {
   .main-content {
     @apply ml-2 w-[98%];

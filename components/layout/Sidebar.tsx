@@ -1,23 +1,28 @@
 import { cls } from '@/styles/cls';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { type ReactElement, useEffect, useState } from 'react';
+import { useState } from 'react';
+import type { ReactElement } from 'react';
 
 interface MenuProps {
   href: string;
   text: string;
   icon: string;
+  memberOnly?: boolean;
 }
 
-function Menu({ href, text, icon }: MenuProps): ReactElement {
+function Menu({ href, text, icon, memberOnly = false }: MenuProps): ReactElement {
   const router = useRouter();
+  const isMember = localStorage.getItem('grade') === 'Member';
+
   return (
-    <li className='nav-link'>
+    <li className='nav-link' title={!isMember && '멤버만 이용할 수 있는 기능이에요!'}>
       <Link
         href={href}
-        className={cls(
-          router.pathname.startsWith(href) && 'border-2 border-[#6AA6FF] dark:border-white',
-        )}
+        className={`aria-disabled:pointer-events-none aria-disabled:opacity-20 ${
+          router.pathname.startsWith(href) && 'border-2 border-[#6AA6FF] dark:border-white'
+        }`}
+        aria-disabled={memberOnly && !isMember}
       >
         <i className={`bx ${icon} icon`}></i>
         <span className='text nav-text'>{text}</span>
@@ -49,7 +54,7 @@ export default function Sidebar(): ReactElement {
             <Menu href='/conference-rooms' text='회의실 예약' icon='bx-conversation' />
             <Menu href='/visitors' text='외부인 초대' icon='bx-street-view' />
             <Menu href='/presentations' text='수요지식회' icon='bxs-megaphone' />
-            <Menu href='/equipments' text='기자재 대여' icon='bx-donate-heart' />
+            <Menu href='/equipments' text='기자재 대여' icon='bx-donate-heart' memberOnly />
           </ul>
         </div>
       </div>

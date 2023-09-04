@@ -17,8 +17,10 @@ export default function Login(): ReactElement {
         headers: { 'Content-Type': 'text/plain' },
       };
       const { data } = await apiController(config);
-      const { accessToken, refreshToken, staff } = data;
+      const { accessToken, grade, refreshToken, staff } = data;
+      console.log(data)
       localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('grade', grade);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('staff', staff);
       await router.push('/');
