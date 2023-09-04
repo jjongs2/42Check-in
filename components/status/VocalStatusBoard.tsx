@@ -124,7 +124,7 @@ export default function VocalStatusBoard({
     });
 
   return (
-    <div className='z-10 m-4 flex h-full max-h-[79vh] min-w-[405px] flex-col overflow-auto rounded-xl border bg-white dark:bg-slate-800 lg:w-[800px]'>
+    <div className='z-10 m-4 flex h-full max-h-[79vh] min-w-[405px] flex-col justify-between overflow-auto rounded-xl border bg-white dark:bg-slate-800 lg:w-[800px]'>
       <div className='sticky top-0 flex items-center justify-between space-x-4 border-b-2 bg-white p-4 dark:bg-slate-700'>
         <div className='flex w-full items-center space-x-2'>
           <input
@@ -147,7 +147,7 @@ export default function VocalStatusBoard({
           <div>
             <button
               type='button'
-              className='inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'
+              className='inline-flex w-full justify-center gap-x-1.5 whitespace-nowrap rounded-md bg-white px-3 py-2 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'
               id='menu-button'
               aria-expanded='true'
               aria-haspopup='true'
@@ -211,7 +211,7 @@ export default function VocalStatusBoard({
           )}
         </div>
       </div>
-      <div className='mt-6 w-full'>
+      <div className='mt-6 w-full flex-1'>
         {formInfos.map((item, i) => (
           <div
             key={item.formId}
@@ -256,52 +256,52 @@ export default function VocalStatusBoard({
             )}
           </div>
         ))}
-        <div className='flex justify-center'>
+      </div>
+      <div className='flex justify-center'>
+        <button
+          onClick={() => setPageOffset(0)}
+          className={`m-1 h-8 w-8 ${pageOffset === 0 ? 'bg-gray-300 text-white' : 'bg-white'}`}
+          disabled={pageOffset === 0}
+        >
+          {'<<'}
+        </button>
+        <button
+          onClick={() => setPageOffset(pageOffset - 1)}
+          className={`m-1 h-8 w-8 ${pageOffset === 0 ? 'bg-gray-300 text-white' : 'bg-white'}`}
+          disabled={pageOffset === 0}
+        >
+          {'<'}
+        </button>
+        {pageNumbers.map((number) => (
           <button
-            onClick={() => setPageOffset(0)}
-            className={`m-1 h-8 w-8 ${pageOffset === 0 ? 'bg-gray-300 text-white' : 'bg-white'}`}
-            disabled={pageOffset === 0}
-          >
-            {'<<'}
-          </button>
-          <button
-            onClick={() => setPageOffset(pageOffset - 1)}
-            className={`m-1 h-8 w-8 ${pageOffset === 0 ? 'bg-gray-300 text-white' : 'bg-white'}`}
-            disabled={pageOffset === 0}
-          >
-            {'<'}
-          </button>
-          {pageNumbers.map((number) => (
-            <button
-              key={number}
-              onClick={() => paginate(number)}
-              className={`m-1 h-8 w-8 ${
-                number === currentPage ? 'bg-blue-500 text-white' : 'bg-white'
-              }`}
-              disabled={number === currentPage}
-            >
-              {number}
-            </button>
-          ))}
-          <button
-            onClick={() => setPageOffset(pageOffset + 1)}
+            key={number}
+            onClick={() => paginate(number)}
             className={`m-1 h-8 w-8 ${
-              pageOffset === lastPageOffset ? 'bg-gray-300 text-white' : 'bg-white'
+              number === currentPage ? 'bg-blue-500 text-white' : 'bg-white'
             }`}
-            disabled={pageOffset === lastPageOffset}
+            disabled={number === currentPage}
           >
-            {'>'}
+            {number}
           </button>
-          <button
-            onClick={() => setPageOffset(getPageOffset(pageCount))}
-            className={`m-1 h-8 w-8 ${
-              pageOffset === lastPageOffset ? 'bg-gray-300 text-white' : 'bg-white'
-            }`}
-            disabled={pageOffset === lastPageOffset}
-          >
-            {'>>'}
-          </button>
-        </div>
+        ))}
+        <button
+          onClick={() => setPageOffset(pageOffset + 1)}
+          className={`m-1 h-8 w-8 ${
+            pageOffset === lastPageOffset ? 'bg-gray-300 text-white' : 'bg-white'
+          }`}
+          disabled={pageOffset === lastPageOffset}
+        >
+          {'>'}
+        </button>
+        <button
+          onClick={() => setPageOffset(getPageOffset(pageCount))}
+          className={`m-1 h-8 w-8 ${
+            pageOffset === lastPageOffset ? 'bg-gray-300 text-white' : 'bg-white'
+          }`}
+          disabled={pageOffset === lastPageOffset}
+        >
+          {'>>'}
+        </button>
       </div>
     </div>
   );
