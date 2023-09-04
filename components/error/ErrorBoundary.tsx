@@ -40,20 +40,21 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
   private readonly handleAxiosError = ({ data, status }: AxiosResponse): ReactElement => {
     let message: ReactElement;
     if (status === 403) {
-      return (
-        <WarningModal href='/'>
-          <p className='text-modal text-left'>접근 권한이 없습니다.</p>
-        </WarningModal>
-      );
+      switch (data) {
+        case 1012: {
+          message = <p>접근 권한이 없습니다.</p>;
+          break;
+        }
+        case 1013: {
+          message = <p>멤버만 이용할 수 있는 기능이에요!</p>;
+          break;
+        }
+      }
     } else if (status === 404 && data === 1010) {
-      message = (
-        <>
-          <p>신청자가 방금 해당 요청을 취소했어요🙄</p>
-        </>
-      );
+      message = <p>신청자가 방금 해당 요청을 취소했어요🙄</p>;
     } else if (status === 503) {
       switch (data) {
-        case 1007: {g
+        case 1007: {
           return <Contact />;
         }
         case 1008: {
