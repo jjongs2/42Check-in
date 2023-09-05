@@ -24,6 +24,6 @@ export const MY_CATEGORIES = Object.freeze([
   },
 ]);
 
-export const VOCAL_CATEGORIES = Object.freeze(MY_CATEGORIES.slice(1));
+export const BOCAL_CATEGORIES = Object.freeze(MY_CATEGORIES.slice(1));
 
 export default CATEGORIES;

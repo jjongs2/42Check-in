@@ -10,7 +10,7 @@ export default function OkModal({
   children = (
     <>
       <p>신청이 완료되었습니다.</p>
-      <p>Vocal분의 승인을 기다려 주세요 :)</p>
+      <p>Bocal분의 승인을 기다려 주세요 :)</p>
     </>
   ),
 }: OkModalProps): ReactElement {

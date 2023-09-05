@@ -12,7 +12,7 @@ interface StatusProps {
   setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectForm?: React.Dispatch<React.SetStateAction<FormInfo | undefined>>;
   mouseOnIndex?: number;
-  vocal?: boolean;
+  bocal?: boolean;
 }
 
 const STATUS = ['신청 중', '승인', '스케줄 등록 완료', '아젠다 등록', '강의 완료', '차례 대기 중'];
@@ -24,14 +24,14 @@ export default function Status({
   setShowModal,
   setSelectForm,
   mouseOnIndex,
-  vocal,
+  bocal,
 }: StatusProps): ReactElement {
   const date = dayjs(status.date).format('YY.MM.DD (ddd)');
   const router = useRouter();
   const isConferenceRoom = router.query.category === 'conference-rooms';
 
   let time, details;
-  if (vocal) {
+  if (bocal) {
     if (status.equipment !== undefined) {
       time = DEVICES[status.equipment];
     } else if (status.subject !== undefined) {
@@ -76,7 +76,7 @@ export default function Status({
             setSelectForm(status);
           }}
           className={`rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500 ${
-            !vocal ? '' : 'invisible'
+            !bocal ? '' : 'invisible'
           }`}
         >
           취소
@@ -91,7 +91,7 @@ export default function Status({
             setSelectForm(status);
           }}
           className={`rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500 ${
-            !vocal && mouseOnIndex === status.formId ? '' : 'invisible'
+            !bocal && mouseOnIndex === status.formId ? '' : 'invisible'
           }`}
         >
           취소

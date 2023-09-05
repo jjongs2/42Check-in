@@ -3,7 +3,7 @@ import EquipmentsForm from '@/components/form/EquipmentsForm';
 import PresentationsForm from '@/components/form/PresentationsForm';
 import VisitorsForm from '@/components/form/VisitorsForm';
 import WarningModal from '@/components/modal/WarningModal';
-import VocalStatusBoard from '@/components/status/VocalStatusBoard';
+import BocalStatusBoard from '@/components/status/BocalStatusBoard';
 import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
 import { useRouter } from 'next/router';
@@ -11,7 +11,7 @@ import type { ParsedUrlQueryInput } from 'querystring';
 import { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 
-export default function Vocal(): ReactElement {
+export default function Bocal(): ReactElement {
   const router = useRouter();
   const [category, setCategory] = useState<string>();
   const [changePresentations, setChangePresentations] = useState({});
@@ -66,7 +66,7 @@ export default function Vocal(): ReactElement {
   const onClick = async (formIds: ApplicationFormInfo[]): Promise<void> => {
     const formId = formIds.map((info) => info.formId);
     const config = {
-      url: `/vocal/subscriptions/${category}`,
+      url: `/bocal/subscriptions/${category}`,
       method: 'POST',
       data: { formIds: formId },
     };
@@ -75,7 +75,7 @@ export default function Vocal(): ReactElement {
 
   const onClickPresentations = async (presenList: {}): Promise<void> => {
     const config = {
-      url: '/vocal/subscriptions/presentations',
+      url: '/bocal/subscriptions/presentations',
       method: 'POST',
       data: { presenList },
     };
@@ -85,7 +85,7 @@ export default function Vocal(): ReactElement {
   return (
     <div className='flex h-full flex-col justify-evenly lg:flex-row'>
       <div className='z-10 flex-1'>
-        <VocalStatusBoard
+        <BocalStatusBoard
           setCheckedList={setCheckedList}
           checkedList={checkedList}
           setChangePresentations={setChangePresentations}
@@ -109,7 +109,7 @@ export default function Vocal(): ReactElement {
       </button>
       {showModal && (
         <ModalWrapper>
-          <div className='text-modal'>해당 신청서를 승인 하시나요??</div>
+          <div className='text-modal'>선택한 신청서를 승인하시겠어요?</div>
           <div className='flex justify-center space-x-2'>
             <button
               onClick={(event) => {
@@ -123,6 +123,7 @@ export default function Vocal(): ReactElement {
               onClick={(event) => {
                 if (category !== 'presentations') void onClick(checkedList);
                 else void onClickPresentations(changePresentations);
+                router.reload();
                 setShowModal(false);
               }}
               className='button-modal dark:text-white'

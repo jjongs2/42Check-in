@@ -1,5 +1,5 @@
 import ICONS from '@/assets/icons';
-import { VOCAL_CATEGORIES } from '@/constants/categories';
+import { BOCAL_CATEGORIES } from '@/constants/categories';
 import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
 import logout from '@/utils/logout';
@@ -103,12 +103,12 @@ export default function Header(): ReactElement {
 
   const routeSelectForm = async ({ category, formId }: NoticeDTOList): Promise<void> => {
     const config: AxiosRequestConfig = {
-      url: `/my-checkin/${VOCAL_CATEGORIES[category].name}/${formId}`,
+      url: `/my-checkin/${BOCAL_CATEGORIES[category].name}/${formId}`,
     };
     const { data } = await apiController<ApplicationFormInfo>(config);
     const formInfo = JSON.stringify(data);
     await router.push({
-      pathname: `/${VOCAL_CATEGORIES[category].name}/form`,
+      pathname: `/${BOCAL_CATEGORIES[category].name}/form`,
       query: { formInfo },
     });
   };
@@ -161,7 +161,7 @@ export default function Header(): ReactElement {
                         }}
                       >
                         <span className='text-sm font-semibold text-gray-700 group-hover:text-white'>
-                          {VOCAL_CATEGORIES[noticeDTO.category].title} 신청이 수락되었습니다.
+                          {BOCAL_CATEGORIES[noticeDTO.category].title} 신청이 수락되었습니다.
                         </span>
                         <span className='align-top text-[5px] text-gray-500 group-hover:text-white'>
                           {dayjs(noticeDTO.date).fromNow()}

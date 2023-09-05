@@ -11,7 +11,7 @@ import PresentationsStatus from './PresentationsStatus';
 import Status from './Status';
 import { btnContent } from './StatusBoard';
 
-interface VocalStatusBoardProps {
+interface BocalStatusBoardProps {
   setCheckedList: Dispatch<React.SetStateAction<ApplicationFormInfo[]>>;
   checkedList: ApplicationFormInfo[];
   setChangePresentations: Dispatch<React.SetStateAction<{}>>;
@@ -28,12 +28,12 @@ const getPageOffset = (pageNumber): number => {
   return Math.floor((pageNumber - 1) / 5);
 };
 
-export default function VocalStatusBoard({
+export default function BocalStatusBoard({
   setCheckedList,
   checkedList,
   setChangePresentations,
   changePresentations,
-}: VocalStatusBoardProps): ReactElement {
+}: BocalStatusBoardProps): ReactElement {
   const router = useRouter();
   const { category, filter, page, size, sort } = router.query;
   const currentPage = Number(page);
@@ -64,7 +64,7 @@ export default function VocalStatusBoard({
   useEffect(() => {
     async function getFormInfosPage(): Promise<void> {
       const config: AxiosRequestConfig = {
-        url: `/vocal/subscriptions/${category as string}/form/${filter as string}`,
+        url: `/bocal/subscriptions/${category as string}/form/${filter as string}`,
         params: { page, size },
       };
       if (category !== 'presentations') {
@@ -260,7 +260,7 @@ export default function VocalStatusBoard({
               />
             )}
             {category !== 'presentations' ? (
-              <Status status={item} vocal />
+              <Status status={item} bocal />
             ) : (
               <>
                 <PresentationsStatus

@@ -22,7 +22,7 @@ export default function FormContainer({ children }: FormContainerProps): ReactEl
           }}
         />
       </div> */}
-      {!router.pathname.includes('vocal') && (
+      {!router.pathname.includes('bocal') && (
         <button
           type='button'
           onClick={() => {

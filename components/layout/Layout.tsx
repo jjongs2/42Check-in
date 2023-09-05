@@ -16,7 +16,7 @@ export default function Layout({ children }: LayoutProps): ReactElement {
 
   if (!hasLayout) return <>{children}</>;
 
-  const noSidebarPages = new Set(['/', '/my-checkin', '/vocal']);
+  const noSidebarPages = new Set(['/', '/my-checkin', '/bocal']);
   const hasSidebar = !noSidebarPages.has(router.pathname) && router.query.formInfo === undefined;
 
   return (
