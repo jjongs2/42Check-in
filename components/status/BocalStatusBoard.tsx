@@ -1,4 +1,5 @@
 import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
+import PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import exportData from '@/utils/exportData';
@@ -41,11 +42,11 @@ export default function BocalStatusBoard({
   const initialOffset = getPageOffset(currentPage);
 
   const [checked, setChecked] = useState(false);
-  const [formInfos, setFormInfos] = useState<ApplicationFormInfo[]>();
+  const [formInfos, setFormInfos] = useState<PresentationsFormInfo[]>();
   const [pageCount, setPageCount] = useState<number>();
   const [pageNumbers, setPageNumbers] = useState<number[]>();
   const [pageOffset, setPageOffset] = useState<number>(initialOffset);
-  const [selectedFormInfo, setSelectedFormInfo] = useState<ApplicationFormInfo>();
+  const [selectedFormInfo, setSelectedFormInfo] = useState<PresentationsFormInfo>();
   const [showDropDown, setShowDropDown] = useState(false);
 
   useEffect(() => {
