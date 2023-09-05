@@ -13,8 +13,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
 interface TimeMasks {
-  gaepo: number[];
-  seocho: number[];
+  gaepo: number[][];
+  seocho: number[][];
 }
 
 export const ROOM_INFOS = [
@@ -65,15 +65,19 @@ export default function Timeline(): ReactElement {
   useEffect(() => {
     if (date === undefined) return;
     function setEventTimes(timeMasks: TimeMasks): void {
-      const eventInputs: EventInput[] = [];
       const masks = [...Object.values(timeMasks.gaepo), ...Object.values(timeMasks.seocho)];
       const roomIds = ROOM_INFOS.map((room) => room.id);
-      masks.forEach((mask, index) => {
-        const durations = getDurations(mask, date);
-        durations.forEach(([start, end]) => {
-          const resourceId = roomIds[index];
-          eventInputs.push({ resourceId, start, end });
-        });
+      const eventInputs: EventInput[] = [];
+      masks.forEach(([myMask, otherMask], index) => {
+        function addEvents(timeMask: number, backgroundColor?: string): void {
+          const durations = getDurations(timeMask, date);
+          durations.forEach(([start, end]) => {
+            const resourceId = roomIds[index];
+            eventInputs.push({ resourceId, start, end, backgroundColor });
+          });
+        }
+        addEvents(myMask);
+        addEvents(otherMask, 'violet');
       });
       setEvents(eventInputs);
     }

@@ -11,8 +11,8 @@ import FormSelect from '../common/FormSelect';
 import FormTextArea from '../common/FormTextArea';
 import FormWrapper from '../common/FormWrapper';
 
-const IS_VIDEO = ['희망하지 않음', '희망'];
-const LECTURES = [
+export const IS_VIDEO = ['희망하지 않음', '희망'];
+export const LECTURES = [
   'Rush',
   'Piscine',
   'Partnership',

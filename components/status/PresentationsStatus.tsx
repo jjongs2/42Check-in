@@ -1,4 +1,4 @@
-import STATUS from '@/constants/status';
+import STATUS, { PRESENTATION_STATUS } from '@/constants/status';
 import TIMES from '@/constants/times';
 import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import { cls } from '@/styles/cls';
@@ -70,7 +70,7 @@ export default function PresentationsStatus({
           'relative -top-12 right-3 h-[24px] w-max whitespace-nowrap rounded-xl px-2 text-sm text-gray-700 dark:text-gray-300',
         )}
       >
-        {STATUS[status.status]}
+        {PRESENTATION_STATUS[status.status]}
       </div>
     </div>
   );

@@ -1,4 +1,6 @@
-const STATUS = Object.freeze([
+const STATUS = Object.freeze(['신청 중', '승인됨']);
+
+export const PRESENTATION_STATUS = Object.freeze([
   '신청 중',
   '스케줄 등록',
   '아젠다 등록',

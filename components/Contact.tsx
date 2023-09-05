@@ -15,7 +15,7 @@ export default function Contact(): ReactElement {
               <div className='mb-12 w-full shrink-0 grow-0 basis-auto md:w-6/12 md:px-3 lg:px-6'>
                 <div className='flex items-start'>
                   <div className='shrink-0'>
-                    <div className='bg-indigo-600-100 inline-block rounded-md p-4 text-indigo-600'>
+                    <div className='bg-indigo-100 inline-block rounded-md p-4 text-indigo-600'>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
@@ -42,7 +42,7 @@ export default function Contact(): ReactElement {
               <div className='mb-12 w-full shrink-0 grow-0 basis-auto md:w-6/12 md:px-3 lg:px-6'>
                 <div className='flex items-start'>
                   <div className='shrink-0'>
-                    <div className='bg-indigo-600-100 inline-block rounded-md p-4 text-indigo-600'>
+                    <div className='bg-indigo-100 inline-block rounded-md p-4 text-indigo-600'>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
@@ -69,7 +69,7 @@ export default function Contact(): ReactElement {
               <div className='mb-12 w-full shrink-0 grow-0 basis-auto md:w-6/12 md:px-3 lg:px-6'>
                 <div className='align-start flex'>
                   <div className='shrink-0'>
-                    <div className='bg-indigo-600-100 inline-block rounded-md p-4 text-indigo-600'>
+                    <div className='bg-indigo-100 inline-block rounded-md p-4 text-indigo-600'>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
@@ -96,7 +96,7 @@ export default function Contact(): ReactElement {
               <div className='mb-12 w-full shrink-0 grow-0 basis-auto md:w-6/12 md:px-3 lg:px-6'>
                 <div className='align-start flex'>
                   <div className='shrink-0'>
-                    <div className='bg-indigo-600-100 inline-block rounded-md p-4 text-indigo-600'>
+                    <div className='bg-indigo-100 inline-block rounded-md p-4 text-indigo-600'>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'

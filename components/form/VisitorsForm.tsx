@@ -10,19 +10,19 @@ import FormInput from '../common/FormInput';
 import FormSelect from '../common/FormSelect';
 import FormWrapper from '../common/FormWrapper';
 
-const PLACES = [
+export const PLACES = [
   'B1F: 어셈블리',
   '1F: 오픈 스튜디오',
   '2/4/5F: 클러스터',
   '3F: 회의실',
   '폴베가 있는 마루관',
 ];
-const PURPOSES = [
+export const PURPOSES = [
   '견학: "너희 교육장이 정말 궁금하구나!"',
   '학습: "너와 함께 공부하고 싶어!"',
   '토크: "이야기할 것이 많으니 교육장 안에서 이야기하자!"',
 ];
-const RELATIONS = [
+export const RELATIONS = [
   '42서울에서 인연을 맺었던 동료 "피시너/카뎃"',
   '나를 보고 싶어 개포까지 달려 올 나의 "친구"',
   '나의 소중한 "가족"',

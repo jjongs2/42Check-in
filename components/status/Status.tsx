@@ -19,6 +19,7 @@ interface StatusProps {
 
 const PERIOD = ['', '1 개월', '', '3 개월'];
 const DEVICES = ['기타', '맥북', '삼성 노트북', '아이패드'];
+
 export default function Status({
   status,
   setShowModal,
@@ -28,7 +29,8 @@ export default function Status({
 }: StatusProps): ReactElement {
   const date = dayjs(status.date).format('YY.MM.DD (ddd)');
   const router = useRouter();
-  const isConferenceRoom = router.query.category === 'conference-rooms';
+  const { category } = router.query;
+  const isConferenceRoom = category === 'conference-rooms';
 
   let time, details;
   if (bocal) {
