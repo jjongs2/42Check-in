@@ -92,6 +92,7 @@ export default function Home(): ReactElement {
             !isMember && 'hover:scale-100 hover:bg-neutral-500 hover:opacity-20'
           }`}
           onClick={() => {
+            if (isMember) return;
             handleLearnerClick();
           }}
         >
