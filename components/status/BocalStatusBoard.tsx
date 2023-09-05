@@ -5,7 +5,7 @@ import exportData from '@/utils/exportData';
 import type { AxiosRequestConfig } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Dispatch, ReactElement } from 'react';
 
 import PresentationsStatus from './PresentationsStatus';
@@ -41,6 +41,7 @@ export default function BocalStatusBoard({
   const currentPage = Number(page);
   const initialOffset = getPageOffset(currentPage);
 
+  const filterRef = useRef<HTMLDivElement>(null)
   const [checked, setChecked] = useState(false);
   const [formInfos, setFormInfos] = useState<ApplicationFormInfo[]>();
   const [pageCount, setPageCount] = useState<number>();
@@ -92,6 +93,19 @@ export default function BocalStatusBoard({
     void router.push({ query });
   }, [selectedFormInfo]);
 
+  useEffect(() => {
+    function handleOutsideClick(event: any): void {
+      if (!showDropDown) return;
+      if (!filterRef.current.contains(event.target as Node)) {
+        setShowDropDown(false);
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [showDropDown]);
+
   if (formInfos === undefined) return;
   if (pageNumbers === undefined) return;
 
@@ -120,8 +134,6 @@ export default function BocalStatusBoard({
       },
     });
   };
-
-  console.log(router.query.filter);
 
   const btnBox = btnContent
     .filter((value) => value.category !== 'conference-rooms')
@@ -206,6 +218,7 @@ export default function BocalStatusBoard({
           </div>
           {showDropDown && (
             <div
+              ref={filterRef}
               className='absolute right-0 z-10 mt-2 w-max origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
               role='menu'
               aria-orientation='vertical'
