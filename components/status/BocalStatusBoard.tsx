@@ -1,5 +1,4 @@
 import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
-import PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import exportData from '@/utils/exportData';
@@ -12,6 +11,7 @@ import type { Dispatch, ReactElement } from 'react';
 import PresentationsStatus from './PresentationsStatus';
 import Status from './Status';
 import { btnContent } from './StatusBoard';
+import PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 
 interface BocalStatusBoardProps {
   setCheckedList: Dispatch<React.SetStateAction<ApplicationFormInfo[]>>;
@@ -42,11 +42,11 @@ export default function BocalStatusBoard({
   const initialOffset = getPageOffset(currentPage);
 
   const [checked, setChecked] = useState(false);
-  const [formInfos, setFormInfos] = useState<PresentationsFormInfo[]>();
+  const [formInfos, setFormInfos] = useState<ApplicationFormInfo[]>();
   const [pageCount, setPageCount] = useState<number>();
   const [pageNumbers, setPageNumbers] = useState<number[]>();
   const [pageOffset, setPageOffset] = useState<number>(initialOffset);
-  const [selectedFormInfo, setSelectedFormInfo] = useState<PresentationsFormInfo>();
+  const [selectedFormInfo, setSelectedFormInfo] = useState<ApplicationFormInfo>();
   const [showDropDown, setShowDropDown] = useState(false);
 
   useEffect(() => {
@@ -271,7 +271,7 @@ export default function BocalStatusBoard({
             ) : (
               <>
                 <PresentationsStatus
-                  status={item}
+                  status={item as PresentationsFormInfo}
                   changePresentations={changePresentations}
                   setChangePresentations={setChangePresentations}
                 />

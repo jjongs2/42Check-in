@@ -6,11 +6,11 @@ import { cls } from '@/styles/cls';
 import getDurations from '@/utils/getDurations';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
-import { type ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import { isMobile } from 'react-device-detect';
 
 interface StatusProps {
-  status: FormInfo;
+  status: any;
   setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectForm?: React.Dispatch<React.SetStateAction<FormInfo | undefined>>;
   mouseOnIndex?: number;

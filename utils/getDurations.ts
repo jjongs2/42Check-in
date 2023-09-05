@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-export default function getDurations(timeMask: number, date: string): string[][] {
+export default function getDurations(timeMask: number, date?: string): string[][] {
   const durations: string[][] = [];
   let startTime = null;
   for (let i = 0; i < 24; ++i) {
