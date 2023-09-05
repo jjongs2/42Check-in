@@ -39,7 +39,7 @@ export default function PresentationsStatus({
         <div className='column-separator' />
         <div className='w-[10%] text-center dark:text-white'>{TIMES[status.time]}</div>
         <div className='column-separator' />
-        <div className='w-[51%] whitespace-nowrap text-center dark:text-gray-300'>
+        <div className='w-[31%] whitespace-nowrap text-center dark:text-gray-300'>
           {status.intraId}
         </div>
         <div className='column-separator' />

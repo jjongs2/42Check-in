@@ -120,11 +120,14 @@ export default function BocalStatusBoard({
     });
   };
 
+  console.log(router.query.filter);
+
   const btnBox = btnContent
     .filter((value) => value.category !== 'conference-rooms')
     .map((item) => {
       const handleCategoryClick = (): void => {
         setFormInfos([]);
+        setChecked(false);
         const query = { ...router.query };
         query.category = item.category;
         delete query.formInfo;
@@ -151,26 +154,27 @@ export default function BocalStatusBoard({
         </div>
       );
     });
-
   return (
     <div className='m-4 flex h-full max-h-[79vh] min-w-[360px] flex-col justify-between overflow-auto rounded-xl border bg-white dark:bg-slate-800'>
       <div className='top-0 flex items-center justify-between space-x-4 border-b-2 bg-white p-4 dark:bg-slate-700'>
         <div className='flex w-full items-center space-x-2'>
-          <input
-            value='white'
-            type='checkbox'
-            checked={checked}
-            onChange={() => {
-              setChecked(!checked);
-              if (checked) setCheckedList([]);
-              else setCheckedList(formInfos.map((item) => item));
-            }}
-            className={cls(
-              category !== 'presentations' ? '' : 'invisible',
-              'mr-3 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500',
-            )}
-          />
-          <div className='flex space-x-3'>{btnBox}</div>
+          {
+            <input
+              value='white'
+              type='checkbox'
+              checked={checked}
+              onChange={() => {
+                setChecked(!checked);
+                if (checked) setCheckedList([]);
+                else setCheckedList(formInfos.map((item) => item));
+              }}
+              className={cls(
+                router.query.filter === 'approval' && 'invisible',
+                'mr-3 h-5 w-5 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500',
+              )}
+            />
+          }
+          <div className='flex space-x-2'>{btnBox}</div>
         </div>
         <div className='relative inline-block text-left'>
           <div>
@@ -241,25 +245,26 @@ export default function BocalStatusBoard({
               setSelectedFormInfo(item);
             }}
           >
-            {category !== 'presentations' && (
-              <input
-                value='white'
-                type='checkbox'
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                checked={item.status > 0 ? false : checkedList.includes(item)}
-                onChange={() => {
-                  checkedList.includes(item)
-                    ? setCheckedList(checkedList.filter((id) => id !== item))
-                    : setCheckedList([...checkedList, item]);
-                }}
-                className={cls(
-                  item.status > 0 ? 'invisible' : '',
-                  'mx-2 h-4 w-4 rounded border-gray-300 transition',
-                )}
-              />
-            )}
+            <input
+              value='white'
+              type='checkbox'
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              checked={item.status > 0 ? false : checkedList.includes(item)}
+              onChange={() => {
+                checkedList.includes(item)
+                  ? setCheckedList(checkedList.filter((id) => id !== item))
+                  : setCheckedList([...checkedList, item]);
+              }}
+              className={cls(
+                (item.status > 0 && category !== 'presentations') ||
+                  (item.status > 2 && category === 'presentations')
+                  ? 'invisible'
+                  : '',
+                'mx-2 h-4 w-4 rounded border-gray-300 transition',
+              )}
+            />
             {category !== 'presentations' ? (
               <Status status={item} bocal />
             ) : (
