@@ -1,4 +1,4 @@
-import STATUS, { PRESENTATION_STATUS } from '@/constants/status';
+import { PRESENTATION_STATUS } from '@/constants/status';
 import TIMES from '@/constants/times';
 import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import { cls } from '@/styles/cls';
@@ -57,9 +57,9 @@ export default function PresentationsStatus({
           )}
         >
           <option value='0'>선택해주세요.</option>
-          <option value='1'>{STATUS[1]}</option>
-          <option value='2'>{STATUS[2]}</option>
-          <option value='3'>{STATUS[3]}</option>
+          <option value='1'>{PRESENTATION_STATUS[1]}</option>
+          <option value='2'>{PRESENTATION_STATUS[2]}</option>
+          <option value='3'>{PRESENTATION_STATUS[3]}</option>
         </select>
       </div>
       <div

@@ -41,7 +41,7 @@ export default function BocalStatusBoard({
   const currentPage = Number(page);
   const initialOffset = getPageOffset(currentPage);
 
-  const filterRef = useRef<HTMLDivElement>(null);
+  // const filterRef = useRef<HTMLDivElement>(null);
   const [checked, setChecked] = useState(false);
   const [formInfos, setFormInfos] = useState<ApplicationFormInfo[]>();
   const [pageCount, setPageCount] = useState<number>();
@@ -93,18 +93,18 @@ export default function BocalStatusBoard({
     void router.push({ query });
   }, [selectedFormInfo]);
 
-  useEffect(() => {
-    function handleOutsideClick(event: any): void {
-      if (!showDropDown) return;
-      if (!filterRef.current.contains(event.target as Node)) {
-        setShowDropDown(false);
-      }
-    }
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [showDropDown]);
+  // useEffect(() => {
+  //   function handleOutsideClick(event: any): void {
+  //     if (!showDropDown) return;
+  //     if (!filterRef.current.contains(event.target as Node)) {
+  //       setShowDropDown(false);
+  //     }
+  //   }
+  //   document.addEventListener('mousedown', handleOutsideClick);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleOutsideClick);
+  //   };
+  // }, [showDropDown]);
 
   if (formInfos === undefined) return;
   if (pageNumbers === undefined) return;
@@ -190,7 +190,7 @@ export default function BocalStatusBoard({
           <div className='flex space-x-2'>{btnBox}</div>
         </div>
         <div className='relative inline-block text-left'>
-          <div ref={filterRef}>
+          <div>
             <button
               type='button'
               className='inline-flex w-full justify-center gap-x-1.5 whitespace-nowrap rounded-md bg-white px-3 py-2 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'
