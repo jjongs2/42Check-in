@@ -1,7 +1,7 @@
 import { cls } from '@/styles/cls';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { ReactElement } from 'react';
+import { type ReactElement, useState } from 'react';
 
 import CalendarIMG from '../assets/calendar.png';
 import CheckListImg from '../assets/checkList.png';
@@ -13,6 +13,14 @@ import VisitorsIMG from '../assets/visitors.png';
 
 export default function Home(): ReactElement {
   const isMember = localStorage.getItem('grade') === 'Member';
+  const [learnerClick, setLearnerClick] = useState(false);
+
+  const handleLearnerClick = (): void => {
+    setLearnerClick(true);
+    setTimeout(() => {
+      setLearnerClick(false);
+    }, 1200);
+  };
 
   return (
     <div className='flex h-full w-full items-center justify-center'>
@@ -83,6 +91,9 @@ export default function Home(): ReactElement {
           className={`category group bg-[#4069FD] bg-opacity-60 shadow-xl dark:bg-[#3983f2] dark:bg-opacity-30 ${
             !isMember && 'hover:scale-100 hover:bg-neutral-500 hover:opacity-20'
           }`}
+          onClick={() => {
+            handleLearnerClick();
+          }}
         >
           <Link
             href='/equipments'
@@ -99,6 +110,12 @@ export default function Home(): ReactElement {
           </Link>
         </div>
       </div>
+      {learnerClick && (
+        <div className='absolute bottom-5 right-4 flex items-center justify-center rounded-xl border bg-white p-2'>
+          <h3 className='pr-2 text-xl'>🖐</h3>
+          <p className='text-sm text-gray-800'>해당 항목은 멤버가 이용할 수 있는 서비스 입니다.</p>
+        </div>
+      )}
     </div>
   );
 }

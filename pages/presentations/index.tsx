@@ -36,7 +36,7 @@ export default function Presentations(): ReactElement {
   }, 420);
 
   return (
-    <div className='m-8 rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-8 shadow-xl dark:border-gray-300 dark:bg-gray-500'>
+    <div className='m-8 min-w-[300px] rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-4 shadow-xl dark:border-gray-300 dark:bg-gray-500'>
       <div className='flex items-center justify-between border-b-2 dark:text-gray-300'>
         <p className='text-xl font-semibold text-gray-600 dark:text-gray-300'>{date.get('year')}</p>
         <p className='text-xl font-semibold text-gray-600 dark:text-gray-300'>
@@ -72,12 +72,12 @@ export default function Presentations(): ReactElement {
               }}
               className='group flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF] dark:bg-gray-700 dark:hover:bg-gray-300'
             >
-              <div className='justify-left flex items-center space-x-2'>
-                <button className='h-16 w-16 rounded-md text-2xl font-semibold text-gray-600 transition group-hover:text-white dark:text-white dark:group-hover:text-gray-700'>
+              <div className='flex items-center space-x-2'>
+                <button className='h-16 w-14 rounded-md text-2xl font-semibold text-gray-600 transition group-hover:text-white dark:text-white dark:group-hover:text-gray-700'>
                   {formDate.get('date')}
                 </button>
                 <div className='overflow-hidden'>
-                  <p className='animate-slide whitespace-nowrap font-semibold text-gray-800 transition dark:text-white dark:group-hover:text-gray-800'>
+                  <p className='animate-slide whitespace-nowrap text-sm font-semibold text-gray-800 transition dark:text-white dark:group-hover:text-gray-800'>
                     {subject ?? '신청을 기다리고 있습니다. 🤔'}
                   </p>
                   <p className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>

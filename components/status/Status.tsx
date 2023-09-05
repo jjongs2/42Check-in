@@ -107,12 +107,15 @@ export default function Status({
           ' flex w-full items-center justify-between text-sm',
         )}
       >
-        <div className='ml-1 flex w-[20%] justify-center whitespace-nowrap text-center dark:text-white'>
+        <div className='ml-1 flex w-[20%] justify-center whitespace-nowrap text-center text-xs dark:text-white'>
           {date}
         </div>
         <div className='column-separator' />
         <div
-          className={cls(isConferenceRoom ? 'w-[30%]' : 'w-[20%]', 'text-center dark:text-white')}
+          className={cls(
+            isConferenceRoom ? 'w-[30%]' : 'w-[20%]',
+            'text-center text-xs dark:text-white',
+          )}
         >
           {time}
         </div>
@@ -120,7 +123,7 @@ export default function Status({
         <div
           className={cls(
             isConferenceRoom ? 'w-[25%]' : 'w-[39%]',
-            'whitespace-nowrap text-center dark:text-gray-300',
+            'whitespace-nowrap text-center text-xs dark:text-gray-300',
           )}
         >
           {details}
