@@ -1,3 +1,5 @@
+import STATUS from '@/constants/status';
+import TIMES from '@/constants/times';
 import type FormInfo from '@/interfaces/FormInfo';
 import { ROOM_INFOS } from '@/pages/conference-rooms/form';
 import { cls } from '@/styles/cls';
@@ -15,8 +17,6 @@ interface StatusProps {
   bocal?: boolean;
 }
 
-const STATUS = ['신청 중', '승인', '스케줄 등록 완료', '아젠다 등록', '강의 완료', '차례 대기 중'];
-const SPEECHTIME = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 const PERIOD = ['', '1 개월', '', '3 개월'];
 const DEVICES = ['기타', '맥북', '삼성 노트북', '아이패드'];
 export default function Status({
@@ -35,7 +35,7 @@ export default function Status({
     if (status.equipment !== undefined) {
       time = DEVICES[status.equipment];
     } else if (status.subject !== undefined) {
-      time = SPEECHTIME[status.time];
+      time = TIMES[status.time];
     } else if (status.visitorsName !== undefined) {
       time = status.visitTime;
     }
@@ -45,7 +45,7 @@ export default function Status({
       time = PERIOD[status.period];
       details = DEVICES[status.equipment];
     } else if (status.subject !== undefined) {
-      time = SPEECHTIME[status.time];
+      time = TIMES[status.time];
       details = status.subject;
     } else if (status.visitorsName !== undefined) {
       time = status.visitTime;

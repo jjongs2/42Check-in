@@ -33,7 +33,7 @@ export default function FormSelect({
   } = useFormContext();
   const router = useRouter();
   const [inputValue, setInputValue] = useState(etcValue ?? '');
-  const [showInput, setShowInput] = useState(etcValue !== undefined);
+  const [showInput, setShowInput] = useState(Boolean(etcValue));
 
   const disabled = PAGES.readOnly.has(router.pathname) || router.query.formInfo !== undefined;
   const hasEtc = etcName !== undefined;

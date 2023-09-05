@@ -1,3 +1,4 @@
+import TIMES from '@/constants/times';
 import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import getISODate from '@/utils/getISODate';
 import { useRouter } from 'next/router';
@@ -24,7 +25,6 @@ const LECTURES = [
   'Challenge',
   'Extern',
 ];
-const TIMES = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 
 interface PresentationsFormProps {
   setShowModal?: Dispatch<SetStateAction<boolean>>;

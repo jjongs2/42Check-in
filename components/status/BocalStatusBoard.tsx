@@ -1,6 +1,7 @@
 import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
+import ReactExcelDownload from '@/utils/excelDownload';
 import type { AxiosRequestConfig } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -329,6 +330,14 @@ export default function BocalStatusBoard({
           {'>>'}
         </button>
       </div>
+      <button
+        onClick={() => {
+          ReactExcelDownload(category as string);
+        }}
+        className='relative -right-[92%] -top-8 h-8 w-8 rounded-full text-gray-600 transition duration-300 hover:bg-[#6AA6FF] hover:text-white'
+      >
+        <i className='bx bxs-download text-xl'></i>
+      </button>
     </div>
   );
 }

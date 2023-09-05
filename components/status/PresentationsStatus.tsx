@@ -1,22 +1,21 @@
+import STATUS from '@/constants/status';
+import TIMES from '@/constants/times';
 import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import { cls } from '@/styles/cls';
 import dayjs from 'dayjs';
 import type { Dispatch, ReactElement } from 'react';
 
-interface PresentationsStatus {
+interface PresentationsStatusProps {
   status: PresentationsFormInfo;
   setChangePresentations: Dispatch<React.SetStateAction<{}>>;
   changePresentations: {};
 }
 
-const STATUS = ['신청 중', '스케줄 등록', '아젠다 등록', '강의 완료', '차례 대기 중'];
-const SPEECHTIME = ['15분', '30분', '45분', '1시간', '1시간 이상'];
-
 export default function PresentationsStatus({
   status,
   setChangePresentations,
   changePresentations,
-}: PresentationsStatus): ReactElement {
+}: PresentationsStatusProps): ReactElement {
   const date = dayjs(status.date).format('YY.MM.DD (ddd)');
 
   const onChange = (e) => {
@@ -38,7 +37,7 @@ export default function PresentationsStatus({
           {date}
         </div>
         <div className='column-separator' />
-        <div className='w-[10%] text-center dark:text-white'>{SPEECHTIME[status.time]}</div>
+        <div className='w-[10%] text-center dark:text-white'>{TIMES[status.time]}</div>
         <div className='column-separator' />
         <div className='w-[51%] whitespace-nowrap text-center dark:text-gray-300'>
           {status.intraId}
