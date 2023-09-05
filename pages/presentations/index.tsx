@@ -95,7 +95,7 @@ export default function Presentations(): ReactElement {
                 }
                 `}
               >
-                {isBlank ? '신청' : '대기'}
+                {isBlank ? '신청하기' : '대기하기'}
               </Link>
             </Link>
           );
