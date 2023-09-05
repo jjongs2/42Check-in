@@ -1,8 +1,8 @@
 const CATEGORIES = Object.freeze({
   conference: 'conference-rooms',
-  visitor: 'visitors',
-  presentation: 'presentations',
   equipment: 'equipments',
+  presentation: 'presentations',
+  visitor: 'visitors',
 });
 
 export const MY_CATEGORIES = Object.freeze([
@@ -15,12 +15,12 @@ export const MY_CATEGORIES = Object.freeze([
     title: '외부인 초대',
   },
   {
-    name: CATEGORIES.presentation,
-    title: '수요지식회',
-  },
-  {
     name: CATEGORIES.equipment,
     title: '기자재 대여',
+  },
+  {
+    name: CATEGORIES.presentation,
+    title: '수요지식회',
   },
 ]);
 

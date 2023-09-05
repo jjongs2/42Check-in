@@ -1,4 +1,5 @@
-import STATUS from '@/constants/status';
+import CATEGORIES from '@/constants/categories';
+import STATUS, { PRESENTATION_STATUS } from '@/constants/status';
 import TIMES from '@/constants/times';
 import type FormInfo from '@/interfaces/FormInfo';
 import { ROOM_INFOS } from '@/pages/conference-rooms/form';
@@ -141,7 +142,9 @@ export default function Status({
             'relative -top-12 right-3 h-[24px] w-max whitespace-nowrap rounded-xl px-2 text-sm text-gray-700 dark:text-gray-300',
           )}
         >
-          {STATUS[status.status]}
+          {category === CATEGORIES.presentation
+            ? PRESENTATION_STATUS[status.status]
+            : STATUS[status.status]}
         </div>
       )}
     </div>
