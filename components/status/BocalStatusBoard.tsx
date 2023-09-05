@@ -1,4 +1,5 @@
 import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
+import PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import exportData from '@/utils/exportData';
@@ -11,7 +12,6 @@ import type { Dispatch, ReactElement } from 'react';
 import PresentationsStatus from './PresentationsStatus';
 import Status from './Status';
 import { btnContent } from './StatusBoard';
-import PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 
 interface BocalStatusBoardProps {
   setCheckedList: Dispatch<React.SetStateAction<ApplicationFormInfo[]>>;
@@ -41,7 +41,7 @@ export default function BocalStatusBoard({
   const currentPage = Number(page);
   const initialOffset = getPageOffset(currentPage);
 
-  const filterRef = useRef<HTMLDivElement>(null)
+  const filterRef = useRef<HTMLDivElement>(null);
   const [checked, setChecked] = useState(false);
   const [formInfos, setFormInfos] = useState<ApplicationFormInfo[]>();
   const [pageCount, setPageCount] = useState<number>();
@@ -190,7 +190,7 @@ export default function BocalStatusBoard({
           <div className='flex space-x-2'>{btnBox}</div>
         </div>
         <div className='relative inline-block text-left'>
-          <div>
+          <div ref={filterRef}>
             <button
               type='button'
               className='inline-flex w-full justify-center gap-x-1.5 whitespace-nowrap rounded-md bg-white px-3 py-2 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'
@@ -218,7 +218,6 @@ export default function BocalStatusBoard({
           </div>
           {showDropDown && (
             <div
-              ref={filterRef}
               className='absolute right-0 z-10 mt-2 w-max origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
               role='menu'
               aria-orientation='vertical'
