@@ -35,7 +35,7 @@ export default function BocalStatusBoard({
   changePresentations,
 }: BocalStatusBoardProps): ReactElement {
   const router = useRouter();
-  const { category, filter, page, size, sort } = router.query;
+  const { category, filter, page, size } = router.query;
   const currentPage = Number(page);
   const initialOffset = getPageOffset(currentPage);
 
