@@ -1,6 +1,6 @@
 import { cls } from '@/styles/cls';
 import { useRouter } from 'next/router';
-import { type ReactElement, useState } from 'react';
+import type { ReactElement } from 'react';
 
 import Header from './Header';
 import Sidebar from './Sidebar';

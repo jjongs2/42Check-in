@@ -30,9 +30,7 @@ interface PresentationsFormProps {
   setShowModal?: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function PresentationsForm({
-  setShowModal,
-}: PresentationsFormProps): ReactElement {
+export default function PresentationsForm({ setShowModal }: PresentationsFormProps): ReactElement {
   const router = useRouter();
   const [date, setDate] = useState<string>();
   const [formInfo, setFormInfo] = useState<PresentationsFormInfo>();
@@ -94,31 +92,27 @@ export default function PresentationsForm({
             value={formInfo?.subject}
             placeholder='어떤 주제로 강연하시나요?'
           />
-          <FormTextArea
-            name='detail'
-            title='상세 내용'
-            value={formInfo?.detail}
-          />
+          <FormTextArea name='detail' title='상세 내용' value={formInfo?.detail} />
           <FormSelect
             name='time'
             title='소요 시간'
             options={TIMES}
             span='1'
-            value={TIMES[formInfo?.time]}
+            value={formInfo?.time}
           />
           <FormSelect
             name='type'
             title='강연 종류'
             options={LECTURES}
             span='1'
-            value={LECTURES[formInfo?.type]}
+            value={formInfo?.type}
           />
           <FormSelect
             name='screen'
             title='영상 촬영'
             options={IS_VIDEO}
             span='1'
-            value={IS_VIDEO[formInfo?.screen]}
+            value={formInfo?.screen}
           />
           <FormInput name='date' title='강연 날짜' type='text' value={date} hidden />
         </div>

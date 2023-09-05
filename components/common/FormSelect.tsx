@@ -13,7 +13,8 @@ interface FormSelectProps {
   etcName?: string;
   placeholder?: string;
   span?: string;
-  value?: string;
+  value?: number;
+  etcValue?: string;
 }
 
 export default function FormSelect({
@@ -24,14 +25,15 @@ export default function FormSelect({
   placeholder,
   span = 'full',
   value,
+  etcValue,
 }: FormSelectProps): ReactElement {
   const {
     formState: { errors },
     register,
   } = useFormContext();
   const router = useRouter();
-  const [inputValue, setInputValue] = useState('');
-  const [showInput, setShowInput] = useState(false);
+  const [inputValue, setInputValue] = useState(etcValue ?? '');
+  const [showInput, setShowInput] = useState(etcValue !== undefined);
 
   const disabled = PAGES.readOnly.has(router.pathname) || router.query.formInfo !== undefined;
   const hasEtc = etcName !== undefined;
@@ -72,8 +74,8 @@ export default function FormSelect({
             showInput ? 'w-[30%]' : 'w-full',
             'block rounded-md border-0 px-2.5 py-2.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600',
           )}
-          value={value}
           placeholder={placeholder}
+          defaultValue={value}
           disabled={disabled}
           {...register(name, registerOptions)}
         >

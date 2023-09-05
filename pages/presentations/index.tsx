@@ -4,6 +4,7 @@ import type { AxiosRequestConfig } from 'axios';
 import dayjs from 'dayjs';
 import debounce from 'lodash.debounce';
 import Link from 'next/link';
+import type { ParsedUrlQueryInput } from 'querystring';
 import { useEffect, useState } from 'react';
 import type { ChangeEvent, ReactElement } from 'react';
 
@@ -35,7 +36,7 @@ export default function Presentations(): ReactElement {
   }, 420);
 
   return (
-    <div className='m-8 rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-8 shadow-xl dark:border-green-800 dark:bg-gray-500'>
+    <div className='m-8 rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-8 shadow-xl dark:border-gray-300 dark:bg-gray-500'>
       <div className='flex items-center justify-between border-b-2 dark:text-gray-300'>
         <p className='text-xl font-semibold text-gray-600 dark:text-gray-300'>{date.get('year')}</p>
         <p className='text-xl font-semibold text-gray-600 dark:text-gray-300'>
@@ -54,12 +55,20 @@ export default function Presentations(): ReactElement {
         {formInfos.map((formInfo, index) => {
           const { date: formDateString, formId, intraId, subject } = formInfo;
           const formDate = dayjs(formDateString);
+          const date = formDate.format('YYYY-M-D');
+          const isBlank = formId === null;
+          const query: ParsedUrlQueryInput = {};
+          if (isBlank) {
+            query.date = date;
+          } else {
+            query.formInfo = JSON.stringify(formInfo);
+          }
           return (
             <Link
               key={index}
               href={{
                 pathname: '/presentations/form',
-                query: { date: formDate.format('YYYY-M-D') },
+                query,
               }}
               className='group flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF] dark:bg-gray-700 dark:hover:bg-gray-300'
             >
@@ -72,13 +81,22 @@ export default function Presentations(): ReactElement {
                     {subject ?? '신청을 기다리고 있습니다. 🤔'}
                   </p>
                   <p className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>
-                    {intraId !== null && `${intraId} 😎`}
+                    {!isBlank && `${intraId} 😎`}
                   </p>
                 </div>
               </div>
-              <button className='mr-4 rounded-xl px-3 text-black group-hover:bg-white dark:text-white dark:group-hover:bg-gray-500'>
-                {formId === null ? '신청' : '대기'}
-              </button>
+              <Link
+                href={{
+                  pathname: '/presentations/form',
+                  query: { date },
+                }}
+                className={`mr-4 rounded-xl px-3 py-0.5 text-[#FEFFFF] hover:text-black dark:text-[#EEEFEF] ${
+                  isBlank ? 'bg-indigo-200 dark:bg-indigo-800' : 'bg-violet-300 dark:bg-violet-900'
+                }
+                `}
+              >
+                {isBlank ? '신청' : '대기'}
+              </Link>
             </Link>
           );
         })}

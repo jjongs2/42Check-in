@@ -83,7 +83,8 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             options={RELATIONS}
             etcName='etcRelation'
             placeholder='방문자와 어떤 사이신가요?'
-            value={RELATIONS[formInfo?.relationWithUser - 1]}
+            value={formInfo?.relationWithUser}
+            etcValue={formInfo?.etcRelation}
           />
           <FormSelect
             name='visitPurpose'
@@ -91,7 +92,8 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             options={PURPOSES}
             etcName='etcPurpose'
             placeholder='방문 목적을 선택해 주세요.'
-            value={PURPOSES[formInfo?.visitPurpose - 1]}
+            value={formInfo?.visitPurpose}
+            etcValue={formInfo?.etcPurpose}
           />
           <FormSelect
             name='visitPlace'
@@ -99,7 +101,8 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             options={PLACES}
             etcName='etcPlace'
             placeholder='방문 목적을 선택해 주세요.'
-            value={PLACES[formInfo?.visitPlace - 1]}
+            value={formInfo?.visitPlace}
+            etcValue={formInfo?.etcPlace}
           />
           <FormInput
             name='date'
