@@ -147,7 +147,7 @@ export default function StatusBoard(): ReactElement {
         ))}
         {showModal && (
           <ModalWrapper>
-            <p className='text-modal'>취소하시나요??</p>
+            <p className='text-modal'>정말 취소하시겠어요?</p>
             <div className='flex justify-center space-x-2'>
               <button
                 onClick={(event) => {

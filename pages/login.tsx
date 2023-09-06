@@ -23,8 +23,8 @@ export default function Login(): ReactElement {
           42 Check - in <br></br>모든 예약을 한 곳에
         </h1>
         <div className='mt-20 text-slate-800 dark:text-white'>
-          you <span className=' text-red-500'>don’t</span> have to find
-          <br /> another web site anymore. 😎
+          You <span className=' text-red-500'>don’t</span> have to find
+          <br /> other websites anymore. 😎
         </div>
       </div>
       <Image

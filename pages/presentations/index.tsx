@@ -85,18 +85,22 @@ export default function Presentations(): ReactElement {
                   </p>
                 </div>
               </div>
-              <Link
-                href={{
-                  pathname: '/presentations/form',
-                  query: { date },
-                }}
-                className={`mr-4 rounded-xl px-3 py-0.5 text-[#FEFFFF] hover:text-black dark:text-[#EEEFEF] ${
-                  isBlank ? 'bg-indigo-200 dark:bg-indigo-800' : 'bg-violet-300 dark:bg-violet-900'
-                }
+              {formDate.isAfter() && (
+                <Link
+                  href={{
+                    pathname: '/presentations/form',
+                    query: { date },
+                  }}
+                  className={`mr-4 rounded-xl px-3 py-0.5 text-[#FEFFFF] hover:text-black dark:text-[#EEEFEF] ${
+                    isBlank
+                      ? 'bg-indigo-200 dark:bg-indigo-800'
+                      : 'bg-violet-300 dark:bg-violet-900'
+                  }
                 `}
-              >
-                {isBlank ? '신청하기' : '대기하기'}
-              </Link>
+                >
+                  {isBlank ? '신청하기' : '대기하기'}
+                </Link>
+              )}
             </Link>
           );
         })}

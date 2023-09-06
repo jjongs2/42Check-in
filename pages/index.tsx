@@ -114,7 +114,7 @@ export default function Home(): ReactElement {
       {learnerClick && (
         <div className='absolute bottom-5 right-4 flex items-center justify-center rounded-xl border bg-white p-2'>
           <h3 className='pr-2 text-xl'>🖐</h3>
-          <p className='text-sm text-gray-800'>해당 항목은 멤버가 이용할 수 있는 서비스 입니다.</p>
+          <p className='text-sm text-gray-800'>멤버가 되시면 기자재를 대여하실 수 있어요!</p>
         </div>
       )}
     </div>

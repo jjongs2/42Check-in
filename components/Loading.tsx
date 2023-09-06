@@ -23,7 +23,7 @@ export default function Loading(): ReactElement {
         </div>
       </div>
       <div className='loading-text'>
-        Check-in 중입니다<span className='dots'></span>
+        체크인 중입니다<span className='dots'></span>
       </div>
       <style jsx>{`
         .box {

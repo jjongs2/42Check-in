@@ -19,7 +19,7 @@ export default function OkModal({
       <div className='text-modal'>{children}</div>
       <div className='flex justify-center'>
         <Link href='/' className='button-modal'>
-          <p>오예~~!!</p>
+          <p>확인</p>
         </Link>
       </div>
     </ModalWrapper>
