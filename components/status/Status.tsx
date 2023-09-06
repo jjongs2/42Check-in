@@ -64,7 +64,7 @@ export default function Status({
       );
       details = `${location} ${title}`;
       if (isMobile) {
-        details = details.replace('Cluster', 'C ');
+        details = details.replace('Cluster', 'C');
       }
     }
   }

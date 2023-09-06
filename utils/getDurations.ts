@@ -17,7 +17,7 @@ export default function getDurations(timeMask: number, date?: string): string[][
     }
   }
   if (startTime !== null) {
-    durations.push([startTime, dayjs(date).hour(20).format()]);
+    durations.push([startTime, dayjs(date).hour(20).minute(0).format()]);
   }
   return durations;
 }
