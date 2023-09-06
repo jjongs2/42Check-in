@@ -1,3 +1,4 @@
+import favicons from '@/assets/favicon.ico';
 import Loading from '@/components/Loading';
 import ErrorBoundary from '@/components/error/ErrorBoundary';
 import Layout from '@/components/layout/Layout';
@@ -51,6 +52,7 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
     <ErrorBoundary>
       <Head>
         <title>42Check-in</title>
+        <link rel='icon' href={favicons.src} />
         <meta charSet='utf-8' />
         <meta name='description' content='모든 예약을 한 곳에' />
       </Head>
