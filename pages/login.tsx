@@ -20,7 +20,7 @@ export default function Login(): ReactElement {
       <div className=' absolute left-80 top-80 -z-10 aspect-square h-80 w-80 rounded-full bg-blue-800 bg-opacity-70 blur-[80px]' />
       <div className='flex flex-col'>
         <h1 className=' font min-w-max font-sans text-4xl text-slate-800 dark:text-white'>
-          42 Check - in <br></br>모든 예약을 한 곳에
+          42 Check - in <br></br>모든 신청을 한 곳에
         </h1>
         <div className='mt-20 text-slate-800 dark:text-white'>
           You <span className=' text-red-500'>don’t</span> have to find
