@@ -297,7 +297,7 @@ export default function BocalStatusBoard({
           onClick={() => {
             setPageOffset(0);
           }}
-          className={`m-1 h-8 w-8 hover:text-blue-500 ${pageOffset === 0 && 'opacity-30'}`}
+          className={cls(pageOffset === 0 && 'opacity-30', 'm-1 h-8 w-8 hover:text-blue-500')}
           disabled={pageOffset === 0}
         >
           {'<<'}
@@ -306,7 +306,7 @@ export default function BocalStatusBoard({
           onClick={() => {
             setPageOffset(pageOffset - 1);
           }}
-          className={`m-1 h-8 w-8 hover:text-blue-500 ${pageOffset === 0 && 'opacity-30'}`}
+          className={cls(pageOffset === 0 && 'opacity-30', 'm-1 h-8 w-8 hover:text-blue-500')}
           disabled={pageOffset === 0}
         >
           {'<'}
@@ -329,9 +329,10 @@ export default function BocalStatusBoard({
           onClick={() => {
             setPageOffset(pageOffset + 1);
           }}
-          className={`m-1 h-8 w-8 hover:text-blue-500 ${
-            pageOffset === lastPageOffset && 'opacity-30'
-          }`}
+          className={cls(
+            pageOffset === lastPageOffset && 'opacity-30',
+            'm-1 h-8 w-8 hover:text-blue-500',
+          )}
           disabled={pageOffset === lastPageOffset}
         >
           {'>'}
@@ -340,9 +341,10 @@ export default function BocalStatusBoard({
           onClick={() => {
             setPageOffset(getPageOffset(pageCount));
           }}
-          className={`m-1 h-8 w-8 hover:text-blue-500 ${
-            pageOffset === lastPageOffset && 'opacity-30'
-          }`}
+          className={cls(
+            pageOffset === lastPageOffset && 'opacity-30',
+            'm-1 h-8 w-8 hover:text-blue-500',
+          )}
           disabled={pageOffset === lastPageOffset}
         >
           {'>>'}

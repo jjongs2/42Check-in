@@ -1,5 +1,5 @@
 import ICONS from '@/assets/icons';
-import CATEGORIES, { BOCAL_CATEGORIES } from '@/constants/categories';
+import { BOCAL_CATEGORIES } from '@/constants/categories';
 import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
 import logout from '@/utils/logout';
@@ -32,7 +32,7 @@ export default function Header(): ReactElement {
   const noticeIconRef = useRef<HTMLDivElement>(null);
   const userIconRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
-  const [noticeInfo, setNoticeInfo] = useState<Data>({ noticeCount: 0, noticeDTOList: [] });
+  const [noticeInfo, setNoticeInfo] = useState<Data>({ noticeCount: undefined, noticeDTOList: [] });
   const theme = localStorage.getItem('theme');
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
 
@@ -109,8 +109,7 @@ export default function Header(): ReactElement {
     const formInfo = JSON.stringify(data);
     const pathname = `/${BOCAL_CATEGORIES[category].name}/form`;
     await router.push({
-      pathname:
-        category === 1 ? pathname.replace('/form', '/type/form') : pathname,
+      pathname: category === 1 ? pathname.replace('/form', '/type/form') : pathname,
       query: { formInfo },
     });
   };

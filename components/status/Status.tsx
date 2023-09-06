@@ -78,9 +78,10 @@ export default function Status({
             setShowModal(true);
             setSelectForm(status);
           }}
-          className={`rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500 ${
-            !bocal ? '' : 'invisible'
-          }`}
+          className={cls(
+            bocal && 'invisible',
+            'rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500',
+          )}
         >
           취소
         </button>
@@ -93,9 +94,10 @@ export default function Status({
             setShowModal(true);
             setSelectForm(status);
           }}
-          className={`rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500 ${
-            !bocal && mouseOnIndex === status.formId ? '' : 'invisible'
-          }`}
+          className={cls(
+            (bocal || mouseOnIndex === status.formId) && 'invisible',
+            'rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500',
+          )}
         >
           취소
         </button>
@@ -106,7 +108,7 @@ export default function Status({
     <div className='flex h-full w-full flex-col items-end justify-center'>
       <div
         className={cls(
-          isConferenceRoom ? '' : 'mt-6',
+          !isConferenceRoom && 'mt-6',
           ' flex w-full items-center justify-between text-sm',
         )}
       >

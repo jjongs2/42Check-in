@@ -106,7 +106,7 @@ export default function Home(): ReactElement {
               alt='equipments'
               width={200}
               height={200}
-              className={isMember && 'group-hover:animate-bounce'}
+              className={cls(isMember && 'group-hover:animate-bounce')}
             />
           </Link>
         </div>

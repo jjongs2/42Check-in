@@ -19,9 +19,10 @@ function Menu({ href, text, icon, memberOnly = false }: MenuProps): ReactElement
     <li className='nav-link'>
       <Link
         href={href}
-        className={`aria-disabled:pointer-events-none aria-disabled:opacity-20 ${
-          router.pathname.startsWith(href) && 'border-2 border-[#6AA6FF] dark:border-white'
-        }`}
+        className={cls(
+          router.pathname.startsWith(href) && 'border-2 border-[#6AA6FF] dark:border-white',
+          'aria-disabled:pointer-events-none aria-disabled:opacity-20',
+        )}
         aria-disabled={memberOnly && !isMember}
       >
         <i className={`bx ${icon} icon`}></i>
