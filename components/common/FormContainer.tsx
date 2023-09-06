@@ -9,7 +9,7 @@ interface FormContainerProps {
 export default function FormContainer({ children }: FormContainerProps): ReactElement {
   const router = useRouter();
   return (
-    <div className='isolate h-full bg-white px-8 py-20 dark:bg-slate-800'>
+    <div className='isolate h-max bg-white px-8 py-20 dark:bg-slate-800 xl:w-screen'>
       {/* <div
         className='absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]'
         aria-hidden='true'
