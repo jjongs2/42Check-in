@@ -107,10 +107,10 @@ export default function Header(): ReactElement {
     };
     const { data } = await apiController<ApplicationFormInfo>(config);
     const formInfo = JSON.stringify(data);
-    const pathname = `/${BOCAL_CATEGORIES[category].name}/type/form`;
+    const pathname = `/${BOCAL_CATEGORIES[category].name}/form`;
     await router.push({
       pathname:
-        category === 2 ? pathname.replace('/form', '/type/form') : pathname,
+        category === 1 ? pathname.replace('/form', '/type/form') : pathname,
       query: { formInfo },
     });
   };

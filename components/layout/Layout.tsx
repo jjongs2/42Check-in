@@ -23,7 +23,7 @@ export default function Layout({ children }: LayoutProps): ReactElement {
     <>
       <Header />
       {hasSidebar && <Sidebar />}
-      <div className={cls(hasSidebar ? 'main-content duration-700' : ' ', 'pt-16')}>{children}</div>
+      <div className={cls(hasSidebar ? 'main-content duration-700' : ' ', 'pl-[1%] pt-16')}>{children}</div>
     </>
   );
 }
