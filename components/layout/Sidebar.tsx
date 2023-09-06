@@ -60,13 +60,7 @@ export default function Sidebar(): ReactElement {
         </div>
       </div>
       <style>
-        {`* {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          font-family: "Poppins", sans-serif;
-        }
-
+        {`
         :root {
           --sidebar-color: #fff;
           --primary-color: #6AA6FF;
