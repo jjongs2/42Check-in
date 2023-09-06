@@ -20,9 +20,7 @@ export default function PresentationsStatus({
 
   const onChange = (e) => {
     const { id, value } = e.target;
-
     const newStatus = { ...changePresentations };
-
     if (value === '0') {
       delete newStatus[id];
     } else {
@@ -30,6 +28,22 @@ export default function PresentationsStatus({
     }
     setChangePresentations(newStatus);
   };
+
+  let statusColor: string;
+  switch (status.status) {
+    case 0: {
+      statusColor = 'bg-yellow-300 dark:bg-yellow-700';
+      break;
+    }
+    case 4: {
+      statusColor = 'bg-purple-300 dark:bg-purple-700';
+      break;
+    }
+    default: {
+      statusColor = 'bg-green-400 dark:bg-green-800';
+    }
+  }
+
   return (
     <div className='flex h-full w-full flex-col items-end justify-center'>
       <div className='mt-6 flex w-full items-center justify-between text-sm'>
@@ -64,9 +78,7 @@ export default function PresentationsStatus({
       </div>
       <div
         className={cls(
-          status.status !== 0
-            ? 'bg-green-400 dark:bg-green-800'
-            : 'bg-yellow-300 dark:bg-yellow-700',
+          statusColor,
           'relative -top-12 right-3 h-[24px] w-max whitespace-nowrap rounded-xl px-2 text-sm text-gray-700 dark:text-gray-300',
         )}
       >

@@ -69,41 +69,44 @@ export default function Status({
     }
   }
 
-  const mobileCancel = (): ReactElement => {
-    if (isMobile) {
-      return (
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            setShowModal(true);
-            setSelectForm(status);
-          }}
-          className={cls(
-            bocal && 'invisible',
-            'rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500',
-          )}
-        >
-          취소
-        </button>
-      );
-    } else {
-      return (
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            setShowModal(true);
-            setSelectForm(status);
-          }}
-          className={cls(
-            (bocal || mouseOnIndex === status.formId) && 'invisible',
-            'rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500',
-          )}
-        >
-          취소
-        </button>
-      );
+  function CancelButton(): ReactElement {
+    const isCancelable = category === CATEGORIES.conference || new Set([0, 4]).has(status.status);
+    let isVisible = false;
+    if (!bocal && !isMobile && isCancelable && mouseOnIndex === status.formId) {
+      isVisible = true;
     }
-  };
+    return (
+      <button
+        onClick={(event) => {
+          event.preventDefault();
+          setShowModal(true);
+          setSelectForm(status);
+        }}
+        className={cls(
+          !isVisible && 'invisible',
+          'rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500',
+        )}
+      >
+        취소
+      </button>
+    );
+  }
+
+  let statusColor: string;
+  switch (status.status) {
+    case 0: {
+      statusColor = 'bg-yellow-300 dark:bg-yellow-700';
+      break;
+    }
+    case 4: {
+      statusColor = 'bg-purple-300 dark:bg-purple-700';
+      break;
+    }
+    default: {
+      statusColor = 'bg-green-400 dark:bg-green-800';
+    }
+  }
+
   return (
     <div className='flex h-full w-full flex-col items-end justify-center'>
       <div
@@ -133,14 +136,12 @@ export default function Status({
         >
           {details}
         </div>
-        {mobileCancel()}
+        <CancelButton />
       </div>
       {status.reservationInfo === undefined && (
         <div
           className={cls(
-            status.status !== 0
-              ? 'bg-green-400 dark:bg-green-800'
-              : 'bg-yellow-300 dark:bg-yellow-700',
+            statusColor,
             'relative -top-12 right-3 h-[24px] w-max whitespace-nowrap rounded-xl px-2 text-sm text-gray-700 dark:text-gray-300',
           )}
         >
