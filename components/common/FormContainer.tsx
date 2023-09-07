@@ -1,4 +1,5 @@
 import ICONS from '@/assets/icons';
+import { cls } from '@/styles/cls';
 import { useRouter } from 'next/router';
 import type { ReactElement, ReactNode } from 'react';
 
@@ -9,7 +10,12 @@ interface FormContainerProps {
 export default function FormContainer({ children }: FormContainerProps): ReactElement {
   const router = useRouter();
   return (
-    <div className='isolate h-max bg-white px-8 py-20 dark:bg-slate-800 xl:w-screen'>
+    <div
+      className={cls(
+        router.pathname.startsWith('/bocal') ? '' : 'xl:w-screen',
+        'isolate h-max bg-white px-8 py-20 dark:bg-slate-800',
+      )}
+    >
       {/* <div
         className='absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]'
         aria-hidden='true'
